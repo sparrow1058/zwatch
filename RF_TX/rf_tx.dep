@@ -1,0 +1,2940 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<project>
+  <fileVersion>2</fileVersion>
+  <fileChecksum>417822202</fileChecksum>
+  <configuration>
+    <name>CC1110_TDMA_TX</name>
+    <outputs>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\dmaAllocChannel.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\dmaFromRadio.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\dmaFromAes.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\radio.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\dmaToUart0.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\dmaInit.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\initRandomGenerator.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\setTimer2Period.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\setTimer1Period.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\setTimer34Period.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\wait.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\rfSetRadioFrequency.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\main.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\rf_test.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\uart.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\rf_tx.pbd</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Exe\rf_tx.hex</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\rfSendPacket.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\aesEncrDecr.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\getAdcValue.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\clib\stdio.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\stdarg.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\sysmac.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\stdlib.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\string.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\math.h</file>
+      <file>$TOOLKIT_DIR$\lib\clib\cl-pli-nsid-1e16x01.r51</file>
+      <file>$TOOLKIT_DIR$\config\devices\Texas Instruments\lnk51ew_CC1110F32.xcl</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\rf_test.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\setTimer1Period.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\rfSetRadioFrequency.r51</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\include\hal.h</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\include\cul.h</file>
+      <file>$PROJ_DIR$\src\myio.h</file>
+      <file>$TOOLKIT_DIR$\inc\ioCC1110.h</file>
+      <file>$TOOLKIT_DIR$\inc\ioCC2510.h</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\rfSetRadioFrequency.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\setTimer1Period.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\wait.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\setTimer2Period.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\setTimer34Period.c</file>
+      <file>$PROJ_DIR$\src\main.c</file>
+      <file>$PROJ_DIR$\src\mytypedef.h</file>
+      <file>$PROJ_DIR$\src\rf_test.c</file>
+      <file>$PROJ_DIR$\src\uart.c</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\wait.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\setTimer2Period.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\setTimer34Period.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\main.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\uart.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\dmaAllocChannel.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\flashErasePage.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\flashWritePage.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\dmaFreeChannel.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\dmaFromAes.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\dmaFromRadio.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\dmaInit.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\dmaSetUpChannel.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\dmaToAes.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\dmaToFlash.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\dmaToRadio.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\dmaToUart0.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\radio.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\spp.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\timer4AdmClear.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\timer4AdmInit.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\timer4AdmReset.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\timer4AdmSet.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\adcSampleSingle.pbi</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\timer4AdmReset.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\timer4AdmSet.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\adcSampleSingle.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\aesLoadKeyOrInitVector.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\getAdcValue.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\flashErasePage.s51</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\flashWritePage.s51</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\getkey.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\rfConfig.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\initRandomGenerator.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\putchar.c</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\dmaToAes.r51</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\rfReceivePacket.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\rfSendPacket.c</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\dmaSetUpChannel.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\dmaFreeChannel.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\dmaToFlash.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\spp.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\aesEncrDecr.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\timer4AdmClear.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\getkey.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\timer4AdmInit.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\timer4AdmReset.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\timer4AdmSet.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\adcSampleSingle.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\getAdcValue.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\putchar.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\aesLoadKeyOrInitVector.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\rfReceivePacket.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\aesLoadKeyOrInitVector.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\getkey.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\rfConfig.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\initRandomGenerator.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\rfConfig.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\putchar.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\rfReceivePacket.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\rfSendPacket.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX\Obj\dmaToRadio.r51</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaFromAes.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaFreeChannel.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaAllocChannel.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaInit.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaFromRadio.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaToAes.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaSetUpChannel.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaToFlash.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaToRadio.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaToUart0.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\radio.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\spp.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\aesEncrDecr.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\timer4AdmClear.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\timer4AdmInit.c</file>
+    </outputs>
+    <file>
+      <name>$PROJ_DIR$\CC1110_TDMA_TX\Obj\rf_tx.pbd</name>
+      <inputs>
+        <tool>
+          <name>BILINK</name>
+          <file> 68 18 98 50 53 54 55 56 57 58 59 60 61 19 99 6 12 103 62 102 104 105 11 13 8 7 9 63 64 65 66 67 14 10</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\CC1110_TDMA_TX\Exe\rf_tx.hex</name>
+      <inputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 27 93 87 96 0 84 2 1 5 83 80 85 106 4 51 52 94 89 101 48 95 3 100 97 17 30 28 29 46 47 86 88 90 91 92 49 45 26</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 16</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\rfSetRadioFrequency.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 30</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 11</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\setTimer1Period.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 29</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 8</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\wait.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 45</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 10</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\setTimer2Period.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 46</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 7</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\setTimer34Period.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 47</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 9</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\main.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 48</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 12</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 42 20 21 22 23 24 25 33 34</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\rf_test.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 28</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 13</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 42 20 21 22 23 24 25 33 32 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 42 20 21 22 23 24 25 33 32 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\uart.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 49</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 42 20 21 22 23 24 25 34</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\timer4AdmReset.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 91</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 66</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 32 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 32 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\timer4AdmSet.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 92</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 67</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 32 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 32 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\adcSampleSingle.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 93</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 68</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\aesLoadKeyOrInitVector.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 96</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 98</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\getAdcValue.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 94</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 19</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\flashErasePage.s51</name>
+      <outputs>
+        <tool>
+          <name>A8051</name>
+          <file> 51</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\flashWritePage.s51</name>
+      <outputs>
+        <tool>
+          <name>A8051</name>
+          <file> 52</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\getkey.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 89</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 99</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\rfConfig.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 100</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 102</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\initRandomGenerator.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 101</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 6</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\putchar.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 95</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 103</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\rfReceivePacket.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 97</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 104</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\rfSendPacket.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 17</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 105</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaFromAes.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 2</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 54</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 32 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 32 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaFreeChannel.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 84</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 53</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 24 22 32 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 24 22 32 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaAllocChannel.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 0</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 50</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 32 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 32 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaInit.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 5</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 56</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 24 22 32 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 24 22 32 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaFromRadio.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 1</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 55</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 32 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 32 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaToAes.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 80</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 58</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 32 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 32 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaSetUpChannel.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 83</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 57</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 24 22 32 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 24 22 32 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaToFlash.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 85</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 59</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 32 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 32 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaToRadio.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 106</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 60</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 32 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 32 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaToUart0.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 4</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 61</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 32 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 32 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\radio.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 3</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 62</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 24 22 32 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 24 22 32 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\spp.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 86</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 63</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 24 22 32 31 35 20 21</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 24 22 32 31 35 20 21</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\aesEncrDecr.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 87</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 18</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 31 35 20 21 22 24</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31 35 20 21 22 24</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\timer4AdmClear.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 88</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 64</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 32 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 32 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\timer4AdmInit.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 90</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 65</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 20 21 22 24 32 31 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 20 21 22 24 32 31 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <forcedrebuild>
+      <name>[MULTI_TOOL]</name>
+      <tool>XLINK</tool>
+    </forcedrebuild>
+  </configuration>
+  <configuration>
+    <name>CC1110_TDMA_TX1</name>
+    <outputs>
+      <file>$TOOLKIT_DIR$\lib\clib\cl-pli-nlpd-1e16x01.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\rfReceivePacket.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\getkey.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\aesLoadKeyOrInitVector.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\getAdcValue.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\aesEncrDecr.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\spp.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\radio.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\dmaToUart0.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\dmaToFlash.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\dmaToRadio.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\dmaToAes.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\dmaSetUpChannel.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\dmaInit.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\dmaFreeChannel.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\dmaFromRadio.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\dmaAllocChannel.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\dmaFromAes.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\timer4AdmReset.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\timer4AdmInit.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\timer4AdmClear.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\adcSampleSingle.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\timer4AdmSet.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\putchar.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\rfConfig.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\rfReceivePacket.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\initRandomGenerator.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\clib\stdio.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\stdarg.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\sysmac.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\stdlib.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\string.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\math.h</file>
+      <file>$TOOLKIT_DIR$\config\devices\Texas Instruments\lnk51ew_CC1110F32.xcl</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\include\hal.h</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\include\cul.h</file>
+      <file>$PROJ_DIR$\src\myio.h</file>
+      <file>$TOOLKIT_DIR$\inc\ioCC1110.h</file>
+      <file>$TOOLKIT_DIR$\inc\ioCC2510.h</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\rfSendPacket.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\setTimer2Period.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\setTimer1Period.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\wait.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\main.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\rfSetRadioFrequency.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\uart.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\setTimer34Period.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\rf_test.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Exe\rf_tx.hex</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\rf_tx.pbd</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\dmaToAes.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\dmaToRadio.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\dmaToFlash.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\dmaToUart0.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\radio.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\spp.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\timer4AdmClear.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\timer4AdmInit.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\timer4AdmReset.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\timer4AdmSet.pbi</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\rfSetRadioFrequency.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\setTimer1Period.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\wait.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\setTimer2Period.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\setTimer34Period.c</file>
+      <file>$PROJ_DIR$\src\main.c</file>
+      <file>$PROJ_DIR$\src\mytypedef.h</file>
+      <file>$PROJ_DIR$\src\rf_test.c</file>
+      <file>$PROJ_DIR$\src\uart.c</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\adcSampleSingle.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\aesLoadKeyOrInitVector.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\aesEncrDecr.pbi</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\timer4AdmReset.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\timer4AdmSet.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\adcSampleSingle.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\aesLoadKeyOrInitVector.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\getAdcValue.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\flashErasePage.s51</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\flashWritePage.s51</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\getkey.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\rfConfig.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\initRandomGenerator.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\putchar.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\rfReceivePacket.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\rfSendPacket.c</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\getkey.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\getAdcValue.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\flashWritePage.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\flashErasePage.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\dmaFreeChannel.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\dmaFromAes.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\dmaInit.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\dmaFromRadio.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\dmaSetUpChannel.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\dmaAllocChannel.pbi</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\main.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\setTimer34Period.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\wait.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\setTimer1Period.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\rfSetRadioFrequency.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\rf_test.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\rfSendPacket.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\uart.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\rfConfig.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\initRandomGenerator.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\setTimer2Period.r51</file>
+      <file>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\putchar.r51</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaFromAes.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaFreeChannel.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaAllocChannel.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaInit.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaFromRadio.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaToAes.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaSetUpChannel.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaToFlash.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaToRadio.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaToUart0.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\radio.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\spp.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\aesEncrDecr.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\timer4AdmClear.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\timer4AdmInit.c</file>
+    </outputs>
+    <file>
+      <name>$PROJ_DIR$\CC1110_TDMA_TX1\Exe\rf_tx.hex</name>
+      <inputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 33 21 5 3 16 14 17 15 13 12 11 9 10 8 88 87 4 2 104 95 106 7 103 1 101 99 100 98 105 96 6 20 19 18 22 102 97 0</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\CC1110_TDMA_TX1\Obj\rf_tx.pbd</name>
+      <inputs>
+        <tool>
+          <name>BILINK</name>
+          <file> 69 71 70 94 89 90 92 91 93 50 52 51 53 86 85 26 43 23 54 24 25 39 44 47 41 40 46 55 56 57 58 59 45 42</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 48</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\rfSetRadioFrequency.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 99</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 44</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\setTimer1Period.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 98</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 41</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\wait.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 97</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 42</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\setTimer2Period.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 105</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 40</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\setTimer34Period.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 96</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 46</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\main.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 95</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 43</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 66 27 28 29 30 31 32 36 37</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 66 27 28 29 30 31 32 36 37</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\rf_test.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 100</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 47</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 66 27 28 29 30 31 32 36 35 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 66 27 28 29 30 31 32 36 35 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\uart.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 102</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 45</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 66 27 28 29 30 31 32 37</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 66 27 28 29 30 31 32 37</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\timer4AdmReset.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 18</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 58</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 35 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 35 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\timer4AdmSet.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 22</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 59</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 35 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 35 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\adcSampleSingle.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 21</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 69</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\aesLoadKeyOrInitVector.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 3</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 70</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\getAdcValue.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 4</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 86</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\flashErasePage.s51</name>
+      <outputs>
+        <tool>
+          <name>A8051</name>
+          <file> 88</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>A8051</name>
+          <file> 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\flashWritePage.s51</name>
+      <outputs>
+        <tool>
+          <name>A8051</name>
+          <file> 87</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>A8051</name>
+          <file> 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\getkey.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 2</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 85</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\rfConfig.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 103</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 24</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\initRandomGenerator.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 104</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 26</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\putchar.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 106</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 23</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\rfReceivePacket.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 1</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 25</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\rfSendPacket.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 101</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 39</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaFromAes.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 17</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 90</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 35 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 35 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaFreeChannel.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 14</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 89</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 31 29 35 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31 29 35 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaAllocChannel.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 16</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 94</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 35 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 35 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaInit.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 13</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 91</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 31 29 35 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31 29 35 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaFromRadio.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 15</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 92</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 35 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 35 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaToAes.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 11</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 50</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 35 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 35 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaSetUpChannel.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 12</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 93</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 31 29 35 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31 29 35 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaToFlash.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 9</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 52</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 35 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 35 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaToRadio.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 51</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 35 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 35 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaToUart0.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 53</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 35 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 35 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\radio.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 7</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 54</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 31 29 35 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31 29 35 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\spp.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 6</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 55</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 31 29 35 34 38 27 28</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31 29 35 34 38 27 28</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\aesEncrDecr.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 5</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 71</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 34 38 27 28 29 31</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 34 38 27 28 29 31</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\timer4AdmClear.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 20</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 56</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 35 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 35 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\timer4AdmInit.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 19</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 57</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 27 28 29 31 35 34 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 27 28 29 31 35 34 38</file>
+        </tool>
+      </inputs>
+    </file>
+  </configuration>
+  <configuration>
+    <name>Debug</name>
+    <outputs>
+      <file>$TOOLKIT_DIR$\inc\clib\stdio.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\stdarg.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\sysmac.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\stdlib.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\string.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\math.h</file>
+      <file>$TOOLKIT_DIR$\lib\clib\cl-pli-nsid-1e16x01.r51</file>
+      <file>$TOOLKIT_DIR$\config\devices\Texas Instruments\lnk51ew_CC1110F32.xcl</file>
+      <file>$PROJ_DIR$\Debug\Obj\aesLoadKeyOrInitVector.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\getAdcValue.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\getkey.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\initRandomGenerator.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\putchar.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\rfConfig.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\rfReceivePacket.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\rfSendPacket.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\rfSetRadioFrequency.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\setTimer1Period.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\setTimer2Period.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\setTimer34Period.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\wait.pbi</file>
+      <file>$TOOLKIT_DIR$\config\devices\_generic\lnk51ew_8052.xcl</file>
+      <file>$PROJ_DIR$\Debug\Exe\rf_tx.hex</file>
+      <file>$PROJ_DIR$\Debug\Obj\rf_tx.pbd</file>
+      <file>$PROJ_DIR$\Debug\Exe\rf_tx.d51</file>
+      <file>$PROJ_DIR$\Debug\Obj\dmaInit.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\dmaAllocChannel.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\dmaSetUpChannel.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\dmaFromAes.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\dmaFromRadio.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\dmaFreeChannel.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\dmaToAes.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\dmaToRadio.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\dmaToFlash.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\dmaToUart0.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\radio.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\spp.r51</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\include\hal.h</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\include\cul.h</file>
+      <file>$PROJ_DIR$\src\myio.h</file>
+      <file>$TOOLKIT_DIR$\inc\ioCC1110.h</file>
+      <file>$TOOLKIT_DIR$\inc\ioCC2510.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\RF_CC1110.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\timer4AdmClear.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\timer4AdmInit.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\timer4AdmReset.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\timer4AdmSet.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\adcSampleSingle.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\aesEncrDecr.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\getAdcValue.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\aesLoadKeyOrInitVector.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\getkey.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\putchar.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\initRandomGenerator.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\setTimer2Period.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\rfConfig.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\rfReceivePacket.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\setTimer34Period.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\rfSendPacket.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\rfSetRadioFrequency.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\uart.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\uart.r51</file>
+      <file>$PROJ_DIR$\src\RF_CC1110.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\wait.r51</file>
+      <file>$PROJ_DIR$\src\rf_cc1110.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\setTimer1Period.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\flashErasePage.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\aesEncrDecr.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\flashWritePage.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\adcSampleSingle.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\dmaAllocChannel.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\timer4AdmClear.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\timer4AdmInit.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\dmaFromAes.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\dmaFreeChannel.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\timer4AdmReset.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\timer4AdmSet.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\dmaFromRadio.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\dmaInit.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\dmaSetUpChannel.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\dmaToAes.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\dmaToFlash.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\dmaToRadio.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\dmaToUart0.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\RF_CC1110.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\spp.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\radio.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\rf_test.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\rf_test.pbi</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\rfSetRadioFrequency.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\setTimer1Period.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\wait.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\setTimer2Period.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\setTimer34Period.c</file>
+      <file>$PROJ_DIR$\src\main.c</file>
+      <file>$PROJ_DIR$\src\mytypedef.h</file>
+      <file>$PROJ_DIR$\src\rf_test.c</file>
+      <file>$PROJ_DIR$\src\uart.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\timer4AdmReset.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\timer4AdmSet.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\adcSampleSingle.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\aesLoadKeyOrInitVector.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\getAdcValue.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\flashErasePage.s51</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\flashWritePage.s51</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\getkey.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\rfConfig.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\initRandomGenerator.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\putchar.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\rfReceivePacket.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\rfSendPacket.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaFromAes.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaFreeChannel.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaAllocChannel.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaInit.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaFromRadio.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaToAes.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaSetUpChannel.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaToFlash.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaToRadio.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\dmaToUart0.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\radio.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\spp.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\HAL\source\aesEncrDecr.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\timer4AdmClear.c</file>
+      <file>$PROJ_DIR$\Library\cc1110\CUL\source\timer4AdmInit.c</file>
+    </outputs>
+    <file>
+      <name>$PROJ_DIR$\Debug\Exe\rf_tx.hex</name>
+      <inputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 7 48 49 51 26 30 28 29 25 27 31 33 32 34 67 69 50 52 54 86 53 35 56 57 59 60 89 66 55 58 36 72 73 76 77 62 64 6</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Debug\Obj\rf_tx.pbd</name>
+      <inputs>
+        <tool>
+          <name>BILINK</name>
+          <file> 70 68 8 71 75 74 78 79 80 81 82 83 84 9 10 11 42 12 88 13 14 15 16 90 17 18 19 87 44 45 46 47 61 20</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Debug\Exe\rf_tx.d51</name>
+      <inputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 21 85 86 6</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\RF_CC1110.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 85</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 43</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 65 97 0 1 2 3 4 5 40</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 65 97 0 1 2 3 4 5 40</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 22</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\rfSetRadioFrequency.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 60</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 16</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\setTimer1Period.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 66</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 17</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\wait.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 64</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 20</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\setTimer2Period.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 55</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 18</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\setTimer34Period.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 58</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 19</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\main.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 86</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 42</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 97 0 1 2 3 4 5 39 40</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 97 0 1 2 3 4 5 39 40</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\rf_test.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 89</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 90</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 97 0 1 2 3 4 5 39 38 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 97 0 1 2 3 4 5 39 38 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\uart.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 62</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 61</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 97 0 1 2 3 4 5 40</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 97 0 1 2 3 4 5 40</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\timer4AdmReset.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 76</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 46</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 38 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 38 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\timer4AdmSet.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 77</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 47</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 38 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 38 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\adcSampleSingle.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 48</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 70</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\aesLoadKeyOrInitVector.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 51</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 8</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\getAdcValue.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 50</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 9</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\flashErasePage.s51</name>
+      <outputs>
+        <tool>
+          <name>A8051</name>
+          <file> 67</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>A8051</name>
+          <file> 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\flashWritePage.s51</name>
+      <outputs>
+        <tool>
+          <name>A8051</name>
+          <file> 69</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>A8051</name>
+          <file> 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\getkey.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 52</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 10</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\rfConfig.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 56</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 13</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\initRandomGenerator.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 54</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 11</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\putchar.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 53</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 12</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\rfReceivePacket.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 57</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\rfSendPacket.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 59</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 15</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaFromAes.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 28</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 74</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 38 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 38 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaFreeChannel.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 30</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 75</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 4 2 38 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 4 2 38 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaAllocChannel.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 26</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 71</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 38 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 38 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaInit.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 25</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 79</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 4 2 38 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 4 2 38 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaFromRadio.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 29</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 78</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 38 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 38 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaToAes.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 31</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 81</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 38 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 38 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaSetUpChannel.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 27</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 80</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 4 2 38 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 4 2 38 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaToFlash.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 33</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 82</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 38 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 38 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaToRadio.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 32</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 83</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 38 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 38 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\dmaToUart0.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 34</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 84</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 38 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 38 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\radio.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 88</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 4 2 38 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 4 2 38 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\spp.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 36</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 87</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 4 2 38 37 41 0 1</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 4 2 38 37 41 0 1</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\HAL\source\aesEncrDecr.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 49</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 68</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 37 41 0 1 2 4</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 37 41 0 1 2 4</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\timer4AdmClear.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 72</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 44</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 38 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 38 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Library\cc1110\CUL\source\timer4AdmInit.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 73</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 45</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 0 1 2 4 38 37 41</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 0 1 2 4 38 37 41</file>
+        </tool>
+      </inputs>
+    </file>
+    <forcedrebuild>
+      <name>[MULTI_TOOL]</name>
+      <tool>XLINK</tool>
+    </forcedrebuild>
+  </configuration>
+  <configuration>
+    <name>Release</name>
+    <outputs/>
+    <forcedrebuild>
+      <name>[MULTI_TOOL]</name>
+      <tool>XLINK</tool>
+    </forcedrebuild>
+  </configuration>
+</project>
+
+
