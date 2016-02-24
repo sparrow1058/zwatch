@@ -2067,9 +2067,6 @@
   <group>
     <name>Src</name>
     <file>
-      <name>$PROJ_DIR$\src\main.c</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\src\mytypedef.h</name>
     </file>
     <file>
@@ -2079,12 +2076,12 @@
       <name>$PROJ_DIR$\src\rf_cc1110.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\src\tm1650.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\src\tm1650.h</name>
+      <name>$PROJ_DIR$\src\tm1651.c</name>
     </file>
   </group>
+  <file>
+    <name>$PROJ_DIR$\src\test.c</name>
+  </file>
 </project>
 
 

@@ -11,7 +11,7 @@ ActionState=1
 Enabled=0
 ShowSource=1
 [DebugChecksum]
-Checksum=-271135464
+Checksum=1379173278
 [DisAssemblyWindow]
 NumStates=_ 1
 State 1=_ 1
@@ -31,6 +31,11 @@ UseTrigger=1
 TriggerName=main
 LimitSize=0
 ByteLimit=50
+[Breakpoints]
+Count=0
+[ChipconEmu]
+Stop timers on halt=1
+Leave target running=1
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -38,11 +43,6 @@ Category=_ 0
 [TermIOLog]
 LoggingEnabled=_ 0
 LogFile=_ ""
-[Breakpoints]
-Count=0
-[ChipconEmu]
-Stop timers on halt=1
-Leave target running=1
 [Aliases]
 Count=0
 SuppressDialog=0

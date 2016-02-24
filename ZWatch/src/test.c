@@ -2,7 +2,6 @@
 
 #include "ioCC1110.h"
 #include "rf_cc1110.h"
-//#include "tm1650.h"
 
 #define MYADDR		0x01
 
@@ -51,11 +50,8 @@ uchar digCode[10] = {0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f}; //0~9显
 //uchar LedBuffer[4]={0x3f,0x06,0x3f,0x3F};
 LEDINFO ledBuffer;
 INT32U   PowerCount;
-#ifndef DEBUG_TEST
-  extern void  test(void);
-#endif
-
-uint  RecCount=0;
+uchar ledFlag=0;
+volatile INT8U len;
 void ioInit()
 {
         P0DIR = 0X3C; //P02-P05 OUT for select 8-led
@@ -77,58 +73,50 @@ void TMShowLedInfo(LEDINFO *buffer)
 }
 void boardInit()
 {
-   //   P1DIR |= 0x03;                //P1_0, p1_1, OUTPUT
-      CLKCON &= ~0x40;              //晶振
+    
+    P1DIR |= 0x03;                //P1_0, p1_1, OUTPUT
+  
+    CLKCON &= ~0x40;              //晶振
     while(!(SLEEP & 0x40));      //等待晶振稳定
     CLKCON &= ~0x47;             //TICHSPD128分频，CLKSPD不分频
     SLEEP |= 0x04; 		 //关闭不用的RC振荡器
+    
+
+    rf_cc1110_init( 433000 );
     ioInit();
-    TMCloseAll();
     ledBuffer.led0=0;
     ledBuffer.led1=1;
     ledBuffer.order=0x01;
     ledBuffer.rgb=0x02;
+    IEN0 = 0x81;
 }
-volatile INT8U len;
-#ifndef DEBUG_TEST
+
 
     int main( void )
-#else
-     int mainTest(void)
-#endif
-    {  
+{
     INT8U buffer[10], rssi, lqi;
+
     boardInit();
-    rf_cc1110_init( 433000 );
-    IEN0 = 0x81;
-    
-#ifndef DEBUG_TEST
-    test();
-#endif
-    
-    
+   TMShowLedInfo(&ledBuffer);
     while( 1 ){
-      
-     if(PWR_KEY==1)
-     {
-        //     MOTO_DRV=!MOTO_DRV;
-     // SPK_DRV=!SPK_DRV;
-       //     TMShowLedInfo(&ledBuffer);
-     }
+      if(PWR_KEY==1)
+      {
+         P1_0=!P1_0;
+        ledFlag=!ledFlag;
+      }
+    
       len = rf_rec_packet(buffer, &rssi, &lqi, 240) ;
-     if( len == 10 )
+     if( len !=0 )
      {
-       P1_0=!P1_0;
-      RecCount++; 
-   //   MOTO_DRV=!MOTO_DRV;
-    //  SPK_DRV=!SPK_DRV;
-      rf_send_packet( buffer, 10 );//发送应答信号
-    /*
-      ledBuffer.led0=RecCount/10;
-      ledBuffer.led1=RecCount%10;
-      TMShowLedInfo(&ledBuffer);
-     */
+         P1 ^= 0x03    ;        //收到数据，LED翻转一次
+         rf_send_packet( buffer, 10 );//发送应答信号
+      //if(ledFlag)
+      //   
+     // else
+      //  TMCloseAll();
+      //  TMShowLedInfo(&ledBuffer);
      }
+     
      len = 0;
     }
   

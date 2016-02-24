@@ -28,7 +28,8 @@ void I2Cask(void) //1651 应答
 {
         clk = 0;
         Delay_us(5); //在第八个时钟下降沿之后延时5us，开始判断ACK 信号
-        while(dio);
+       //leaf  while(dio);
+        Delay_us(5);  //leaf 
         clk = 1;
         Delay_us(2);
         clk=0;

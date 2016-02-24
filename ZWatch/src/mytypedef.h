@@ -22,6 +22,7 @@ typedef unsigned long  INT32U;
 typedef signed   long  INT32S;
 typedef signed char uchar;
 typedef signed char uint;
+typedef unsigned char BYTE;
 typedef enum
 {
 	BOOL_FALSE = 0,
