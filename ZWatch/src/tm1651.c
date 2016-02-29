@@ -66,16 +66,16 @@ void I2CWrByte(BYTE oneByte) //写一个字节
                 Delay_us(3);
         }
 }
-void TMShow(uchar num)
+void TMShow(uchar num,uchar data)
 {
   I2CStart();
   I2CWrByte(0x44);
   I2Cask();
   I2CStop();  
    I2CStart();
-  I2CWrByte(0xC0);
+  I2CWrByte(0xC0+num);
   I2Cask();
-  I2CWrByte(num);
+  I2CWrByte(data);
    I2Cask();
    I2CStop(); 
    I2CStart();
@@ -131,6 +131,7 @@ void TMCloseAll()
        TMDisplaySet(2,0);
        TMDisplaySet(3,0);
 }
+/*
 //-------------------------------------------------
 BYTE GetKey(void) //读按键
 {
@@ -162,3 +163,4 @@ BYTE GetKey(void) //读按键
         I2CStop();
         return (rekey);
 }
+*/

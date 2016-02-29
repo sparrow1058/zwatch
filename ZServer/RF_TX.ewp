@@ -2064,18 +2064,27 @@
       <data/>
     </settings>
   </configuration>
-  <file>
-    <name>$PROJ_DIR$\main.c</name>
-  </file>
-  <file>
-    <name>$PROJ_DIR$\mytypedef.h</name>
-  </file>
-  <file>
-    <name>$PROJ_DIR$\RF_CC1110.c</name>
-  </file>
-  <file>
-    <name>$PROJ_DIR$\rf_cc1110.h</name>
-  </file>
+  <group>
+    <name>src</name>
+    <file>
+      <name>$PROJ_DIR$\src\hal_cc1110.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\hal_cc1110.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\main.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\mytypedef.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\RF_CC1110.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\rf_cc1110.h</name>
+    </file>
+  </group>
 </project>
 
 
