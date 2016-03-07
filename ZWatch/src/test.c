@@ -23,6 +23,8 @@
 #define PWR_DRV         P2_0
 #define SEG_RGB       3
 #define SEG_LED       2
+
+#define NO_VAL      0
 #define R_VAL       1
 #define G_VAL       2
 #define B_VAL       4
@@ -148,8 +150,8 @@ void boardInit()
     INT8U buffer[10], rssi, lqi;
     INT8U msgFlag;
     boardInit();
-    InitUART();
-    UartSendString("zwatch",6);
+   // InitUART();
+  //  UartSendString("zwatch",6);
    //MCloseAll();
     timeCount=TIMEOUT-4;
    TMShowLedInfo(&ledBuffer);
@@ -161,15 +163,15 @@ void boardInit()
       if(len!=0)
       {
         getRfBuffer(buffer);
-        UartSendString((uchar *)buffer,7);
-        UartSendString("###",3);
+      //  UartSendString((uchar *)buffer,7);
+     //   UartSendString("###",3);
         if(rfBuffer.macID==BROADCAST)
         {  
              
             ledBuffer.led0=rfBuffer.tableID/10;
              ledBuffer.led1=rfBuffer.tableID%10;
              ledBuffer.order=rfBuffer.orderID; 
-             ledBuffer.rgb=R_VAL;
+             ledBuffer.rgb=NO_VAL;
              TMShowLedInfo(&ledBuffer);
               msgFlag=1;
               keyFlag=0;
@@ -203,7 +205,7 @@ void boardInit()
         {
           keyLed=1;
           
-          TMShow(SEG_RGB,R_VAL);
+        //  TMShow(SEG_RGB,R_VAL);
 
         //  TMShowLedInfo(&ledBuffer);
         }
@@ -221,7 +223,7 @@ void boardInit()
       {
         keyFlag=0;
         rfBuffer.msgType=MSG_OK;
-        UartSendString("MSG_OK",7);
+      //  UartSendString("MSG_OK",7);
         rf_send_packet((INT8U*) &rfBuffer, 10 );//·¢ËÍÓ¦´ðÐÅºÅ
         
       
@@ -233,6 +235,7 @@ void boardInit()
            msgFlag=0;
           TMCloseAll();
       }
+      /*
       if(keyLed>0)
       { 
         keyLed++;
@@ -242,6 +245,7 @@ void boardInit()
            keyLed=0;
          }
        }
+      */
   /*
       if(keyCount>KEY_LONG_PRESS)
       {      
