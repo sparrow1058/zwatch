@@ -2,7 +2,7 @@
 
 <project>
   <fileVersion>2</fileVersion>
-  <fileChecksum>913194243</fileChecksum>
+  <fileChecksum>1761052163</fileChecksum>
   <configuration>
     <name>Debug</name>
     <outputs>
@@ -13,12 +13,12 @@
       <file>$PROJ_DIR$\src\test.c</file>
       <file>$PROJ_DIR$\src\main.c</file>
       <file>$PROJ_DIR$\Debug\Obj\tm1650.r51</file>
-      <file>$TOOLKIT_DIR$\inc\clib\math.h</file>
-      <file>$PROJ_DIR$\Debug\Exe\RF_RX.hex</file>
-      <file>$PROJ_DIR$\Debug\Obj\RF_RX.pbd</file>
-      <file>$PROJ_DIR$\Debug\Obj\RF_CC1110.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\tm1650.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\main.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\tm1650.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\RF_CC1110.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\RF_RX.pbd</file>
+      <file>$PROJ_DIR$\Debug\Exe\RF_RX.hex</file>
+      <file>$TOOLKIT_DIR$\inc\clib\math.h</file>
       <file>$PROJ_DIR$\Debug\Obj\tm1651.r51</file>
       <file>$PROJ_DIR$\Debug\Exe\ZWatch.hex</file>
       <file>$PROJ_DIR$\main.c</file>
@@ -41,27 +41,31 @@
       <file>$PROJ_DIR$\Debug\Obj\tm1651.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\test.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\test.r51</file>
+      <file>$PROJ_DIR$\src\uart.c</file>
+      <file>$PROJ_DIR$\uart.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\uart.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\uart.pbi</file>
     </outputs>
     <file>
       <name>$PROJ_DIR$\src\RF_CC1110.c</name>
       <outputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 10</file>
-        </tool>
-        <tool>
           <name>ICC8051</name>
           <file> 29</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 9</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 1 0 16 27 30 28 23 7 26</file>
+          <name>ICC8051</name>
+          <file> 1 0 16 27 30 28 23 12 26</file>
         </tool>
         <tool>
-          <name>ICC8051</name>
-          <file> 1 0 16 27 30 28 23 7 26</file>
+          <name>BICOMP</name>
+          <file> 1 0 16 27 30 28 23 12 26</file>
         </tool>
       </inputs>
     </file>
@@ -69,22 +73,22 @@
       <name>$PROJ_DIR$\src\tm1651.c</name>
       <outputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 32</file>
-        </tool>
-        <tool>
           <name>ICC8051</name>
           <file> 13</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 32</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 26 0 16 27 30 28 23 7</file>
+          <name>ICC8051</name>
+          <file> 26 0 16 27 30 28 23 12</file>
         </tool>
         <tool>
-          <name>ICC8051</name>
-          <file> 26 0 16 27 30 28 23 7</file>
+          <name>BICOMP</name>
+          <file> 26 0 16 27 30 28 23 12</file>
         </tool>
       </inputs>
     </file>
@@ -92,22 +96,22 @@
       <name>$PROJ_DIR$\src\test.c</name>
       <outputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 33</file>
-        </tool>
-        <tool>
           <name>ICC8051</name>
           <file> 34</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 33</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 26 1 0 16 27 30 28 23 7</file>
+          <name>ICC8051</name>
+          <file> 26 1 0 16 27 30 28 23 12</file>
         </tool>
         <tool>
-          <name>ICC8051</name>
-          <file> 26 1 0 16 27 30 28 23 7</file>
+          <name>BICOMP</name>
+          <file> 26 1 0 16 27 30 28 23 12</file>
         </tool>
       </inputs>
     </file>
@@ -115,119 +119,22 @@
       <name>$PROJ_DIR$\src\main.c</name>
       <outputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 19</file>
-        </tool>
-        <tool>
           <name>ICC8051</name>
-          <file> 12</file>
+          <file> 7</file>
         </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 26 1 0 16 27 30 28 23 7</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 26 1 0 16 27 30 28 23 7</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\Debug\Exe\RF_RX.hex</name>
-      <inputs>
-        <tool>
-          <name>XLINK</name>
-          <file> 24 29 12 31</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\Debug\Obj\RF_RX.pbd</name>
-      <inputs>
-        <tool>
-          <name>BILINK</name>
-          <file> 10 33 32</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\Debug\Exe\ZWatch.hex</name>
-      <inputs>
-        <tool>
-          <name>XLINK</name>
-          <file> 24 29 34 13 31</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\main.c</name>
-      <outputs>
         <tool>
           <name>BICOMP</name>
           <file> 19</file>
         </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 12</file>
-        </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICC8051</name>
-          <file> 26 22 17 16 27 30 28 23 7</file>
+          <file> 26 1 0 16 27 30 28 23 12</file>
         </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\RF_CC1110.c</name>
-      <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 10</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 29</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICC8051</name>
-          <file> 22 17 16 27 30 28 23 7 26</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\src\tm1650.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 11</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 6</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 18 26 0 16 27 30 28 23 7</file>
-        </tool>
-        <tool>
-          <name>ICC8051</name>
-          <file> 18 26 0 16 27 30 28 23 7</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\Debug\Exe\RF_RX.d51</name>
-      <inputs>
-        <tool>
-          <name>XLINK</name>
-          <file> 24 29 12 31</file>
+          <file> 26 1 0 16 27 30 28 23 12</file>
         </tool>
       </inputs>
     </file>
@@ -239,6 +146,126 @@
           <file> 14</file>
         </tool>
       </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Debug\Obj\RF_RX.pbd</name>
+      <inputs>
+        <tool>
+          <name>BILINK</name>
+          <file> 9 33 32 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Debug\Exe\RF_RX.hex</name>
+      <inputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 24 29 7 31</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Debug\Exe\ZWatch.hex</name>
+      <inputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 24 29 34 13 37 31</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\main.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 7</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 19</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 26 22 17 16 27 30 28 23 12</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\RF_CC1110.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 29</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 9</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 22 17 16 27 30 28 23 12 26</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\tm1650.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 6</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 8</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 18 26 0 16 27 30 28 23 12</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 18 26 0 16 27 30 28 23 12</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Debug\Exe\RF_RX.d51</name>
+      <inputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 24 29 7 31</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\src\uart.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 37</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 38</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 26 0 16 27 30 28 23 12</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 26 0 16 27 30 28 23 12</file>
+        </tool>
+      </inputs>
     </file>
   </configuration>
   <configuration>

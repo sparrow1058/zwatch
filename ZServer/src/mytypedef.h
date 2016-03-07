@@ -15,11 +15,13 @@ Ahthor       : LiYong
 #include "mytypedef.h"
 /*Data type definations  */
 typedef unsigned char  INT8U;
+typedef unsigned char  uchar;
 typedef signed   char  INT8S;
 typedef unsigned int   INT16U;
 typedef signed   int   INT16S;
 typedef unsigned long  INT32U;
 typedef signed   long  INT32S;
+typedef unsigned int uint;
 typedef enum
 {
 	BOOL_FALSE = 0,

@@ -2085,6 +2085,9 @@
       <name>$PROJ_DIR$\src\rf_cc1110.h</name>
     </file>
   </group>
+  <file>
+    <name>$PROJ_DIR$\src\uart.c</name>
+  </file>
 </project>
 
 

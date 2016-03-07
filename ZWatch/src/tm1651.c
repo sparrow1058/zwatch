@@ -3,7 +3,8 @@
 #include "mytypedef.h"
 #define clk P1_2
 #define dio P1_3
-
+#define LED_ON  0x8A
+#define LED_OFF 0x80
 ///=======================================
 void Delay_us(BYTE i) //nus 延时
 {
@@ -28,8 +29,8 @@ void I2Cask(void) //1651 应答
 {
         clk = 0;
         Delay_us(5); //在第八个时钟下降沿之后延时5us，开始判断ACK 信号
-       //leaf  while(dio);
-        Delay_us(5);  //leaf 
+      //while(dio);
+        Delay_us(15); //leaf 
         clk = 1;
         Delay_us(2);
         clk=0;
@@ -79,27 +80,25 @@ void TMShow(uchar num,uchar data)
    I2Cask();
    I2CStop(); 
    I2CStart();
-    I2CWrByte(0x88);    
+    I2CWrByte(LED_ON);    
    I2Cask();
    I2CStop(); 
 
 }
-
-void TMDisplaySet(uchar num,uchar cmd)
+void TMClose(uchar num)
 {
    I2CStart();
-  I2CWrByte(0x40);    //auto mode
+  I2CWrByte(0x44);    //auto mode
    I2Cask();
    I2CStop();  
    I2CStart();
    I2CWrByte(0xC0+num);
    I2Cask();
+   I2CWrByte(0x00);
+   I2Cask();
    I2CStop(); 
    I2CStart();
-   if(cmd)
-        I2CWrByte(0x8F);    
-     else
-        I2CWrByte(0x80);    
+   I2CWrByte(LED_OFF);    
    I2Cask();
    I2CStop();
 }
@@ -120,16 +119,16 @@ void TMShowAuto(uchar * numArray)
    }
    I2CStop(); 
    I2CStart();
-   I2CWrByte(0x8F);    
+   I2CWrByte(LED_ON);    
    I2Cask();
    I2CStop();
 }
 void TMCloseAll()
 {
-       TMDisplaySet(0,0);
-       TMDisplaySet(1,0);
-       TMDisplaySet(2,0);
-       TMDisplaySet(3,0);
+  TMClose(0);
+  TMClose(1);
+  TMClose(2);
+  TMClose(3);
 }
 /*
 //-------------------------------------------------
