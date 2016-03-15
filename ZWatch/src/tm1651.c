@@ -3,7 +3,7 @@
 #include "mytypedef.h"
 #define clk P1_2
 #define dio P1_3
-#define LED_ON  0x8A
+#define LED_ON  0x8F
 #define LED_OFF 0x80
 ///=======================================
 void Delay_us(BYTE i) //nus 延时
@@ -29,7 +29,7 @@ void I2Cask(void) //1651 应答
 {
         clk = 0;
         Delay_us(5); //在第八个时钟下降沿之后延时5us，开始判断ACK 信号
-      //while(dio);
+      while(dio);
         Delay_us(15); //leaf 
         clk = 1;
         Delay_us(2);
@@ -88,7 +88,7 @@ void TMShow(uchar num,uchar data)
 void TMClose(uchar num)
 {
    I2CStart();
-  I2CWrByte(0x44);    //auto mode
+  I2CWrByte(0x40);    //auto mode
    I2Cask();
    I2CStop();  
    I2CStart();
