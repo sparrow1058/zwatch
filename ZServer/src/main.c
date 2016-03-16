@@ -5,6 +5,10 @@
 #include "rf_cc1110.h"
 
 #include "hal_cc1110.h"
+#define RF_FREQ_433MHZ  433000
+#define RF_FREQ_868MHZ  868000
+#define RF_FREQ_902MHZ  902000
+
 
 #define BUFFER_SIZE   7
 #define MAX_NUM     5
@@ -25,6 +29,7 @@
 #define UART_MSG_ACCESS   2
 #define UART_MSG_SUCCESS  3
 #define UART_MSG_FAIL     4
+#define UART_MSG_FREQ     0xFE    //change FREQ
 
 //machine ID
 #define LED1    P1_0
@@ -74,7 +79,7 @@ void boardInit()
     while(!(SLEEP & 0x40));      //等待晶振稳定
     CLKCON &= ~0x47;             //TICHSPD128分频，CLKSPD不分频
     SLEEP |= 0x04; 		 //关闭不用的RC振荡器
-      rf_cc1110_init( 433000 );
+      rf_cc1110_init( RF_FREQ_433MHZ );
    // ioInit();
     IEN0 = 0x81;
 }
@@ -192,6 +197,23 @@ INT8U getUartCmd(void)
       if(uartData=='#'||uartCount==7)  
       {
         uartCount=0;
+        if(uartGet[2]==UART_MSG_FREQ)
+        {  
+          switch (uartGet[3])
+          {
+          case 0:
+             rf_cc1110_init( RF_FREQ_433MHZ );
+             break;
+          case 1:
+           rf_cc1110_init( RF_FREQ_868MHZ );
+             break;
+          case 2:
+           rf_cc1110_init( RF_FREQ_902MHZ );
+             break;             
+          } 
+          UartSendString("RF Changed",10);
+          return FALSE;  
+        }
         uartCmd.num=uartGet[1]*256+uartGet[0];
         uartCmd.msgType=UART_MSG_ACCESS;
         uartCmd.macID=uartGet[3];
@@ -203,6 +225,7 @@ INT8U getUartCmd(void)
         UartSendString((uchar *)&uartCmd,7);
         getRfBuffer(uartGet);
     //    UartSendString((uchar *)&uartGet,7);
+        
         return TRUE;
       }else
       {

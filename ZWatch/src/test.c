@@ -94,6 +94,7 @@ uchar keyUp=1;
 uchar keyLed=0;
 uchar myTime=0;
 uchar recCount;
+uchar wdFlag=0;
 volatile uchar reSeeFlag=0;
 INT32U  timeCount=0;
 volatile INT8U len;
@@ -107,6 +108,16 @@ void Delay1(uint n)
 	for(tt = 0;tt<n;tt++);
 	for(tt = 0;tt<n;tt++);
 	for(tt = 0;tt<n;tt++);
+}
+void InitWatchdog(void)
+{
+  WDCTL=0x00;   //set watch dog time 1s
+  WDCTL|=0x08;  //start watchdog
+}
+void feetDog(void)
+{
+  WDCTL=0xA8;
+  WDCTL=0x58;
 }
 void Initial(void)
 {
@@ -181,16 +192,18 @@ void boardInit()
     INT8U firstFlag=0;
     INT32U i;
     boardInit();
+    InitWatchdog();
    // InitUART();
   //  UartSendString("zwatch",6);
    //TMCloseAll();
    
  //  TMShowLedInfo(&ledBuffer);
     handleStart();
-
+    wdFlag=1;
     // TMShow(SEG_RGB,G_Val);
     while( 1 ){
       timeCount++;
+      feetDog();
       len = rf_rec_packet(buffer, &rssi, &lqi, 240) ;
       if(msgReceive==0)
           keyFlag=0;    //when no msg receive clear the keyFlag;
@@ -329,24 +342,30 @@ void boardInit()
       if(keyCount>KEY_LONG_PRESS)
       {      
         keyCount=0;
+         feetDog();
         TMShow(SEG_RGB,R_VAL);
         halWait(1000);
         TMShow(SEG_RGB,NO_VAL);
         halWait(1000);
         TMShow(SEG_RGB,R_VAL);
         halWait(1000);
+         feetDog();
         TMShow(SEG_RGB,NO_VAL);
         halWait(1000);
         TMShow(SEG_RGB,R_VAL);
         halWait(1000);
         TMShow(SEG_RGB,NO_VAL);
-        halWait(1000);        
+        halWait(1000); 
+         feetDog();
         TMCloseAll();
         MOTO_DRV=0;
         PWR_DRV=0;
-        for(i=0;i<10;i++)
-           halWait(100000);
-        //P2INP|=0x01;
+        for(i=0;i<100;i++)
+        {
+           halWait(1000000);
+         feetDog();
+        }
+           //P2INP|=0x01;
 
         //while(1);
    //   void halWait(INT8U wait)
@@ -391,11 +410,13 @@ void handleStart(void)
             }
             }else
             {
-             PWR_DRV=0;
+            if(wdFlag==0)
+               PWR_DRV=0;
              Delay1(1000);
             }
 
-           Delay1(100000);
+           Delay1(80000);
+        feetDog();
            //Delay(20000);Delay(20000);Delay(20000);
 	  
           }

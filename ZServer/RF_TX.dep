@@ -15,12 +15,12 @@
       <file>$PROJ_DIR$\src\uart.c</file>
       <file>$PROJ_DIR$\main.c</file>
       <file>$PROJ_DIR$\RF_CC1110.c</file>
-      <file>$PROJ_DIR$\Debug\Obj\hal_cc1110.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\hal_cc1110.r51</file>
-      <file>$TOOLKIT_DIR$\inc\clib\stdarg.h</file>
-      <file>$TOOLKIT_DIR$\inc\clib\stdio.h</file>
-      <file>$PROJ_DIR$\rf_cc1110.h</file>
       <file>$PROJ_DIR$\mytypedef.h</file>
+      <file>$PROJ_DIR$\rf_cc1110.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\stdio.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\stdarg.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\hal_cc1110.r51</file>
+      <file>$PROJ_DIR$\Debug\Obj\hal_cc1110.pbi</file>
       <file>$TOOLKIT_DIR$\lib\clib\cl-pli-nsid-1e16x01.r51</file>
       <file>$PROJ_DIR$\Debug\Obj\RF_CC1110.r51</file>
       <file>$TOOLKIT_DIR$\inc\ioCC1110.h</file>
@@ -45,11 +45,11 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 9</file>
+          <file> 14</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 10</file>
+          <file> 13</file>
         </tool>
       </outputs>
       <inputs>
@@ -78,11 +78,11 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 17 5 3 12 11 20 18 21 27 2</file>
+          <file> 17 5 3 11 12 20 18 21 27 2</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 17 5 3 12 11 20 18 21 27 2</file>
+          <file> 17 5 3 11 12 20 18 21 27 2</file>
         </tool>
       </inputs>
     </file>
@@ -101,11 +101,11 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 5 3 12 11 20 18 21 27 17</file>
+          <file> 5 3 11 12 20 18 21 27 17</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 5 3 12 11 20 18 21 27 17</file>
+          <file> 5 3 11 12 20 18 21 27 17</file>
         </tool>
       </inputs>
     </file>
@@ -124,11 +124,11 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 17 3 12 11 20 18 21 27</file>
+          <file> 17 3 11 12 20 18 21 27</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 17 3 12 11 20 18 21 27</file>
+          <file> 17 3 11 12 20 18 21 27</file>
         </tool>
       </inputs>
     </file>
@@ -147,11 +147,11 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 17 13 14 12 11 20 18 21 27 28</file>
+          <file> 17 10 9 11 12 20 18 21 27 28</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 17 13 14 12 11 20 18 21 27 28</file>
+          <file> 17 10 9 11 12 20 18 21 27 28</file>
         </tool>
       </inputs>
     </file>
@@ -170,11 +170,11 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 13 14 12 11 20 18 21 27 17</file>
+          <file> 10 9 11 12 20 18 21 27 17</file>
         </tool>
         <tool>
           <name>ICC8051</name>
-          <file> 13 14 12 11 20 18 21 27 17</file>
+          <file> 10 9 11 12 20 18 21 27 17</file>
         </tool>
       </inputs>
     </file>
@@ -192,7 +192,7 @@
       <inputs>
         <tool>
           <name>BILINK</name>
-          <file> 24 9 22 32</file>
+          <file> 24 14 22 32</file>
         </tool>
       </inputs>
     </file>
@@ -210,7 +210,7 @@
       <inputs>
         <tool>
           <name>XLINK</name>
-          <file> 23 16 10 19 31 15</file>
+          <file> 23 16 13 19 31 15</file>
         </tool>
       </inputs>
     </file>
