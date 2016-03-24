@@ -52,6 +52,15 @@ typedef enum
 #define GetMax( x1, x2 ) ( ( x1 ) > ( x2 ) ? ( x1 ) : ( x2 ) )
 #define GetMin( x1, x2 ) ( ( x1 ) > ( x2 ) ? ( x2 ) : ( x1 ) )
 
+#define SET_POWER_MODE(mode)                   \
+   do {                                        \
+      if(mode == 0)        { SLEEP &= ~0x03; } \
+      else if (mode == 3)  { SLEEP |= 0x03;  } \
+      else { SLEEP &= ~0x03; SLEEP |= mode;  } \
+      PCON |= 0x01;                            \
+      asm("NOP");                              \
+   }while (0)
+
 #endif//_MYTYPEDEF_H_
 /*
 ================================================================================

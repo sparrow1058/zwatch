@@ -53,21 +53,21 @@
       <name>$PROJ_DIR$\src\RF_CC1110.c</name>
       <outputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 14</file>
-        </tool>
-        <tool>
           <name>ICC8051</name>
           <file> 6</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>BICOMP</name>
+          <name>ICC8051</name>
           <file> 1 0 28 15 36 23 32 13 22</file>
         </tool>
         <tool>
-          <name>ICC8051</name>
+          <name>BICOMP</name>
           <file> 1 0 28 15 36 23 32 13 22</file>
         </tool>
       </inputs>
@@ -76,21 +76,21 @@
       <name>$PROJ_DIR$\src\tm1651.c</name>
       <outputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 11</file>
-        </tool>
-        <tool>
           <name>ICC8051</name>
           <file> 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 11</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>BICOMP</name>
+          <name>ICC8051</name>
           <file> 22 0 28 15 36 23 32 13</file>
         </tool>
         <tool>
-          <name>ICC8051</name>
+          <name>BICOMP</name>
           <file> 22 0 28 15 36 23 32 13</file>
         </tool>
       </inputs>
@@ -99,21 +99,21 @@
       <name>$PROJ_DIR$\src\uart.c</name>
       <outputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 16</file>
-        </tool>
-        <tool>
           <name>ICC8051</name>
           <file> 17</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 16</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>BICOMP</name>
+          <name>ICC8051</name>
           <file> 22 0 28 15 36 23 32 13</file>
         </tool>
         <tool>
-          <name>ICC8051</name>
+          <name>BICOMP</name>
           <file> 22 0 28 15 36 23 32 13</file>
         </tool>
       </inputs>
@@ -122,21 +122,21 @@
       <name>$PROJ_DIR$\src\test.c</name>
       <outputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 12</file>
-        </tool>
-        <tool>
           <name>ICC8051</name>
           <file> 7</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 12</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>BICOMP</name>
+          <name>ICC8051</name>
           <file> 22 1 0 28 15 36 23 32 13</file>
         </tool>
         <tool>
-          <name>ICC8051</name>
+          <name>BICOMP</name>
           <file> 22 1 0 28 15 36 23 32 13</file>
         </tool>
       </inputs>
@@ -181,12 +181,12 @@
       <name>$PROJ_DIR$\main.c</name>
       <outputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 31</file>
-        </tool>
-        <tool>
           <name>ICC8051</name>
           <file> 30</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31</file>
         </tool>
       </outputs>
       <inputs>
@@ -200,21 +200,21 @@
       <name>$PROJ_DIR$\src\tm1650.c</name>
       <outputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 29</file>
-        </tool>
-        <tool>
           <name>ICC8051</name>
           <file> 33</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 29</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>BICOMP</name>
+          <name>ICC8051</name>
           <file> 27 22 0 28 15 36 23 32 13</file>
         </tool>
         <tool>
-          <name>ICC8051</name>
+          <name>BICOMP</name>
           <file> 27 22 0 28 15 36 23 32 13</file>
         </tool>
       </inputs>
@@ -223,44 +223,35 @@
       <name>$PROJ_DIR$\src\main.c</name>
       <outputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 31</file>
-        </tool>
-        <tool>
           <name>ICC8051</name>
           <file> 30</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 31</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>BICOMP</name>
+          <name>ICC8051</name>
           <file> 22 1 0 28 15 36 23 32 13</file>
         </tool>
         <tool>
-          <name>ICC8051</name>
+          <name>BICOMP</name>
           <file> 22 1 0 28 15 36 23 32 13</file>
         </tool>
       </inputs>
     </file>
     <file>
-      <name>[ROOT_NODE]</name>
-      <outputs>
-        <tool>
-          <name>XLINK</name>
-          <file> 21</file>
-        </tool>
-      </outputs>
-    </file>
-    <file>
       <name>$PROJ_DIR$\RF_CC1110.c</name>
       <outputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 14</file>
-        </tool>
-        <tool>
           <name>ICC8051</name>
           <file> 6</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14</file>
         </tool>
       </outputs>
       <inputs>
@@ -274,24 +265,33 @@
       <name>$PROJ_DIR$\src\tt2.c</name>
       <outputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 38</file>
-        </tool>
-        <tool>
           <name>ICC8051</name>
           <file> 40</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 38</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 22 41 0 28 15 36 23 32 13</file>
-        </tool>
-        <tool>
           <name>ICC8051</name>
           <file> 22 41 0 28 15 36 23 32 13</file>
         </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 22 41 0 28 15 36 23 32 13</file>
+        </tool>
       </inputs>
+    </file>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 21</file>
+        </tool>
+      </outputs>
     </file>
   </configuration>
   <configuration>

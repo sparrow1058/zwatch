@@ -82,6 +82,9 @@ void boardInit()
       rf_cc1110_init( RF_FREQ_433MHZ );
    // ioInit();
     IEN0 = 0x81;
+        WORCTL |= 0x00;    //2^15 period
+    WORIRQ |= 0X10;   //
+    IEN0 |= 0X20;     //¿ªÖÐ¶Ï
 }
 void getRfBuffer(uchar  *buf)
 {
@@ -113,6 +116,7 @@ int main( void )
   {
     
      cmdFlag=getUartCmd();
+     UartSendString("Zserver",7);
    //  uartData=0;
      while(cmdFlag==TRUE) 
      {
@@ -131,6 +135,7 @@ int main( void )
     //  uartCount=0;
 
      }
+     SET_POWER_MODE(3);
   }    
 }
         
@@ -247,4 +252,11 @@ __interrupt void UART0_ISR(void)
  __interrupt void RF_ISR1(void)
  {
     S1CON &= ~0x03;
+ }
+#pragma vector = ST_VECTOR
+ __interrupt void ST_ISR(void)
+ {
+ 	IRCON &=  ~0x80;
+        WORIRQ &= ~0X01;
+         SET_POWER_MODE(0);
  }

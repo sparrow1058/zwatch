@@ -11,6 +11,8 @@
 #define MSG_BROADCAST 0xFF
 #define MSG_OK		0x08
 
+#define SLEEP_TIME  0x1F
+#define ACTIVE_TIMES  1
 #define TIMEOUT     30    //20s
 #define KEY_LONG_PRESS  10
 #define KEY_LED_DELAY 2
@@ -76,10 +78,12 @@ extern void UartSendString(uchar *data,int len);
 extern void InitUART(void);
 void halWait(INT8U wait);
 void handleStart(void);
+void powerOff(void);
 
 uchar ledCode[9]={0x00,0x00,0x04,0x40,0x20,0x02,0x08,0x10,0x01};
 //uchar CODE[10] = {0xC0,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f}; //0~9显示代码 公阴
 uchar digCode[10] = {0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f}; //0~9显示代码 公阴
+uchar digCharCode[5]={0x77,0x38,0x78,0x71,0x76};    //A,C,E,F,H
 //uchar LedBuffer[4]={0x3f,0x06,0x3f,0x3F};
 LEDINFO ledBuffer;
 RFDATA  rfBuffer;
@@ -99,8 +103,11 @@ volatile uchar reSeeFlag=0;
 INT32U  timeCount=0;
 volatile INT8U len;
 volatile INT32U startCount=0;
+INT8U timeoutTimes=0;
 uchar msgReceive=0;
-void Delay1(uint n)
+INT8U resumeKey=0;
+INT8U suspendFlag=0;
+void delay(uint n)
 {
 	uint tt;
 	for(tt = 0;tt<n;tt++);
@@ -109,6 +116,8 @@ void Delay1(uint n)
 	for(tt = 0;tt<n;tt++);
 	for(tt = 0;tt<n;tt++);
 }
+
+
 void InitWatchdog(void)
 {
   WDCTL=0x00;   //set watch dog time 1s
@@ -165,6 +174,7 @@ void getRfBuffer(INT8U  *buf)
   rfBuffer.orderID=*(data+5);
   rfBuffer.sum=*(data+6);  
 }
+
 void boardInit()
 {
     
@@ -174,7 +184,7 @@ void boardInit()
     while(!(SLEEP & 0x40));      //等待晶振稳定
     CLKCON &= ~0x47;             //TICHSPD128分频，CLKSPD不分频
     SLEEP |= 0x04; 		 //关闭不用的RC振荡器
-    
+   
     ledBuffer.led0=0x00;
        ledBuffer.led1=MYADDR;
        ledBuffer.order=0x00; 
@@ -182,25 +192,40 @@ void boardInit()
     rf_cc1110_init( 433000 );
     ioInit();
     IEN0 = 0x81;
+    //For sleep timer 
+    WORCTL |= 0x01;    //2^15 period
+     WOREVT1=SLEEP_TIME;
+     WOREVT0=0xFF;
+      EA = 1;
+      IEN0 |= 0X20;     //开中断
+      IEN2 |=0x10;
+      WORIRQ |= 0X10;   //
 }
-
+void checkResume(void)
+{
+//  resumeKey
+  if(suspendFlag&&resumeKey)
+  {
+    suspendFlag=0;
+    resumeKey=0;
+   // if(reSeeFlag==1)
+       TMShowLedInfo(&ledBuffer);
+   timeCount=TIMEOUT-2;
+      
+    
+  }
+  
+}
 
     int main( void )
 {
     INT8U buffer[10], rssi, lqi;
     INT8U msgFlag;
     INT8U firstFlag=0;
-    INT32U i;
     boardInit();
     InitWatchdog();
-   // InitUART();
-  //  UartSendString("zwatch",6);
-   //TMCloseAll();
-   
- //  TMShowLedInfo(&ledBuffer);
     handleStart();
     wdFlag=1;
-    // TMShow(SEG_RGB,G_Val);
     while( 1 ){
       timeCount++;
       feetDog();
@@ -210,16 +235,17 @@ void boardInit()
       if(len==7)
       {
         getRfBuffer(buffer);
-         timeCount=0;
+          ledBuffer.led0=rfBuffer.tableID/10;
+           ledBuffer.led1=rfBuffer.tableID%10;
+           ledBuffer.order=rfBuffer.orderID; 
+        timeCount=0;
             msgReceive=1;
       //  UartSendString((uchar *)buffer,7);
      //   UartSendString("###",3);
         if(rfBuffer.macID==BROADCAST)
         {  
              
-            ledBuffer.led0=rfBuffer.tableID/10;
-             ledBuffer.led1=rfBuffer.tableID%10;
-             ledBuffer.order=rfBuffer.orderID; 
+
              ledBuffer.rgb=NO_VAL;
              TMShowLedInfo(&ledBuffer);
               msgFlag=1;
@@ -326,7 +352,14 @@ void boardInit()
            keyFlag=0;
           TMCloseAll();
           MOTO_DRV=0;
-      }
+          timeoutTimes++;
+          if(timeoutTimes>ACTIVE_TIMES)
+          {
+            timeoutTimes=0;
+            suspendFlag=1;
+            SET_POWER_MODE(2);
+          }
+         }
       /*
       if(keyLed>0)
       { 
@@ -338,31 +371,33 @@ void boardInit()
          }
        }
       */
-  
+      checkResume();
       if(keyCount>KEY_LONG_PRESS)
       {      
-        keyCount=0;
+          keyCount=0;
+          powerOff();
+      }
+  
+    }
+    
+}
+void powerOff(void)
+{
+  int i;
+  for (i=0;i<3;i++)
+  {  
+      TMShow(SEG_RGB,R_VAL);
+      delay(20000);
+      TMShow(SEG_RGB,NO_VAL);
+      delay(20000);
          feetDog();
-        TMShow(SEG_RGB,R_VAL);
-        halWait(1000);
-        TMShow(SEG_RGB,NO_VAL);
-        halWait(1000);
-        TMShow(SEG_RGB,R_VAL);
-        halWait(1000);
-         feetDog();
-        TMShow(SEG_RGB,NO_VAL);
-        halWait(1000);
-        TMShow(SEG_RGB,R_VAL);
-        halWait(1000);
-        TMShow(SEG_RGB,NO_VAL);
-        halWait(1000); 
-         feetDog();
+  }
         TMCloseAll();
         MOTO_DRV=0;
         PWR_DRV=0;
-        for(i=0;i<100;i++)
+        for(i=0;i<3;i++)
         {
-           halWait(1000000);
+           halWait(255);
          feetDog();
         }
            //P2INP|=0x01;
@@ -370,10 +405,6 @@ void boardInit()
         //while(1);
    //   void halWait(INT8U wait)
      // halWait(100000);
-      }
-  
-    }
-    
 }
 void handleStart(void)
 {
@@ -412,14 +443,34 @@ void handleStart(void)
             {
             if(wdFlag==0)
                PWR_DRV=0;
-             Delay1(1000);
+             delay(1000);
             }
 
-           Delay1(80000);
+           delay(22000);
+      // delay(10000);
         feetDog();
            //Delay(20000);Delay(20000);Delay(20000);
 	  
           }
 
 }
+#pragma vector = P1INT_VECTOR
+ __interrupt void P1_ISR(void)
+ {
+        if(P1IFG>0)
+        {
+          P1IFG = 0;
+      //  statu=0x06;
+           resumeKey=1;
+        }
+       
+        P1IF = 0;
+ }
+#pragma vector = ST_VECTOR
+ __interrupt void ST_ISR(void)
+ {
+ 	IRCON &=  ~0x80;
+        WORIRQ &= ~0X01;
+ }
+
 
