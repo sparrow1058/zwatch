@@ -10,11 +10,23 @@
     <debug>1</debug>
     <settings>
       <name>General</name>
-      <archiveVersion>2</archiveVersion>
+      <archiveVersion>1</archiveVersion>
       <data>
-        <version>7</version>
+        <version>5</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
+        <option>
+          <name>DerivativeDescriptionFile</name>
+          <state>$TOOLKIT_DIR$\config\devices\Texas Instruments\CC1110F32.i51</state>
+        </option>
+        <option>
+          <name>Previous Derivative File</name>
+          <state>$TOOLKIT_DIR$\config\devices\Texas Instruments\CC1110F32.i51</state>
+        </option>
+        <option>
+          <name>Showed Derivative</name>
+          <state>CC1110F32</state>
+        </option>
         <option>
           <name>CPU Core</name>
           <version>1</version>
@@ -142,8 +154,8 @@
         </option>
         <option>
           <name>Input variant</name>
-          <version>1</version>
-          <state>2</state>
+          <version>0</version>
+          <state>1</state>
         </option>
         <option>
           <name>Input description</name>
@@ -151,8 +163,8 @@
         </option>
         <option>
           <name>Output variant</name>
-          <version>1</version>
-          <state>2</state>
+          <version>0</version>
+          <state>1</state>
         </option>
         <option>
           <name>Output description</name>
@@ -238,49 +250,13 @@
           <version>0</version>
           <state>3</state>
         </option>
-        <option>
-          <name>Extended stack address</name>
-          <state>0x9B</state>
-        </option>
-        <option>
-          <name>Extended stack mask</name>
-          <state>0x03</state>
-        </option>
-        <option>
-          <name>Extended stack is offset</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>OGChipSelectMenu</name>
-          <state>CC1110F32	CC1110F32</state>
-        </option>
-        <option>
-          <name>OGChipSelectMenuSlave</name>
-          <state>CC1110F32	CC1110F32</state>
-        </option>
-        <option>
-          <name>DPC Address</name>
-          <state></state>
-        </option>
-        <option>
-          <name>AutoModificationType</name>
-          <state></state>
-        </option>
-        <option>
-          <name>UseHWMulDivUnit</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>UseMDU</name>
-          <state></state>
-        </option>
       </data>
     </settings>
     <settings>
       <name>ICC8051</name>
-      <archiveVersion>6</archiveVersion>
+      <archiveVersion>4</archiveVersion>
       <data>
-        <version>11</version>
+        <version>9</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
@@ -521,24 +497,8 @@
           <state>1</state>
         </option>
         <option>
-          <name>IccCppInlineSemantics</name>
+          <name>IccRelaxedFpPrecision</name>
           <state>0</state>
-        </option>
-        <option>
-          <name>IccStaticDestr</name>
-          <state>1</state>
-        </option>
-        <option>
-          <name>IccFloatSemantics</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>NoSizeConstraints</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>UseHWMulDivUnit</name>
-          <state>1</state>
         </option>
       </data>
     </settings>
@@ -546,7 +506,7 @@
       <name>A8051</name>
       <archiveVersion>2</archiveVersion>
       <data>
-        <version>6</version>
+        <version>5</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
@@ -617,6 +577,10 @@
         <option>
           <name>MultiLine</name>
           <state>0</state>
+        </option>
+        <option>
+          <name>NoStruct</name>
+          <state>1</state>
         </option>
         <option>
           <name>PageLengthCheck</name>
@@ -719,9 +683,9 @@
     </settings>
     <settings>
       <name>XLINK</name>
-      <archiveVersion>4</archiveVersion>
+      <archiveVersion>3</archiveVersion>
       <data>
-        <version>19</version>
+        <version>17</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
@@ -1036,15 +1000,6 @@
           <name>Linker Far22 Heap Size</name>
           <state>1</state>
         </option>
-        <option>
-          <name>CrcUnitSize</name>
-          <version>0</version>
-          <state>0</state>
-        </option>
-        <option>
-          <name>XLink DPC Address</name>
-          <state>1</state>
-        </option>
       </data>
     </settings>
     <settings>
@@ -1073,11 +1028,6 @@
       </data>
     </settings>
     <settings>
-      <name>HWMUL</name>
-      <archiveVersion>0</archiveVersion>
-      <data/>
-    </settings>
-    <settings>
       <name>BILINK</name>
       <archiveVersion>0</archiveVersion>
       <data/>
@@ -1091,11 +1041,23 @@
     <debug>0</debug>
     <settings>
       <name>General</name>
-      <archiveVersion>2</archiveVersion>
+      <archiveVersion>1</archiveVersion>
       <data>
-        <version>7</version>
+        <version>5</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>0</debug>
+        <option>
+          <name>DerivativeDescriptionFile</name>
+          <state>$TOOLKIT_DIR$\config\devices\</state>
+        </option>
+        <option>
+          <name>Previous Derivative File</name>
+          <state>No device selected</state>
+        </option>
+        <option>
+          <name>Showed Derivative</name>
+          <state>No device selected</state>
+        </option>
         <option>
           <name>CPU Core</name>
           <version>1</version>
@@ -1223,8 +1185,8 @@
         </option>
         <option>
           <name>Input variant</name>
-          <version>1</version>
-          <state>1</state>
+          <version>0</version>
+          <state>0</state>
         </option>
         <option>
           <name>Input description</name>
@@ -1232,8 +1194,8 @@
         </option>
         <option>
           <name>Output variant</name>
-          <version>1</version>
-          <state>1</state>
+          <version>0</version>
+          <state>0</state>
         </option>
         <option>
           <name>Output description</name>
@@ -1319,49 +1281,13 @@
           <version>0</version>
           <state>3</state>
         </option>
-        <option>
-          <name>Extended stack address</name>
-          <state>0x9B</state>
-        </option>
-        <option>
-          <name>Extended stack mask</name>
-          <state>0x03</state>
-        </option>
-        <option>
-          <name>Extended stack is offset</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>OGChipSelectMenu</name>
-          <state>8052	Generic 8052</state>
-        </option>
-        <option>
-          <name>OGChipSelectMenuSlave</name>
-          <state>8052	Generic 8052</state>
-        </option>
-        <option>
-          <name>DPC Address</name>
-          <state></state>
-        </option>
-        <option>
-          <name>AutoModificationType</name>
-          <state></state>
-        </option>
-        <option>
-          <name>UseHWMulDivUnit</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>UseMDU</name>
-          <state></state>
-        </option>
       </data>
     </settings>
     <settings>
       <name>ICC8051</name>
-      <archiveVersion>6</archiveVersion>
+      <archiveVersion>4</archiveVersion>
       <data>
-        <version>11</version>
+        <version>9</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>0</debug>
         <option>
@@ -1602,24 +1528,8 @@
           <state>1</state>
         </option>
         <option>
-          <name>IccCppInlineSemantics</name>
+          <name>IccRelaxedFpPrecision</name>
           <state>0</state>
-        </option>
-        <option>
-          <name>IccStaticDestr</name>
-          <state>1</state>
-        </option>
-        <option>
-          <name>IccFloatSemantics</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>NoSizeConstraints</name>
-          <state>0</state>
-        </option>
-        <option>
-          <name>UseHWMulDivUnit</name>
-          <state>1</state>
         </option>
       </data>
     </settings>
@@ -1627,7 +1537,7 @@
       <name>A8051</name>
       <archiveVersion>2</archiveVersion>
       <data>
-        <version>6</version>
+        <version>5</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>0</debug>
         <option>
@@ -1698,6 +1608,10 @@
         <option>
           <name>MultiLine</name>
           <state>0</state>
+        </option>
+        <option>
+          <name>NoStruct</name>
+          <state>1</state>
         </option>
         <option>
           <name>PageLengthCheck</name>
@@ -1800,9 +1714,9 @@
     </settings>
     <settings>
       <name>XLINK</name>
-      <archiveVersion>4</archiveVersion>
+      <archiveVersion>3</archiveVersion>
       <data>
-        <version>19</version>
+        <version>17</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>0</debug>
         <option>
@@ -2117,15 +2031,6 @@
           <name>Linker Far22 Heap Size</name>
           <state>1</state>
         </option>
-        <option>
-          <name>CrcUnitSize</name>
-          <version>0</version>
-          <state>0</state>
-        </option>
-        <option>
-          <name>XLink DPC Address</name>
-          <state>1</state>
-        </option>
       </data>
     </settings>
     <settings>
@@ -2152,11 +2057,6 @@
           <state>###Uninitialized###</state>
         </option>
       </data>
-    </settings>
-    <settings>
-      <name>HWMUL</name>
-      <archiveVersion>0</archiveVersion>
-      <data/>
     </settings>
     <settings>
       <name>BILINK</name>

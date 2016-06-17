@@ -17,6 +17,7 @@
 #define KEY_LONG_PRESS  10
 #define KEY_LED_DELAY 2
 #define RF_LENGTH   6
+#define TIME_LED_DELAY  1
 
 #define CHG_DET		P1_4
 #define PWR_KEY		P1_5
@@ -26,10 +27,16 @@
 #define SEG_RGB       3
 #define SEG_LED       2
 
+#define PWR_DOWN        0
 #define NO_VAL      0
 #define R_VAL       1
 #define G_VAL       2
 #define B_VAL       4
+
+#define LED_R   P1_0
+#define LED_G   P1_1
+#define LED_B   P0_1    
+
 
 
 
@@ -99,6 +106,7 @@ uchar keyLed=0;
 uchar myTime=0;
 uchar recCount;
 uchar wdFlag=0;
+uchar timeLedDelay=0;
 volatile uchar reSeeFlag=0;
 INT32U  timeCount=0;
 volatile INT8U len;
@@ -115,6 +123,8 @@ void delay(uint n)
 	for(tt = 0;tt<n;tt++);
 	for(tt = 0;tt<n;tt++);
 	for(tt = 0;tt<n;tt++);
+        for(tt = 0;tt<n;tt++);
+
 }
 
 
@@ -128,23 +138,10 @@ void feetDog(void)
   WDCTL=0xA8;
   WDCTL=0x58;
 }
-void Initial(void)
-{
-        P0DIR = 0X3C; //P02-P05 OUT for select 8-led
 
-	P1DIR = 0xCF; //
-        P1INP |=0x20; 
-        //P1SEL |=0x0F;
-        P2DIR =0x01;
-    //  ledBuffer.led0=digCode[0];
-   //   ledBuffer.led1=digCode[1];
- //     ledBuffer.order=0x01;
-   //   ledBuffer.rgb=0x02;
-
-}
 void ioInit()
 {
-        P0DIR = 0X3C; //P02-P05 OUT for select 8-led
+        P0DIR = 0X3E; //P02-P05 OUT for select 8-led
 	P1DIR = 0xCF; //
         P1INP |=0x20; 
       //  P1DIR |= 0x03;                //P1_0, p1_1, OUTPUT
@@ -153,16 +150,37 @@ void ioInit()
         PWR_DRV=0;
         MOTO_DRV=0;
 }
+void showRGB(uchar val)         // val: bit0 R, bit1 G  , bit2 B
+{
+    LED_R=~(val&0x01);
+    LED_G=~((val&0x02)>>1);
+    LED_B=(val&0x04)>>2;
+  
+}
 void TMShowLedInfo(LEDINFO *buffer)
 {
   uchar tmp[4];
-  tmp[0]=digCode[buffer->led0];
+  if(buffer->led0<10)
+    tmp[0]=digCode[buffer->led0];
+ else if(buffer->led0==0x0A)
+   tmp[0]=digCharCode[0];
+ else if(buffer->led0==0x0C)
+   tmp[0]=digCharCode[1];
+  else if(buffer->led0==0x0E)
+   tmp[0]=digCharCode[2];  
+  else if(buffer->led0==0x0F)
+   tmp[0]=digCharCode[3];
+ 
   tmp[1]=digCode[buffer->led1];
   tmp[2]=ledCode[buffer->order];
-  tmp[3]=buffer->rgb;
+ // tmp[3]=buffer->rgb;
   if(buffer->order==1)
       tmp[3]|=0x08;
+  else
+      tmp[3]|=0x00;
   TMShowAuto(tmp);
+ showRGB(buffer->rgb); 
+  
 }
 void getRfBuffer(INT8U  *buf)
 {
@@ -189,6 +207,7 @@ void boardInit()
        ledBuffer.led1=MYADDR;
        ledBuffer.order=0x00; 
        ledBuffer.rgb=R_VAL;
+     LED_B=0;
     rf_cc1110_init( 433000 );
     ioInit();
     IEN0 = 0x81;
@@ -223,8 +242,11 @@ void checkResume(void)
     INT8U msgFlag;
     INT8U firstFlag=0;
     boardInit();
-    InitWatchdog();
+    showRGB(0x0F);
+    
+    //InitWatchdog();
     handleStart();
+  //  while(1);
     wdFlag=1;
     while( 1 ){
       timeCount++;
@@ -238,7 +260,7 @@ void checkResume(void)
           ledBuffer.led0=rfBuffer.tableID/10;
            ledBuffer.led1=rfBuffer.tableID%10;
            ledBuffer.order=rfBuffer.orderID; 
-        timeCount=0;
+          timeCount=0;
             msgReceive=1;
       //  UartSendString((uchar *)buffer,7);
      //   UartSendString("###",3);
@@ -260,14 +282,23 @@ void checkResume(void)
             {
                   if(rfBuffer.macID==MYADDR)  
                   {       myTime=1;
-                            ledBuffer.rgb=B_VAL;    //rgb buffer;
-                            TMShowLedInfo(&ledBuffer);
+                          showRGB(B_VAL);
+                          ledBuffer.rgb=B_VAL;
+                          TMShowLedInfo(&ledBuffer);
                             MOTO_DRV=1;
+                            timeLedDelay++;
+                          if(timeLedDelay>TIME_LED_DELAY)
+                          {  
+                            timeLedDelay=0;
+                           // showRGB(NO_VAL);
+                         //   MOTO_DRV=0;
+                          }
                   }
                   else
                   {       myTime=0;
-                            ledBuffer.rgb=NO_VAL;    //rgb buffer;
-                            TMShowLedInfo(&ledBuffer);
+                           
+                          //  TMShowLedInfo(&ledBuffer);
+                             
                   }   
                  }
         if(rfBuffer.msgType==MSG_SUCCESS)
@@ -295,7 +326,7 @@ void checkResume(void)
            }
         }
       }
-      if(PWR_KEY==1)
+      if(PWR_KEY==PWR_DOWN)
       {
         keyCount++;
         keyFlag=1;
@@ -306,7 +337,7 @@ void checkResume(void)
          else
          {
            if(firstFlag)
-            TMShow(SEG_RGB,R_VAL);
+            showRGB(R_VAL);
          }
         
        }else 
@@ -326,7 +357,7 @@ void checkResume(void)
             timeCount=TIMEOUT-2;
            }
           else
-             TMShow(SEG_RGB,NO_VAL);
+             showRGB(NO_VAL); 
           keyFlag=1;
           keyDown=0;
          // timeCount=0;
@@ -386,9 +417,9 @@ void powerOff(void)
   int i;
   for (i=0;i<3;i++)
   {  
-      TMShow(SEG_RGB,R_VAL);
+      showRGB(R_VAL);
       delay(20000);
-      TMShow(SEG_RGB,NO_VAL);
+      showRGB(NO_VAL);
       delay(20000);
          feetDog();
   }
@@ -416,7 +447,7 @@ void handleStart(void)
         TMCloseAll();
 	while(1)
 	{
-       if(PWR_KEY==1)
+       if(PWR_KEY==PWR_DOWN)
          {
             pcnt++;
             if(pcnt>2)
@@ -447,7 +478,7 @@ void handleStart(void)
             }
 
            delay(22000);
-      // delay(10000);
+       delay(10000);
         feetDog();
            //Delay(20000);Delay(20000);Delay(20000);
 	  
