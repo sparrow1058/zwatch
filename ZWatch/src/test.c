@@ -3,6 +3,16 @@
 #include "ioCC1110.h"
 #include "rf_cc1110.h"
 
+
+
+#define GROUP_A       1<<0
+#define GROUP_B       1<<1
+#define GROUP_C       1<<2
+#define GROUP_D       1<<3
+#define GROUP_E       1<<4
+#define GROUP_F       1<<5
+#define GROUP_G       1<<6
+#define MY_GROUP        GROUP_A
 #define MYADDR		0x02
 #define BROADCAST   0xFF
 
@@ -17,6 +27,7 @@
 #define KEY_LONG_PRESS  10
 #define KEY_LED_DELAY 2
 #define RF_LENGTH   6
+#define BUFFER_SIZE     8
 #define TIME_LED_DELAY  1
 
 #define CHG_DET		P1_4
@@ -36,8 +47,6 @@
 #define LED_R   P1_0
 #define LED_G   P1_1
 #define LED_B   P0_1    
-
-
 
 
 /*
@@ -61,6 +70,7 @@ typedef struct RF_DATA
 {
   INT16U  num;
   INT8U   msgType;
+  INT8U   groupID;
   INT8U   macID;
   INT8U   tableID;
   INT8U   orderID;
@@ -86,6 +96,7 @@ extern void InitUART(void);
 void halWait(INT8U wait);
 void handleStart(void);
 void powerOff(void);
+void ledCloseAll(void);
 
 uchar ledCode[9]={0x00,0x00,0x04,0x40,0x20,0x02,0x08,0x10,0x01};
 //uchar CODE[10] = {0xC0,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f}; //0~9ÏÔÊ¾´úÂë ¹«Òõ
@@ -126,7 +137,18 @@ void delay(uint n)
         for(tt = 0;tt<n;tt++);
 
 }
-
+void showRGB(uchar val)         // val: bit0 R, bit1 G  , bit2 B
+{
+    LED_R=~(val&0x01);
+    LED_G=~((val&0x02)>>1);
+    LED_B=(val&0x04)>>2;
+  
+}
+void ledCloseAll(void)
+{
+  TMCloseAll();
+  showRGB(NO_VAL); 
+} 
 
 void InitWatchdog(void)
 {
@@ -150,13 +172,7 @@ void ioInit()
         PWR_DRV=0;
         MOTO_DRV=0;
 }
-void showRGB(uchar val)         // val: bit0 R, bit1 G  , bit2 B
-{
-    LED_R=~(val&0x01);
-    LED_G=~((val&0x02)>>1);
-    LED_B=(val&0x04)>>2;
-  
-}
+
 void TMShowLedInfo(LEDINFO *buffer)
 {
   uchar tmp[4];
@@ -187,10 +203,23 @@ void getRfBuffer(INT8U  *buf)
   INT8U *data=buf;
   rfBuffer.num=*data<<8+*(data+1);
   rfBuffer.msgType=*(data+2);
-  rfBuffer.macID=*(data+3);
-  rfBuffer.tableID=*(data+4);
-  rfBuffer.orderID=*(data+5);
-  rfBuffer.sum=*(data+6);  
+  rfBuffer.groupID=*(data+3);
+  rfBuffer.macID=*(data+4);
+  rfBuffer.tableID=*(data+5);
+  rfBuffer.orderID=*(data+6);
+  rfBuffer.sum=*(data+7);  
+}
+
+  void TMShowID(INT8U macId)
+{
+  uchar tmp[4];
+  tmp[0]=digCode[macId/10];
+  tmp[1]=digCode[macId%10];
+  tmp[2]=0x00;
+  tmp[3]=0x00;
+  
+  TMShowAuto(tmp); 
+  showRGB(R_VAL); 
 }
 
 void boardInit()
@@ -242,11 +271,12 @@ void checkResume(void)
     INT8U msgFlag;
     INT8U firstFlag=0;
     boardInit();
-    showRGB(0x0F);
-    
+    showRGB(0x01);
+    InitUART();
     //InitWatchdog();
-    handleStart();
+  //  handleStart();
   //  while(1);
+    UartSendString("zwatch",6);
     wdFlag=1;
     while( 1 ){
       timeCount++;
@@ -254,79 +284,79 @@ void checkResume(void)
       len = rf_rec_packet(buffer, &rssi, &lqi, 240) ;
       if(msgReceive==0)
           keyFlag=0;    //when no msg receive clear the keyFlag;
-      if(len==7)
+      if(len!=0)
       {
+        
         getRfBuffer(buffer);
-          ledBuffer.led0=rfBuffer.tableID/10;
-           ledBuffer.led1=rfBuffer.tableID%10;
-           ledBuffer.order=rfBuffer.orderID; 
-          timeCount=0;
-            msgReceive=1;
-      //  UartSendString((uchar *)buffer,7);
-     //   UartSendString("###",3);
-        if(rfBuffer.macID==BROADCAST)
-        {  
-             
+        UartSendString((uchar *)buffer,BUFFER_SIZE);
 
-             ledBuffer.rgb=NO_VAL;
-             TMShowLedInfo(&ledBuffer);
-              msgFlag=1;
+            
+        if(rfBuffer.groupID&MY_GROUP!=0){
+              ledBuffer.led0=rfBuffer.tableID/10;
+              ledBuffer.led1=rfBuffer.tableID%10;
+              ledBuffer.order=rfBuffer.orderID; 
+              timeCount=0;
+              msgReceive=1;
+              if(rfBuffer.macID==BROADCAST)
+              {  
+                   
 
-            //  if(msgReceive)
-           //   keyFlag=0;
-	    
-             reSeeFlag=0;
-             
-        }
-         if(rfBuffer.msgType==MSG_TIME)
-            {
-                  if(rfBuffer.macID==MYADDR)  
-                  {       myTime=1;
-                          showRGB(B_VAL);
-                          ledBuffer.rgb=B_VAL;
-                          TMShowLedInfo(&ledBuffer);
-                            MOTO_DRV=1;
-                            timeLedDelay++;
-                          if(timeLedDelay>TIME_LED_DELAY)
-                          {  
-                            timeLedDelay=0;
-                           // showRGB(NO_VAL);
-                         //   MOTO_DRV=0;
-                          }
-                  }
-                  else
-                  {       myTime=0;
-                           
-                          //  TMShowLedInfo(&ledBuffer);
-                             
-                  }   
+                   ledBuffer.rgb=NO_VAL;
+                   TMShowLedInfo(&ledBuffer);
+                    msgFlag=1;
+
+                  //  if(msgReceive)
+                 //   keyFlag=0;
+                  
+                   reSeeFlag=0;
+                   
+              }
+               if(rfBuffer.msgType==MSG_TIME)
+                  {
+                        if(rfBuffer.macID==MYADDR)  
+                        {       myTime=1;
+                                showRGB(B_VAL);
+                                ledBuffer.rgb=B_VAL;
+                                TMShowLedInfo(&ledBuffer);
+                                  MOTO_DRV=1;
+                                  UartSendString("mytime",6);
+
+                        }
+                        else
+                        {       myTime=0;
+                                 
+                                  TMShowLedInfo(&ledBuffer);
+                                  showRGB(NO_VAL);
+                                   MOTO_DRV=0;
+                        }   
+                       }
+              if(rfBuffer.msgType==MSG_SUCCESS)
+              {
+                if(rfBuffer.macID==MYADDR)
+                  {
+                      myTime=0;
+                      msgFlag=0;
+                      ledBuffer.rgb=G_VAL;    //rgb buffer;
+                      TMShowLedInfo(&ledBuffer);
+                       timeCount=TIMEOUT-10;
+                       MOTO_DRV=0;
+                       reSeeFlag=1;
+                       msgReceive=0;
+                    //  UartSendString("SUCCESS",7);
+                      // ledCloseAll();
+                 }else
+                 {
+                    timeCount=0;   
+                    myTime=0;
+                    msgFlag=0;
+                    ledCloseAll();
+                    MOTO_DRV=0;            
+                   
                  }
-        if(rfBuffer.msgType==MSG_SUCCESS)
-        {
-          if(rfBuffer.macID==MYADDR)
-            {
-                myTime=0;
-                msgFlag=0;
-                ledBuffer.rgb=G_VAL;    //rgb buffer;
-                TMShowLedInfo(&ledBuffer);
-                 timeCount=TIMEOUT-10;
-                 MOTO_DRV=0;
-                 reSeeFlag=1;
-                 msgReceive=0;
-              //  UartSendString("SUCCESS",7);
-                // TMCloseAll();
-           }else
-           {
-              timeCount=0;   
-              myTime=0;
-              msgFlag=0;
-              TMCloseAll();
-              MOTO_DRV=0;            
-             
-           }
-        }
+              }
+            }
       }
-      if(PWR_KEY==PWR_DOWN)
+      if(PWR_KEY==PWR_DOWN&&msgFlag==0)
       {
         keyCount++;
         keyFlag=1;
@@ -337,7 +367,8 @@ void checkResume(void)
          else
          {
            if(firstFlag)
-            showRGB(R_VAL);
+            TMShowID(MYADDR);
+           timeCount=TIMEOUT-1;
          }
         
        }else 
@@ -381,7 +412,7 @@ void checkResume(void)
        //  reSeeFlag=0;
            msgFlag=0;
            keyFlag=0;
-          TMCloseAll();
+          ledCloseAll();
           MOTO_DRV=0;
           timeoutTimes++;
           if(timeoutTimes>ACTIVE_TIMES)
@@ -423,7 +454,7 @@ void powerOff(void)
       delay(20000);
          feetDog();
   }
-        TMCloseAll();
+        ledCloseAll();
         MOTO_DRV=0;
         PWR_DRV=0;
         for(i=0;i<3;i++)

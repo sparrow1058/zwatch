@@ -1,0 +1,52 @@
+C51 COMPILER V9.01   HAL_NRF_HW                                                            06/30/2016 16:15:58 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE HAL_NRF_HW
+OBJECT MODULE PLACED IN .\build\hal_nrf_hw.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE hal_nrf_hw.c LARGE BROWSE DEBUG OBJECTEXTEND PRINT(.\lst\hal_nrf_hw.lst) OB
+                    -JECT(.\build\hal_nrf_hw.obj)
+
+line level    source
+
+   1          /* Copyright (c) 2006 Nordic Semiconductor. All Rights Reserved.
+   2           *
+   3           * The information contained herein is confidential property of 
+   4           * Nordic Semiconductor. The use, copying, transfer or disclosure of such
+   5           * information is prohibited except by express written agreement with 
+   6           * Nordic Semiconductor.
+   7           */
+   8          
+   9          /** @file
+  10           * Implementation of #hal_nrf_rw.
+  11           * #hal_nrf_rw is an SPI function which is hardware dependent. This file
+  12           * contains an implementation for nRF24LU1.
+  13           */
+  14          
+  15          #include "reg24le1.h"
+  16          #include <stdint.h>
+  17          #include "hal_nrf.h"
+  18          
+  19          uint8_t hal_nrf_rw(uint8_t value)
+  20          {
+  21   1        SPIRDAT = value;
+  22   1                                                                                                     
+  23   1        while(!(SPIRSTAT & 0x02));  // wait for byte transfer finished
+  24   1          ;
+  25   1        return SPIRDAT;             // return SPI read value
+  26   1      }
+  27          
+  28          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     10    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

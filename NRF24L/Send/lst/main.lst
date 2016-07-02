@@ -1,0 +1,76 @@
+C51 COMPILER V9.01   MAIN                                                                  06/30/2016 16:15:58 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\build\main.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE main.c LARGE BROWSE DEBUG OBJECTEXTEND PRINT(.\lst\main.lst) OBJECT(.\build
+                    -\main.obj)
+
+line level    source
+
+   1          /* Copyright (c) 2008 Nordic Semiconductor. All Rights Reserved.
+   2           *
+   3           * The information contained herein is confidential property of Nordic 
+   4           * Semiconductor. The use, copying, transfer or disclosure of such information 
+   5           * is prohibited except by express written agreement with Nordic Semiconductor.
+   6           *
+   7           * $LastChangedRevision:$
+   8           */
+   9          
+  10          /** @file
+  11           * The nRF24LE1 example application main file
+  12           *
+  13           * @author Rune Brandsegg
+  14          
+  15           */
+  16           
+  17          #include "reg24le1.h"
+  18          #include "hal_nrf.h"
+  19          #include "radio.h"
+  20          #include "application.h"
+  21          #include "system.h"
+  22          
+  23          
+  24          
+  25          
+  26          
+  27          void main(void) 
+  28          { 
+  29   1        mcu_init();
+  30   1                                                
+  31   1        
+  32   1        EA = 1;                               // Global interrupt enable
+  33   1        boot_mess();
+  34   1      
+  35   1        radio_init(TRANSMITTER);
+  36   1        transmitter_mode();
+  37   1      
+  38   1        /*
+  39   1        if(!B0)                               // Pressed B0 during "boot":
+  40   1        {                                     // Enter PRX mode (Receiver)        
+  41   1          radio_init(RECEIVER);
+  42   1          receiver_mode();                  
+  43   1        }  
+  44   1        else                                  // Released B0 during "boot":
+  45   1        {                                     // Enter PTX mode (Transmitter)
+  46   1          radio_init(TRANSMITTER);
+  47   1          transmitter_mode();
+  48   1        }
+  49   1        */
+  50   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     16    ----
+C51 COMPILER V9.01   MAIN                                                                  06/30/2016 16:15:58 PAGE 2   
+
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

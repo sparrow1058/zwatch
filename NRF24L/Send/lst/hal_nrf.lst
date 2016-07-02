@@ -1,0 +1,921 @@
+C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 16:15:58 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE HAL_NRF
+OBJECT MODULE PLACED IN .\build\hal_nrf.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE hal_nrf.c LARGE BROWSE DEBUG OBJECTEXTEND PRINT(.\lst\hal_nrf.lst) OBJECT(.
+                    -\build\hal_nrf.obj)
+
+line level    source
+
+   1          /* Copyright (c) 2007 Nordic Semiconductor. All Rights Reserved.
+   2           *
+   3           * The information contained herein is property of Nordic Semiconductor ASA.
+   4           * Terms and conditions of usage are described in detail in NORDIC
+   5           * SEMICONDUCTOR STANDARD SOFTWARE LICENSE AGREEMENT. 
+   6           *
+   7           * Licensees are granted free, non-transferable use of the information. NO
+   8           * WARRENTY of ANY KIND is provided. This heading must NOT be removed from
+   9           * the file.
+  10           *
+  11           * $LastChangedRevision: 3653 $
+  12           */ 
+  13          
+  14           /** @file
+  15           *
+  16           * @author Runar Kjellhaug
+  17           *
+  18           */
+  19          /*lint -t2 */
+  20          /*lint -esym( 534, hal_nrf_write_reg ) */
+  21          /*lint -esym( 534, hal_nrf_rw ) */
+  22          /*lint -e708 */
+  23          /*lint -e46 */
+  24          #include <stdint.h>
+  25          #include <stdbool.h>
+  26          
+  27          #include "nordic_common.h"
+  28          #include "hal_nrf.h"
+  29          
+  30          #define SET_BIT(pos) ((uint8_t) (1<<( (uint8_t) (pos) )))
+  31          #define UINT8(t) ((uint8_t) (t))
+  32          
+  33          /** Basis function read_reg.
+  34           * Use this function to read the contents
+  35           * of one radios register.
+  36           *
+  37           * @param reg Register to read
+  38           * @return Register contents
+  39          */
+  40          uint8_t hal_nrf_read_reg(uint8_t reg);
+  41          
+  42          /** Basis function write_reg.
+  43           * Use this function to write a new value to
+  44           * a radio register.
+  45           *
+  46           * @param reg Register to write
+  47           * @param value New value to write
+  48           * @return Status register
+  49          */
+  50          uint8_t hal_nrf_write_reg(uint8_t reg, uint8_t value);
+  51          
+  52          /** Basis function, read_multibyte register .
+  53           * Use this function to read multiple bytes from
+  54           * a multibyte radio-register
+C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 16:15:58 PAGE 2   
+
+  55           *
+  56           * @param reg Multibyte register to read from
+  57           * @param *pbuf Pointer to buffer in which to store read bytes to
+  58           *
+  59           * @return pipe# of received data (MSB), if operation used by a hal_nrf_read_rx_pload
+  60           * @return length of read data (LSB), either for hal_nrf_read_rx_pload or
+  61           * for hal_nrf_get_address.
+  62          */
+  63          uint16_t hal_nrf_read_multibyte_reg(uint8_t reg, uint8_t *pbuf);
+  64          
+  65          /** Basis function, write_multibyte register.
+  66           * Use this function to write multiple bytes to
+  67           * a multiple radio register.
+  68           *
+  69           * @param reg Register to write
+  70           * @param *pbuf pointer to buffer in which data to write is
+  71           * @param length \# of bytes to write
+  72          */
+  73          void hal_nrf_write_multibyte_reg(uint8_t reg, const uint8_t *pbuf, uint8_t length);
+  74          
+  75          /**
+  76           * Typedef for the CONFIG register. Contains all the bitaddressable 
+  77           * settings in the bits struct and the value sent to the radio in the uint8_t
+  78           */
+  79          typedef union {
+  80            uint8_t value;
+  81                  struct {
+  82                          uint8_t prim_rx : 1;
+  83                          uint8_t pwr_up : 1;
+  84                          uint8_t crc0 : 1;
+  85                          uint8_t en_crc : 1;
+  86                          uint8_t mask_max_rt : 1;
+  87                          uint8_t mask_tx_ds : 1;
+  88                          uint8_t mask_rx_dr : 1;
+  89                          const uint8_t : 1;
+  90                  } bits;
+  91          } config_t;
+  92          
+  93          /**
+  94           * Typedef for the EN_AA, EN_RXADDR and DYNPD registers. Contains all the 
+  95           * bitaddressable settings in the bits struct and the value sent to the radio 
+  96           * in the uint8_t 
+  97           */
+  98          typedef union {
+  99            uint8_t value;
+ 100            struct {
+ 101              uint8_t pipe_0 : 1;
+ 102              uint8_t pipe_1 : 1;
+ 103              uint8_t pipe_2 : 1;
+ 104              uint8_t pipe_3 : 1;
+ 105              uint8_t pipe_4 : 1;
+ 106              uint8_t pipe_5 : 1;
+ 107              const uint8_t : 2;
+ 108            } bits;
+ 109          } en_pipes_t;
+ 110          
+ 111          /**
+ 112           * Typedef for the SETUP_AW register. Contains all the bitaddressable 
+ 113           * settings in the bits struct and the value sent to the radio in the uint8_t
+ 114           */
+ 115          typedef union {
+ 116            uint8_t value;
+C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 16:15:58 PAGE 3   
+
+ 117                  struct {
+ 118                          uint8_t aw : 2;
+ 119                          const uint8_t : 6;              
+ 120                  } bits;
+ 121          } setup_aw_t;
+ 122          
+ 123          /**
+ 124           * Typedef for the SETUP_RETR register. Contains all the bitaddressable 
+ 125           * settings in the bits struct and the value sent to the radio in the uint8_t
+ 126           */
+ 127          typedef union {
+ 128            uint8_t value;
+ 129                  struct {
+ 130                          uint8_t arc : 4;
+ 131                          uint8_t ard : 4;
+ 132                  } bits;
+ 133          } setup_retr_t;
+ 134          
+ 135          /**
+ 136           * Typedef for the RF_CH register. Contains all the bitaddressable 
+ 137           * settings in the bits struct and the value sent to the radio in the uint8_t
+ 138           */
+ 139          typedef union {
+ 140            uint8_t value;
+ 141                  struct {
+ 142                          uint8_t rf_ch : 7;
+ 143                          const uint8_t : 1;
+ 144                  } bits;
+ 145          } rf_ch_t;
+ 146          
+ 147          /**
+ 148           * Typedef for the RF_SETUP register. Contains all the bitaddressable 
+ 149           * settings in the bits struct and the value sent to the radio in the uint8_t
+ 150           */
+ 151          typedef union {
+ 152            uint8_t value;
+ 153                  struct {
+ 154                          const uint8_t : 1;
+ 155                          uint8_t rf_pwr : 2;
+ 156                          uint8_t rf_dr_high : 1;
+ 157                          uint8_t pll_lock : 1;
+ 158                          uint8_t rf_dr_low : 1;
+ 159              const uint8_t : 1;
+ 160              uint8_t cont_wave : 1;
+ 161                  } bits;
+ 162          } rf_setup_t;
+ 163          
+ 164          /**
+ 165           * Typedef for the RX_PW_Px registers. Contains all the bitaddressable 
+ 166           * settings in the bits struct and the value sent to the radio in the uint8_t
+ 167           */
+ 168          typedef union {
+ 169            uint8_t value;
+ 170                  struct {
+ 171                          uint8_t rx_pw : 6;
+ 172                          const uint8_t : 2;
+ 173                  } bits;
+ 174          } rx_pw_t;
+ 175          
+ 176          /**
+ 177           * Typedef for the FEATURE register. Contains all the bitaddressable 
+ 178           * settings in the bits struct and the value sent to the radio in the uint8_t
+C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 16:15:58 PAGE 4   
+
+ 179           */
+ 180          typedef union {
+ 181            uint8_t value;
+ 182                  struct {
+ 183                          uint8_t en_dyn_ack : 1;
+ 184                          uint8_t en_ack_pay : 1;
+ 185                          uint8_t en_dpl : 1;
+ 186                          const uint8_t : 5;
+ 187                  } bits;
+ 188          } feature_t;
+ 189          
+ 190          /**
+ 191           * Typedef for the AGC_CONFIG register. Contains all the bitaddressable 
+ 192           * settings in the bits struct and the value sent to the radio in the uint8_t
+ 193           */
+ 194          typedef union {
+ 195            uint16_t value;
+ 196            struct {
+ 197              uint8_t lnb_out : 3;
+ 198              uint8_t lnb_in : 3;
+ 199              uint8_t agc_en : 1;
+ 200              uint8_t agc_th1mbit : 3;
+ 201              uint8_t agc_th2mbit : 3;
+ 202              uint8_t cd_th : 3;
+ 203            } bits;
+ 204          } agc_config_t;
+ 205          
+ 206          /** Content of the CONFIG register */
+ 207          //static config_t config;
+ 208          /** Content of the EN_AA register */
+ 209          //static en_pipes_t en_aa;
+ 210          /** Content of the EN_RXADDR register */
+ 211          //static en_pipes_t en_rxaddr;
+ 212          /** Content of the SETUP_AW register */
+ 213          //static setup_aw_t setup_aw;
+ 214          /** Content of the SETUP_RETR register */
+ 215          //static setup_retr_t setup_retr;
+ 216          /** Content of the RF_CH register */
+ 217          //static rf_ch_t rf_ch;
+ 218          /** Content of the RF_SETUP register */
+ 219          //static rf_setup_t rf_setup;
+ 220          /** Content of the RX_PW_P0 register */
+ 221          //static rx_pw_t rx_pw_px;
+ 222          /** Content of the DYNPD register */
+ 223          //static en_pipes_t dynpd;
+ 224          /** Content of the FEATURE register */
+ 225          //static feature_t feature;
+ 226          /** Content of the AGC_CONFIG register */
+ 227          //static agc_config_t agc_config;
+ 228          
+ 229          void hal_nrf_set_operation_mode(hal_nrf_operation_mode_t op_mode)
+ 230          {
+ 231   1        config_t config;
+ 232   1        config.value = hal_nrf_read_reg (CONFIG);
+ 233   1      
+ 234   1        if(op_mode == HAL_NRF_PRX)
+ 235   1        {
+ 236   2          config.bits.prim_rx = 1;
+ 237   2        }
+ 238   1        else
+ 239   1        {
+ 240   2          config.bits.prim_rx = 0;
+C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 16:15:58 PAGE 5   
+
+ 241   2        }
+ 242   1      
+ 243   1        hal_nrf_write_reg (CONFIG, config.value);
+ 244   1      }
+ 245          
+ 246          void hal_nrf_set_power_mode(hal_nrf_pwr_mode_t pwr_mode)
+ 247          {
+ 248   1        config_t config;
+ 249   1        config.value = hal_nrf_read_reg (CONFIG);
+ 250   1      
+ 251   1        if(pwr_mode == HAL_NRF_PWR_UP)
+ 252   1        {
+ 253   2          config.bits.pwr_up = 1;
+ 254   2        }
+ 255   1        else
+ 256   1        {
+ 257   2          config.bits.pwr_up = 0;
+ 258   2        }
+ 259   1        
+ 260   1        hal_nrf_write_reg (CONFIG, config.value);
+ 261   1      }
+ 262          
+ 263          void hal_nrf_set_crc_mode(hal_nrf_crc_mode_t crc_mode)
+ 264          {
+ 265   1        config_t config;
+ 266   1        config.value = hal_nrf_read_reg (CONFIG);
+ 267   1      
+ 268   1              switch (crc_mode)
+ 269   1              {
+ 270   2                      case HAL_NRF_CRC_OFF:
+ 271   2                              config.bits.en_crc = 0;
+ 272   2                              break;
+ 273   2                      case HAL_NRF_CRC_8BIT:
+ 274   2                              config.bits.en_crc = 1;
+ 275   2                              config.bits.crc0 = 0;
+ 276   2                              break;
+ 277   2                      case HAL_NRF_CRC_16BIT:
+ 278   2                              config.bits.en_crc = 1;
+ 279   2                              config.bits.crc0 = 1;
+ 280   2                              break;
+ 281   2                      default:
+ 282   2                              break;
+ 283   2              } 
+ 284   1      
+ 285   1        hal_nrf_write_reg (CONFIG, config.value);
+ 286   1      }
+ 287          
+ 288          void hal_nrf_set_irq_mode(hal_nrf_irq_source_t int_source, bool irq_state)
+ 289          {
+ 290   1        config_t config;
+ 291   1        config.value = hal_nrf_read_reg (CONFIG);
+ 292   1      
+ 293   1              switch (int_source)
+ 294   1              {
+ 295   2                      case HAL_NRF_MAX_RT:
+ 296   2                              config.bits.mask_max_rt = irq_state ? 0 : 1;
+ 297   2            break;
+ 298   2          case HAL_NRF_TX_DS:
+ 299   2            config.bits.mask_tx_ds = irq_state ? 0 : 1;
+ 300   2            break;
+ 301   2          case HAL_NRF_RX_DR:
+ 302   2            config.bits.mask_rx_dr = irq_state ? 0 : 1;
+C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 16:15:58 PAGE 6   
+
+ 303   2            break;
+ 304   2        }
+ 305   1        
+ 306   1        hal_nrf_write_reg (CONFIG, config.value);
+ 307   1      }
+ 308          
+ 309          uint8_t hal_nrf_get_clear_irq_flags(void)
+ 310          {
+ 311   1        uint8_t retval;
+ 312   1        
+ 313   1        retval = hal_nrf_write_reg (STATUS, (BIT_6|BIT_5|BIT_4));
+ 314   1      
+ 315   1        return (retval & (BIT_6|BIT_5|BIT_4));
+ 316   1      }
+ 317          
+ 318          void hal_nrf_clear_irq_flag(hal_nrf_irq_source_t int_source)
+ 319          {
+ 320   1        hal_nrf_write_reg (STATUS, SET_BIT(int_source));
+ 321   1      }
+ 322          
+ 323          uint8_t hal_nrf_get_irq_flags(void)
+ 324          {
+ 325   1        return hal_nrf_nop() & (BIT_6|BIT_5|BIT_4);
+ 326   1      }
+ 327          
+ 328          void hal_nrf_open_pipe(hal_nrf_address_t pipe_num, bool auto_ack)
+ 329          {
+ 330   1        en_pipes_t en_rxaddr;
+ 331   1        en_pipes_t en_aa;
+ 332   1        en_rxaddr.value = hal_nrf_read_reg (EN_RXADDR);
+ 333   1        en_aa.value = hal_nrf_read_reg (EN_AA);
+ 334   1      
+ 335   1        switch(pipe_num)
+ 336   1        {
+ 337   2          case HAL_NRF_PIPE0:
+ 338   2          case HAL_NRF_PIPE1:
+ 339   2          case HAL_NRF_PIPE2:
+ 340   2          case HAL_NRF_PIPE3:
+ 341   2          case HAL_NRF_PIPE4:
+ 342   2          case HAL_NRF_PIPE5:
+ 343   2            en_rxaddr.value = en_rxaddr.value | SET_BIT(pipe_num);
+ 344   2      
+ 345   2            if(auto_ack)
+ 346   2            {
+ 347   3              en_aa.value = en_aa.value | SET_BIT(pipe_num);
+ 348   3            }
+ 349   2            else
+ 350   2            {
+ 351   3              en_aa.value = en_aa.value & ~SET_BIT(pipe_num);
+ 352   3            }
+ 353   2            break;
+ 354   2      
+ 355   2          case HAL_NRF_ALL:
+ 356   2            en_rxaddr.value = ~(BIT_6|BIT_7);
+ 357   2            
+ 358   2            if(auto_ack)
+ 359   2            {
+ 360   3              en_aa.value = ~(BIT_6|BIT_7);
+ 361   3            }
+ 362   2            else
+ 363   2            {
+ 364   3              en_aa.value = 0;
+C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 16:15:58 PAGE 7   
+
+ 365   3            }
+ 366   2            break;
+ 367   2            
+ 368   2          default:
+ 369   2            break;
+ 370   2        }
+ 371   1      
+ 372   1        hal_nrf_write_reg (EN_RXADDR, en_rxaddr.value);
+ 373   1        hal_nrf_write_reg (EN_AA, en_aa.value);
+ 374   1      }
+ 375          
+ 376          void hal_nrf_close_pipe(hal_nrf_address_t pipe_num)
+ 377          {
+ 378   1        en_pipes_t en_rxaddr;
+ 379   1        en_pipes_t en_aa;
+ 380   1        en_rxaddr.value = hal_nrf_read_reg (EN_RXADDR);
+ 381   1        en_aa.value = hal_nrf_read_reg (EN_AA);
+ 382   1      
+ 383   1        switch(pipe_num)
+ 384   1        {
+ 385   2          case HAL_NRF_PIPE0:
+ 386   2          case HAL_NRF_PIPE1:
+ 387   2          case HAL_NRF_PIPE2:
+ 388   2          case HAL_NRF_PIPE3:
+ 389   2          case HAL_NRF_PIPE4:
+ 390   2          case HAL_NRF_PIPE5:
+ 391   2            en_rxaddr.value = en_rxaddr.value & ~SET_BIT(pipe_num);
+ 392   2            en_aa.value = en_aa.value & ~SET_BIT(pipe_num);
+ 393   2            break;
+ 394   2          
+ 395   2          case HAL_NRF_ALL:
+ 396   2            en_rxaddr.value = 0;
+ 397   2            en_aa.value = 0;
+ 398   2            break;
+ 399   2            
+ 400   2          default:
+ 401   2            break;
+ 402   2        }
+ 403   1      
+ 404   1        hal_nrf_write_reg (EN_RXADDR, en_rxaddr.value);
+ 405   1        hal_nrf_write_reg (EN_AA, en_aa.value);
+ 406   1      }
+ 407          
+ 408          void hal_nrf_set_address(const hal_nrf_address_t address, const uint8_t *addr)
+ 409          {
+ 410   1        switch(address)
+ 411   1        {
+ 412   2          case HAL_NRF_TX:
+ 413   2          case HAL_NRF_PIPE0:
+ 414   2          case HAL_NRF_PIPE1:
+ 415   2            hal_nrf_write_multibyte_reg(W_REGISTER + RX_ADDR_P0 + (uint8_t) address, addr, hal_nrf_get_address_w
+             -idth());
+ 416   2            break;
+ 417   2          case HAL_NRF_PIPE2:
+ 418   2          case HAL_NRF_PIPE3:
+ 419   2          case HAL_NRF_PIPE4:
+ 420   2          case HAL_NRF_PIPE5:
+ 421   2            hal_nrf_write_reg (RX_ADDR_P0 + (uint8_t) address, *addr);
+ 422   2            break;
+ 423   2      
+ 424   2          default:
+ 425   2            break;
+C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 16:15:58 PAGE 8   
+
+ 426   2        }
+ 427   1      }
+ 428          
+ 429          uint8_t hal_nrf_get_address(uint8_t address, uint8_t *addr)
+ 430          {
+ 431   1        switch (address)
+ 432   1        {
+ 433   2          case HAL_NRF_PIPE0:
+ 434   2          case HAL_NRF_PIPE1:
+ 435   2          case HAL_NRF_TX:
+ 436   2            return hal_nrf_read_multibyte_reg (address, addr);
+ 437   2          default:
+ 438   2            *addr = hal_nrf_read_reg(RX_ADDR_P0 + address);
+ 439   2            return 1;
+ 440   2        }
+ 441   1      }
+ 442          
+ 443          void hal_nrf_set_auto_retr(uint8_t retr, uint16_t delay)
+ 444          {
+ 445   1        setup_retr_t setup_retr;
+ 446   1        setup_retr.bits.ard = (delay / 250) - 1;
+ 447   1        setup_retr.bits.arc = retr;
+ 448   1      
+ 449   1        hal_nrf_write_reg (SETUP_RETR, setup_retr.value);
+ 450   1      }
+ 451          
+ 452          void hal_nrf_set_address_width(hal_nrf_address_width_t aw)
+ 453          {
+ 454   1        setup_aw_t setup_aw;
+ 455   1        setup_aw.bits.aw = (uint8_t)aw - 2;
+ 456   1      
+ 457   1        hal_nrf_write_reg (SETUP_AW, setup_aw.value);
+ 458   1      }
+ 459          
+ 460          uint8_t hal_nrf_get_address_width (void)
+ 461          {
+ 462   1        return hal_nrf_read_reg (SETUP_AW) + 2;
+ 463   1      }
+ 464          
+ 465          void hal_nrf_set_rx_payload_width(uint8_t pipe_num, uint8_t pload_width)
+ 466          {
+ 467   1        hal_nrf_write_reg (RX_PW_P0 + pipe_num, pload_width);
+ 468   1      }
+ 469          
+ 470          uint8_t hal_nrf_get_pipe_status(uint8_t pipe_num)
+ 471          {
+ 472   1        en_pipes_t en_rxaddr;
+ 473   1        en_pipes_t en_aa;
+ 474   1        uint8_t en_rx_r, en_aa_r;
+ 475   1        
+ 476   1        en_rxaddr.value = hal_nrf_read_reg (EN_RXADDR);
+ 477   1        en_aa.value = hal_nrf_read_reg (EN_AA);
+ 478   1      
+ 479   1        switch (pipe_num)
+ 480   1        {
+ 481   2          case 0:
+ 482   2            en_rx_r = en_rxaddr.bits.pipe_0;
+ 483   2            en_aa_r = en_aa.bits.pipe_0;
+ 484   2            break;
+ 485   2          case 1:
+ 486   2            en_rx_r = en_rxaddr.bits.pipe_1;
+ 487   2            en_aa_r = en_aa.bits.pipe_1;
+C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 16:15:58 PAGE 9   
+
+ 488   2            break;
+ 489   2          case 2:
+ 490   2            en_rx_r = en_rxaddr.bits.pipe_2;
+ 491   2            en_aa_r = en_aa.bits.pipe_2;
+ 492   2            break;
+ 493   2          case 3:
+ 494   2            en_rx_r = en_rxaddr.bits.pipe_3;
+ 495   2            en_aa_r = en_aa.bits.pipe_3;
+ 496   2            break;
+ 497   2          case 4:
+ 498   2            en_rx_r = en_rxaddr.bits.pipe_4;
+ 499   2            en_aa_r = en_aa.bits.pipe_4;
+ 500   2            break;
+ 501   2          case 5:
+ 502   2            en_rx_r = en_rxaddr.bits.pipe_5;
+ 503   2            en_aa_r = en_aa.bits.pipe_5;
+ 504   2            break;
+ 505   2          default:
+ 506   2            en_rx_r = 0;
+ 507   2            en_aa_r = 0;
+ 508   2            break;
+ 509   2        }
+ 510   1        
+ 511   1        return (uint8_t)(en_aa_r << 1) + en_rx_r;
+ 512   1      }
+ 513          
+ 514          
+ 515          uint8_t hal_nrf_get_auto_retr_status(void)
+ 516          {
+ 517   1        return hal_nrf_read_reg(OBSERVE_TX);
+ 518   1      }
+ 519          
+ 520          uint8_t hal_nrf_get_packet_lost_ctr(void)
+ 521          {
+ 522   1        return ((hal_nrf_read_reg(OBSERVE_TX) & (BIT_7|BIT_6|BIT_5|BIT_4)) >> 4);
+ 523   1      }
+ 524          
+ 525          uint8_t hal_nrf_get_rx_payload_width(uint8_t pipe_num)
+ 526          {
+ 527   1        uint8_t pw;
+ 528   1      
+ 529   1        switch (pipe_num)
+ 530   1        {
+ 531   2          case 0:
+ 532   2            pw = hal_nrf_read_reg (RX_PW_P0);
+ 533   2            break;      
+ 534   2          case 1:
+ 535   2            pw = hal_nrf_read_reg (RX_PW_P1);
+ 536   2            break;
+ 537   2          case 2:
+ 538   2            pw = hal_nrf_read_reg (RX_PW_P2);
+ 539   2            break;
+ 540   2          case 3:
+ 541   2            pw = hal_nrf_read_reg (RX_PW_P3);
+ 542   2            break;
+ 543   2          case 4:
+ 544   2            pw = hal_nrf_read_reg (RX_PW_P4);
+ 545   2            break;
+ 546   2          case 5:
+ 547   2            pw = hal_nrf_read_reg (RX_PW_P5);
+ 548   2            break;
+ 549   2          default:
+C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 16:15:58 PAGE 10  
+
+ 550   2            pw = 0;
+ 551   2            break;
+ 552   2        }
+ 553   1      
+ 554   1        return pw;
+ 555   1      }
+ 556          
+ 557          void hal_nrf_set_rf_channel(uint8_t channel)
+ 558          {
+ 559   1        rf_ch_t rf_ch;
+ 560   1        rf_ch.bits.rf_ch = channel;
+ 561   1        
+ 562   1        hal_nrf_write_reg (RF_CH, rf_ch.value);
+ 563   1      }
+ 564          
+ 565          void hal_nrf_set_output_power(hal_nrf_output_power_t power)
+ 566          {
+ 567   1        rf_setup_t rf_setup;
+ 568   1        rf_setup.value = hal_nrf_read_reg (RF_SETUP);
+ 569   1      
+ 570   1        rf_setup.bits.rf_pwr = (uint8_t)power;
+ 571   1        
+ 572   1        hal_nrf_write_reg (RF_SETUP, rf_setup.value);
+ 573   1      }
+ 574          
+ 575          void hal_nrf_set_datarate(hal_nrf_datarate_t datarate)
+ 576          {
+ 577   1        rf_setup_t rf_setup;
+ 578   1        rf_setup.value = hal_nrf_read_reg (RF_SETUP);
+ 579   1        
+ 580   1        switch (datarate)
+ 581   1        {
+ 582   2          case HAL_NRF_250KBPS:
+ 583   2            rf_setup.bits.rf_dr_low = 1;
+ 584   2            rf_setup.bits.rf_dr_high = 0;
+ 585   2            break;
+ 586   2          case HAL_NRF_1MBPS:
+ 587   2            rf_setup.bits.rf_dr_low = 0;
+ 588   2            rf_setup.bits.rf_dr_high = 0;
+ 589   2            break;
+ 590   2          case HAL_NRF_2MBPS:
+ 591   2          default:
+ 592   2            rf_setup.bits.rf_dr_low = 0;
+ 593   2            rf_setup.bits.rf_dr_high = 1;
+ 594   2            break;
+ 595   2        }
+ 596   1        
+ 597   1        hal_nrf_write_reg (RF_SETUP, rf_setup.value);
+ 598   1      }
+ 599          
+ 600          bool hal_nrf_rx_fifo_empty(void)
+ 601          {
+ 602   1        if(hal_nrf_get_rx_data_source()==7)
+ 603   1        {
+ 604   2          return true;
+ 605   2        }
+ 606   1        else
+ 607   1        {
+ 608   2          return false;
+ 609   2        }
+ 610   1      }
+ 611          
+C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 16:15:58 PAGE 11  
+
+ 612          bool hal_nrf_rx_fifo_full(void)
+ 613          {
+ 614   1        return (bool)((hal_nrf_read_reg(FIFO_STATUS)>> RX_EMPTY) & 1);
+ 615   1      }
+ 616          
+ 617          bool hal_nrf_tx_fifo_empty(void)
+ 618          {
+ 619   1        return (bool)((hal_nrf_read_reg(FIFO_STATUS) >> TX_EMPTY) & 1);
+ 620   1      }
+ 621          
+ 622          bool hal_nrf_tx_fifo_full(void)
+ 623          {
+ 624   1        return (bool)((hal_nrf_read_reg(FIFO_STATUS) >> TX_FIFO_FULL) & 1);
+ 625   1      }
+ 626          
+ 627          uint8_t hal_nrf_get_tx_fifo_status(void)
+ 628          {
+ 629   1        return ((hal_nrf_read_reg(FIFO_STATUS) & ((1<<TX_FIFO_FULL)|(1<<TX_EMPTY))) >> 4);
+ 630   1      }
+ 631          
+ 632          uint8_t hal_nrf_get_rx_fifo_status(void)
+ 633          {
+ 634   1        return (hal_nrf_read_reg(FIFO_STATUS) & ((1<<RX_FULL)|(1<<RX_EMPTY)));
+ 635   1      }
+ 636          
+ 637          uint8_t hal_nrf_get_fifo_status(void)
+ 638          {
+ 639   1        return hal_nrf_read_reg(FIFO_STATUS);
+ 640   1      }
+ 641          
+ 642          uint8_t hal_nrf_get_transmit_attempts(void)
+ 643          {
+ 644   1        return (hal_nrf_read_reg(OBSERVE_TX) & (BIT_3|BIT_2|BIT_1|BIT_0));
+ 645   1      }
+ 646          
+ 647          bool hal_nrf_get_carrier_detect(void)
+ 648          {
+ 649   1        return hal_nrf_read_reg(CD) & 1;
+ 650   1      }
+ 651          
+ 652          void hal_nrf_activate_features(void)
+ 653          {return;}
+ 654          
+ 655          void hal_nrf_setup_dynamic_payload (uint8_t setup)
+ 656          {
+ 657   1        en_pipes_t dynpd;
+ 658   1        dynpd.value = setup & ~0xC0;
+ 659   1      
+ 660   1        hal_nrf_write_reg (DYNPD, dynpd.value);
+ 661   1      }
+ 662          
+ 663          void hal_nrf_enable_dynamic_payload(bool enable)
+ 664          {
+ 665   1        feature_t feature;
+ 666   1        feature.value = hal_nrf_read_reg (FEATURE);
+ 667   1        feature.bits.en_dpl = (enable) ? 1 : 0;
+ 668   1      
+ 669   1        hal_nrf_write_reg (FEATURE, feature.value);
+ 670   1      }
+ 671          
+ 672          void hal_nrf_enable_ack_payload(bool enable)
+ 673          {
+C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 16:15:58 PAGE 12  
+
+ 674   1        feature_t feature;
+ 675   1        feature.value = hal_nrf_read_reg (FEATURE);
+ 676   1        feature.bits.en_ack_pay = (enable) ? 1 : 0;
+ 677   1      
+ 678   1        hal_nrf_write_reg (FEATURE, feature.value);
+ 679   1      }
+ 680          
+ 681          void hal_nrf_enable_dynamic_ack(bool enable)
+ 682          {
+ 683   1        feature_t feature;
+ 684   1        feature.value = hal_nrf_read_reg (FEATURE);
+ 685   1        feature.bits.en_dyn_ack = (enable) ? 1 : 0;
+ 686   1      
+ 687   1        hal_nrf_write_reg (FEATURE, feature.value);
+ 688   1      }
+ 689          
+ 690          void hal_nrf_write_tx_payload(const uint8_t *tx_pload, uint8_t length)
+ 691          {
+ 692   1        hal_nrf_write_multibyte_reg(W_TX_PAYLOAD, tx_pload, length);
+ 693   1      }
+ 694          
+ 695          void hal_nrf_write_tx_payload_noack(const uint8_t *tx_pload, uint8_t length)
+ 696          {
+ 697   1        hal_nrf_write_multibyte_reg(W_TX_PAYLOAD_NOACK, tx_pload, length);
+ 698   1      }
+ 699          
+ 700          void hal_nrf_write_ack_payload(uint8_t pipe, const uint8_t *tx_pload, uint8_t length)
+ 701          {
+ 702   1        hal_nrf_write_multibyte_reg(W_ACK_PAYLOAD | pipe, tx_pload, length);
+ 703   1      }
+ 704          
+ 705          uint8_t hal_nrf_read_rx_payload_width()
+ 706          {
+ 707   1        return hal_nrf_read_reg(R_RX_PL_WID);
+ 708   1      }
+ 709          
+ 710          uint16_t hal_nrf_read_rx_payload(uint8_t *rx_pload)
+ 711          {
+ 712   1        return hal_nrf_read_multibyte_reg(UINT8(HAL_NRF_RX_PLOAD), rx_pload);
+ 713   1      }
+ 714          
+ 715          uint8_t hal_nrf_get_rx_data_source(void)
+ 716          {
+ 717   1        return ((hal_nrf_nop() & (BIT_3|BIT_2|BIT_1)) >> 1);
+ 718   1      }
+ 719          
+ 720          void hal_nrf_reuse_tx(void)
+ 721          {
+ 722   1        CSN_LOW();
+ 723   1        hal_nrf_rw(REUSE_TX_PL);
+ 724   1        CSN_HIGH();
+ 725   1      }
+ 726          
+ 727          bool hal_nrf_get_reuse_tx_status(void)
+ 728          {
+ 729   1        return (bool)((hal_nrf_get_fifo_status() & (1<<TX_REUSE)) >> TX_REUSE);
+ 730   1      }
+ 731          
+ 732          void hal_nrf_flush_rx(void)
+ 733          {
+ 734   1        CSN_LOW();
+ 735   1        hal_nrf_rw(FLUSH_RX);
+C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 16:15:58 PAGE 13  
+
+ 736   1        CSN_HIGH();
+ 737   1      }
+ 738          
+ 739          void hal_nrf_flush_tx(void)
+ 740          {
+ 741   1        CSN_LOW();
+ 742   1        hal_nrf_rw(FLUSH_TX);
+ 743   1        CSN_HIGH();
+ 744   1      }
+ 745          
+ 746          uint8_t hal_nrf_nop(void)
+ 747          {
+ 748   1        uint8_t retval;
+ 749   1      
+ 750   1        CSN_LOW();
+ 751   1        retval = hal_nrf_rw(NOP);
+ 752   1        CSN_HIGH();
+ 753   1      
+ 754   1        return retval;
+ 755   1      }
+ 756          
+ 757          void hal_nrf_set_pll_mode(bool pll_lock)
+ 758          {
+ 759   1        rf_setup_t rf_setup;
+ 760   1        rf_setup.value = hal_nrf_read_reg (RF_SETUP);
+ 761   1        rf_setup.bits.pll_lock = (pll_lock) ? 1 : 0;
+ 762   1      
+ 763   1        hal_nrf_write_reg(RF_SETUP, rf_setup.value);
+ 764   1      }
+ 765          
+ 766          uint8_t hal_nrf_get_rssi(void)
+ 767          {
+ 768   1        agc_config_t agc_config;
+ 769   1        uint8_t value[2];
+ 770   1        hal_nrf_read_multibyte_reg(AGC_CONFIG, value);
+ 771   1        agc_config.value = ((value[1]) | (value[0] << 8));
+ 772   1        return UINT8(agc_config.bits.lnb_out);
+ 773   1      }
+ 774          
+ 775          void hal_nrf_enable_continious_wave (bool enable)
+ 776          {
+ 777   1        rf_setup_t rf_setup;
+ 778   1        rf_setup.value = hal_nrf_read_reg (RF_SETUP);
+ 779   1        rf_setup.bits.cont_wave = (enable ? 1 : 0);
+ 780   1      
+ 781   1        hal_nrf_write_reg(RF_SETUP, rf_setup.value);
+ 782   1      }
+ 783          
+ 784          uint8_t hal_nrf_read_reg(uint8_t reg)
+ 785          {
+ 786   1        uint8_t temp;
+ 787   1      
+ 788   1        CSN_LOW();
+ 789   1        hal_nrf_rw(reg);
+ 790   1        temp = hal_nrf_rw(0);
+ 791   1        CSN_HIGH();
+ 792   1      
+ 793   1        return temp;
+ 794   1      }
+ 795          
+ 796          uint8_t hal_nrf_write_reg(uint8_t reg, uint8_t value)
+ 797          {
+C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 16:15:58 PAGE 14  
+
+ 798   1        uint8_t retval;
+ 799   1        
+ 800   1        CSN_LOW();
+ 801   1        retval = hal_nrf_rw(W_REGISTER + reg);
+ 802   1        hal_nrf_rw(value);
+ 803   1        CSN_HIGH();
+ 804   1      
+ 805   1        return retval;
+ 806   1      }
+ 807          
+ 808          uint16_t hal_nrf_read_multibyte_reg(uint8_t reg, uint8_t *pbuf)
+ 809          {
+ 810   1        uint8_t ctr, length;
+ 811   1        switch(reg)
+ 812   1        {
+ 813   2          case HAL_NRF_PIPE0:
+ 814   2          case HAL_NRF_PIPE1:
+ 815   2          case HAL_NRF_TX:
+ 816   2            length = ctr = hal_nrf_get_address_width();
+ 817   2            CSN_LOW();
+ 818   2            hal_nrf_rw(RX_ADDR_P0 + reg);
+ 819   2            break;
+ 820   2            
+ 821   2          case HAL_NRF_RX_PLOAD:
+ 822   2            if( (reg = hal_nrf_get_rx_data_source()) < 7)
+ 823   2            {
+ 824   3              length = ctr = hal_nrf_read_rx_payload_width();
+ 825   3      
+ 826   3              CSN_LOW();
+ 827   3              hal_nrf_rw(R_RX_PAYLOAD);
+ 828   3            }
+ 829   2            else
+ 830   2            {
+ 831   3             ctr = length = 0;
+ 832   3            }
+ 833   2            break;
+ 834   2      
+ 835   2          case AGC_CONFIG:
+ 836   2            ctr = length = 2;
+ 837   2            CSN_LOW();
+ 838   2            hal_nrf_rw (AGC_CONFIG);
+ 839   2            break;
+ 840   2      
+ 841   2          default:
+ 842   2            ctr = length = 0;
+ 843   2            break;
+ 844   2        }
+ 845   1      
+ 846   1        while(ctr--)
+ 847   1        {
+ 848   2          *pbuf++ = hal_nrf_rw(0);
+ 849   2        }
+ 850   1      
+ 851   1        CSN_HIGH();
+ 852   1      
+ 853   1        return (((uint16_t) reg << 8) | length);
+ 854   1      }
+ 855          
+ 856          void hal_nrf_write_multibyte_reg(uint8_t cmd, const uint8_t *pbuf, uint8_t length)
+ 857          {
+ 858   1        CSN_LOW();
+ 859   1      
+C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 16:15:58 PAGE 15  
+
+ 860   1        hal_nrf_rw(cmd);
+ 861   1      
+ 862   1        while(length--)
+ 863   1        {
+ 864   2          hal_nrf_rw(*pbuf++);
+ 865   2        }
+ 866   1      
+ 867   1        CSN_HIGH();
+ 868   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1956    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----      71
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

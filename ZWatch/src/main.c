@@ -251,7 +251,7 @@ void checkResume(void)
           ledBuffer.led0=rfBuffer.tableID/10;
            ledBuffer.led1=rfBuffer.tableID%10;
            ledBuffer.order=rfBuffer.orderID; 
-        timeCount=0;
+			timeCount=0;
             msgReceive=1;
       //  UartSendString((uchar *)buffer,7);
      //   UartSendString("###",3);
@@ -286,8 +286,7 @@ void checkResume(void)
                   }
                   else
                   {       myTime=0;
-                           
-                           TMShowLedInfo(&ledBuffer);
+                          TMShowLedInfo(&ledBuffer);
                              
                   }   
                  }

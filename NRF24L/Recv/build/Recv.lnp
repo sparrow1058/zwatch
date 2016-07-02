@@ -1,0 +1,11 @@
+".\build\main.obj",
+".\build\application.obj",
+".\build\radio.obj",
+".\build\system.obj",
+".\build\hal_nrf.obj",
+".\build\hal_nrf_hw.obj" 
+TO ".\build\Recv" 
+PRINT(".\lst\Recv.m51") RAMSIZE(256) 
+DISABLEWARNING (15,16) 
+CODE( 0X0000-0X3FFF )
+XDATA( 0X0000-0X03FF )

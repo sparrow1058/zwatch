@@ -10,7 +10,7 @@
 #define RF_FREQ_902MHZ  902000
 
 
-#define BUFFER_SIZE   7
+#define BUFFER_SIZE   8
 #define MAX_NUM     5
 #define RETRY_TIMES   1
 #define WAIT_TIMES    1
@@ -32,8 +32,9 @@
 #define UART_MSG_FREQ     0xFE    //change FREQ
 
 //machine ID
-#define LED1    P1_0
-#define LED2    P1_1
+#define LED_TX    P1_0
+#define LED_RX    P1_1
+
 #define KEY1    P1_2
 #define KEY2    P1_3
 //External functions
@@ -46,6 +47,7 @@ typedef struct RF_DATA
 {
   INT16U  num;
   INT8U   msgType;
+  INT8U   groupID;
   INT8U   macID;
   INT8U   tableID;
   INT8U   orderID;
@@ -55,6 +57,7 @@ typedef struct UART_CMD
 {
   INT16U  num;
   INT8U   msgType;
+  INT8U   groupID;  
   INT8U   macID;
   INT8U   tableID;
   INT8U   orderID;
@@ -67,7 +70,7 @@ uchar uartData;
 uchar uartCount=0;
 uchar uartFlag=0;
 uchar cmdFlag=0;
-INT16U maxTimes=10;
+INT8U maxTimes=10;
 
 uchar uartGet[10];
 INT16U  msgTimeCount=0;
@@ -84,31 +87,34 @@ void boardInit()
     IEN0 = 0x81;
         WORCTL |= 0x00;    //2^15 period
     WORIRQ |= 0X10;   //
-    IEN0 |= 0X20;     //开中断
+ //   IEN0 |= 0X20;     //开中断
 }
 void getRfBuffer(uchar  *buf)
 {
   INT8U *data=buf;
-  rfBuffer.num=*data<<8+*(data+1);
-  rfBuffer.msgType=*(data+2);
-  rfBuffer.macID=*(data+3);
-  rfBuffer.tableID=*(data+4);
-  rfBuffer.orderID=*(data+5);
-  rfBuffer.sum=*(data+6);  
+ // rfBuffer.num=*data;
+  rfBuffer.num=*(data) +*(data+1)*256;
+  data+=2;
+  rfBuffer.msgType=*(data++);
+  rfBuffer.groupID=*(data++);
+  rfBuffer.macID=*(data++);
+  rfBuffer.tableID=*(data++);
+  rfBuffer.orderID=*(data++);
+  rfBuffer.sum=*(data++);  
 }
 int main( void )
 {
      boardInit();
      InitUART();
-     UartSendString("Zserver",7);
-/*
+   //  UartSendString("Zserver",7);
+
      rfBuffer.num=0x0102;
     rfBuffer.msgType=0x01;
 
     rfBuffer.tableID=0x08;
     rfBuffer.orderID=0x02;
     rfBuffer.sum=0x38;
-    */
+   
   
   //循环发射，接收方收到后，LED会翻转
   //此处采用sleep timer，它在实际项目中非常有用，时钟源为外部32768高精度晶振
@@ -116,10 +122,11 @@ int main( void )
   {
     
      cmdFlag=getUartCmd();
-     UartSendString("Zserver",7);
+   //     UartSendString("Zserver",7);
    //  uartData=0;
      while(cmdFlag==TRUE) 
      {
+      
        msgTimeCount++;
        handleMessage();
       if(msgTimeCount>maxTimes)
@@ -127,7 +134,7 @@ int main( void )
         msgTimeCount=0;
         cmdFlag=FALSE;
         uartCmd.msgType=UART_MSG_FAIL;
-        UartSendString((uchar *)&uartCmd,7);
+        UartSendString((uchar *)&uartCmd,BUFFER_SIZE);
         
       }
       uartFlag=0;
@@ -135,7 +142,7 @@ int main( void )
     //  uartCount=0;
 
      }
-     SET_POWER_MODE(3);
+ //    SET_POWER_MODE(3);
   }    
 }
         
@@ -146,10 +153,11 @@ void handleMessage(void)
     volatile INT32U  rdelay,wdelay;
     INT16U  i;
      while(MARCSTATE != 0x01);
-     LED1=0;
+     LED_TX=0;
     rfBuffer.macID=MSG_BROADCAST;
-    rf_send_packet((INT8U *) &rfBuffer, 7 );     //
-    LED1=1;
+    rf_send_packet((INT8U *) &rfBuffer, BUFFER_SIZE);     //
+  //  UartSendString((INT8U *) &rfBuffer, BUFFER_SIZE);
+    LED_TX=1;
     //每发射一次，闪烁一次。
   //  UartSendString("Send",4);   //leaf
     
@@ -159,8 +167,8 @@ void handleMessage(void)
         for(i=0;i<MAX_NUM;i++)
         { 
           rfBuffer.macID=i;
-          rf_send_packet((INT8U *) &rfBuffer, 7 );
-    
+          rf_send_packet((INT8U *) &rfBuffer, BUFFER_SIZE);
+        
           for( wdelay = 0; wdelay < WAIT_TIMES; wdelay ++ )
         {
     
@@ -168,19 +176,19 @@ void handleMessage(void)
           if( len!=0)   
           { 
          //   UartSendString((uchar *)buffer,7);
-            LED2=0;
+            LED_RX=0;
             getRfBuffer(buffer);
             if(rfBuffer.msgType==MSG_OK)
             {
               rfBuffer.msgType=MSG_SUCCESS;
-              rf_send_packet((INT8U *) &rfBuffer, 7 );
+              rf_send_packet((INT8U *) &rfBuffer, BUFFER_SIZE);
     
-			  uartCmd.macID=rfBuffer.macID;
+              uartCmd.macID=rfBuffer.macID;
               uartCmd.msgType=UART_MSG_SUCCESS;
-              UartSendString((uchar *)&uartCmd,7);
+              UartSendString((uchar *)&uartCmd,BUFFER_SIZE);
               msgTimeCount=0;
               cmdFlag=FALSE;
-              LED2=1;
+              LED_RX=1;
               return;
 
             }
@@ -199,7 +207,7 @@ INT8U getUartCmd(void)
     {
       uartFlag=0;
       uartGet[uartCount++]=uartData;
-      if(uartData=='#'||uartCount==7)  
+      if(uartData=='#'||uartCount==8)  
       {
         uartCount=0;
         if(uartGet[2]==UART_MSG_FREQ)
@@ -221,15 +229,16 @@ INT8U getUartCmd(void)
         }
         uartCmd.num=uartGet[1]*256+uartGet[0];
         uartCmd.msgType=UART_MSG_ACCESS;
-        uartCmd.macID=uartGet[3];
-        uartCmd.tableID=uartGet[4];
-        uartCmd.orderID=uartGet[5];
+        uartCmd.groupID=uartGet[3];
+        uartCmd.macID=uartGet[4];
+        uartCmd.tableID=uartGet[5];
+        uartCmd.orderID=uartGet[6];
     //    uartCmd.flag=UART_MSG_ACCESS;
       //  uartGet[6]=UART_MSG_ACCESS;
-        maxTimes=uartGet[6];
-        UartSendString((uchar *)&uartCmd,7);
+        maxTimes=uartGet[7];
+        UartSendString((uchar *)&uartCmd,BUFFER_SIZE);
         getRfBuffer(uartGet);
-    //    UartSendString((uchar *)&uartGet,7);
+        UartSendString((uchar *)&uartGet,BUFFER_SIZE);
         
         return TRUE;
       }else
