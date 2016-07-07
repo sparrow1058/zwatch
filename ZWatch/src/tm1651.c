@@ -11,7 +11,8 @@ void Delay_us(BYTE i) //nus 延时
         for(; i>0; i--)
         {
                asm("NOP");               
-              asm("NOP");                       
+              asm("NOP");  
+
         }        
 }
 
@@ -30,7 +31,7 @@ void I2Cask(void) //1651 应答
         clk = 0;
         Delay_us(5); //在第八个时钟下降沿之后延时5us，开始判断ACK 信号
       while(dio);
-        Delay_us(15); //leaf 
+       // Delay_us(15); //leaf 
         clk = 1;
         Delay_us(2);
         clk=0;
@@ -105,6 +106,17 @@ void TMClose(uchar num)
 void TMShowAuto(uchar * numArray)
 {
   uchar *tmp=numArray;
+  TMShow(0,*tmp++);
+  TMShow(1,*tmp++);
+  TMShow(2,*tmp++);
+  TMShow(3,*tmp++);
+  
+  
+}
+
+void TMShowAuto1(uchar * numArray)
+{
+  uchar *tmp=numArray;
    I2CStart();
   I2CWrByte(0x40);    //auto mode
    I2Cask();
@@ -123,6 +135,7 @@ void TMShowAuto(uchar * numArray)
    I2Cask();
    I2CStop();
 }
+
 void TMCloseAll()
 {
   TMClose(0);

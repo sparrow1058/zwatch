@@ -3,7 +3,7 @@
 #include "ioCC1110.h"
 #include "rf_cc1110.h"
 
-
+#define MYADDR		0x02
 
 #define GROUP_A       1<<0
 #define GROUP_B       1<<1
@@ -13,7 +13,7 @@
 #define GROUP_F       1<<5
 #define GROUP_G       1<<6
 #define MY_GROUP        GROUP_A
-#define MYADDR		0x02
+
 #define BROADCAST   0xFF
 
 #define MSG_TIME      0x01
@@ -117,6 +117,7 @@ uchar keyLed=0;
 uchar myTime=0;
 uchar recCount;
 uchar wdFlag=0;
+INT8U msgFlag;
 uchar timeLedDelay=0;
 volatile uchar reSeeFlag=0;
 INT32U  timeCount=0;
@@ -194,6 +195,7 @@ void TMShowLedInfo(LEDINFO *buffer)
       tmp[3]|=0x08;
   else
       tmp[3]|=0x00;
+
   TMShowAuto(tmp);
  showRGB(buffer->rgb); 
   
@@ -268,12 +270,12 @@ void checkResume(void)
     int main( void )
 {
     INT8U buffer[10], rssi, lqi;
-    INT8U msgFlag;
+
     INT8U firstFlag=0;
     boardInit();
     showRGB(0x01);
     InitUART();
-    //InitWatchdog();
+    InitWatchdog();
   //  handleStart();
   //  while(1);
     UartSendString("zwatch",6);
@@ -281,9 +283,9 @@ void checkResume(void)
     while( 1 ){
       timeCount++;
       feetDog();
-      len = rf_rec_packet(buffer, &rssi, &lqi, 240) ;
+      len = rf_rec_packet(buffer, &rssi, &lqi, 500) ;
       if(msgReceive==0)
-          keyFlag=0;    //when no msg receive clear the keyFlag;
+         keyFlag=0;    //when no msg receive clear the keyFlag;
       if(len!=0)
       {
         
@@ -297,6 +299,7 @@ void checkResume(void)
               ledBuffer.order=rfBuffer.orderID; 
               timeCount=0;
               msgReceive=1;
+           //   reSeeFlag=0;
               if(rfBuffer.macID==BROADCAST)
               {  
                    
@@ -315,19 +318,21 @@ void checkResume(void)
                   {
                         if(rfBuffer.macID==MYADDR)  
                         {       myTime=1;
-                                showRGB(B_VAL);
+                               
                                 ledBuffer.rgb=B_VAL;
                                 TMShowLedInfo(&ledBuffer);
                                   MOTO_DRV=1;
-                                  UartSendString("mytime",6);
+                               //   UartSendString("mytime",6);
+                               //   reSeeFlag=PWR_KEY;
+                                //  UartSendString((uchar *)reSeeFlag,1);
 
                         }
                         else
                         {       myTime=0;
                                  
-                                  TMShowLedInfo(&ledBuffer);
+                               //   TMShowLedInfo(&ledBuffer);
                                   showRGB(NO_VAL);
-                                   MOTO_DRV=0;
+                                 //  MOTO_DRV=0;
                         }   
                        }
               if(rfBuffer.msgType==MSG_SUCCESS)
@@ -342,13 +347,14 @@ void checkResume(void)
                        MOTO_DRV=0;
                        reSeeFlag=1;
                        msgReceive=0;
-                    //  UartSendString("SUCCESS",7);
+                    // UartSendString("SUCCESS",7);
                       // ledCloseAll();
                  }else
                  {
                     timeCount=0;   
                     myTime=0;
                     msgFlag=0;
+                    reSeeFlag=0;
                     ledCloseAll();
                     MOTO_DRV=0;            
                    
@@ -356,6 +362,29 @@ void checkResume(void)
               }
             }
       }
+      if(PWR_KEY==PWR_DOWN)
+      {
+        keyCount++;
+        if(msgFlag==1)
+          keyFlag=1;
+        else
+        {
+         if(reSeeFlag==1)
+           TMShowLedInfo(&ledBuffer);
+         else
+            TMShowID(MYADDR);
+         timeCount=TIMEOUT-1;
+         }
+       }
+      else                      //Key UP
+       {
+        keyCount=0;
+         if(msgFlag==0);
+          // showRGB(NO_VAL); 
+       }   
+         
+      
+      /*
       if(PWR_KEY==PWR_DOWN&&msgFlag==0)
       {
         keyCount++;
@@ -395,16 +424,18 @@ void checkResume(void)
         }
          keyCount=0;
        }
-      if(keyFlag&myTime&msgFlag)
+       */
+      if(myTime&&keyFlag)
       {
         keyFlag=0;
         rfBuffer.msgType=MSG_OK;
         rfBuffer.macID=MYADDR;
-      //  UartSendString("MSG_OK",7);
+      // UartSendString("MSG_OK",7);
         rf_send_packet((INT8U*) &rfBuffer, 10 );//·¢ËÍÓ¦´ðÐÅºÅ
         
       
       } 
+     
       if(timeCount>TIMEOUT)
       {
          timeCount=0;   
