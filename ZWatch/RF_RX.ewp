@@ -2176,14 +2176,14 @@
       <name>$PROJ_DIR$\src\rf_cc1110.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\src\tm1651.c</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\src\uart.c</name>
     </file>
   </group>
   <file>
     <name>$PROJ_DIR$\src\test.c</name>
+  </file>
+  <file>
+    <name>$PROJ_DIR$\src\tm2.c</name>
   </file>
 </project>
 

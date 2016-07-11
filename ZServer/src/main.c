@@ -82,6 +82,16 @@ uchar uartGet[20];
 uchar sendMac[40];
 uchar sendNum;
 INT16U  msgTimeCount=0;
+void InitWatchdog(void)
+{
+  WDCTL=0x00;   //set watch dog time 1s
+  WDCTL|=0x08;  //start watchdog
+}
+void feetDog(void)
+{
+  WDCTL=0xA8;
+  WDCTL=0x58;
+}
 void boardInit()
 {
    P1DIR |= ( 1<<0 ) | ( 1<<1 );// ÉèÖÃP1_0, P1_1ÎªÊä³ö  
@@ -197,7 +207,7 @@ void handleMessage(void)
           for( wdelay = 0; wdelay < WAIT_TIMES; wdelay ++ )
         {
     
-          len = rf_rec_packet(buffer, &rssi, &lqi, 500) ;
+          len = rf_rec_packet(buffer, &rssi, &lqi, 240) ;
           if( len!=0)   
           { 
          //   UartSendString((uchar *)buffer,7);

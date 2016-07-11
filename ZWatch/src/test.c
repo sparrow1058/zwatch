@@ -171,6 +171,8 @@ void ioInit()
         //P1SEL |=0x0F;
         P2DIR =0x01;
         PWR_DRV=0;
+        P1_2=1;
+        P1_3=1;
         MOTO_DRV=0;
 }
 
@@ -192,7 +194,7 @@ void TMShowLedInfo(LEDINFO *buffer)
   tmp[2]=ledCode[buffer->order];
  // tmp[3]=buffer->rgb;
   if(buffer->order==1)
-      tmp[3]|=0x08;
+      tmp[3]=0x08;
   else
       tmp[3]|=0x00;
 
@@ -238,18 +240,21 @@ void boardInit()
        ledBuffer.led1=MYADDR;
        ledBuffer.order=0x00; 
        ledBuffer.rgb=R_VAL;
-     LED_B=0;
-    rf_cc1110_init( 433000 );
+         rf_cc1110_init( 433000 );
     ioInit();
     IEN0 = 0x81;
+    P1IEN|=0x20;                //Enable P1.5 interrupt
+   // P1ICON=1;
+    PICTL|=0x02;
     //For sleep timer 
     WORCTL |= 0x01;    //2^15 period
      WOREVT1=SLEEP_TIME;
      WOREVT0=0xFF;
       EA = 1;
       IEN0 |= 0X20;     //开中断
-      IEN2 |=0x10;
+      IEN2 |=0x10;             //按键中断
       WORIRQ |= 0X10;   //
+      TMCloseAll();
 }
 void checkResume(void)
 {
@@ -266,6 +271,34 @@ void checkResume(void)
   }
   
 }
+void checkPowerKey()
+{
+  int cnt;
+  SET_POWER_MODE(3);
+  while(1)
+  {
+    if(PWR_KEY==PWR_DOWN)
+    {  
+      cnt++;
+      delay(50); 
+      LED_R=!LED_R;
+      
+      if(cnt>3)
+      { 
+        LED_R=1;
+        LED_G=0;
+      //  TMShowID(MYADDR);
+        break;
+      }
+      }else
+    {
+      TMCloseAll();
+      LED_R=1;
+      SET_POWER_MODE(3);
+    }
+  }
+  
+}
 
     int main( void )
 {
@@ -273,9 +306,10 @@ void checkResume(void)
 
     INT8U firstFlag=0;
     boardInit();
-    showRGB(0x01);
+   // checkPowerKey();
+    showRGB(R_VAL);
     InitUART();
-    InitWatchdog();
+   InitWatchdog();
   //  handleStart();
   //  while(1);
     UartSendString("zwatch",6);
@@ -283,14 +317,14 @@ void checkResume(void)
     while( 1 ){
       timeCount++;
       feetDog();
-      len = rf_rec_packet(buffer, &rssi, &lqi, 500) ;
+      len = rf_rec_packet(buffer, &rssi, &lqi, 240) ;
       if(msgReceive==0)
          keyFlag=0;    //when no msg receive clear the keyFlag;
       if(len!=0)
       {
         
         getRfBuffer(buffer);
-        UartSendString((uchar *)buffer,BUFFER_SIZE);
+      //  UartSendString((uchar *)buffer,BUFFER_SIZE);
 
             
         if(rfBuffer.groupID&MY_GROUP!=0){
@@ -372,7 +406,7 @@ void checkResume(void)
          if(reSeeFlag==1)
            TMShowLedInfo(&ledBuffer);
          else
-            TMShowID(MYADDR);
+           TMShowID(MYADDR);
          timeCount=TIMEOUT-1;
          }
        }
@@ -464,7 +498,7 @@ void checkResume(void)
          }
        }
       */
-      checkResume();
+     // checkResume();
       if(keyCount>KEY_LONG_PRESS)
       {      
           keyCount=0;
@@ -493,6 +527,8 @@ void powerOff(void)
            halWait(255);
          feetDog();
         }
+      //  SET_POWER_MODE(3);
+        while(1);
            //P2INP|=0x01;
 
         //while(1);
@@ -554,7 +590,8 @@ void handleStart(void)
         {
           P1IFG = 0;
       //  statu=0x06;
-           resumeKey=1;
+       //    resumeKey=1;
+     //   LED_R=!LED_R;
         }
        
         P1IF = 0;
