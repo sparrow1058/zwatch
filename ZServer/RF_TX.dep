@@ -34,9 +34,9 @@
       <file>$PROJ_DIR$\Debug\Exe\RF_TX.d51</file>
       <file>$PROJ_DIR$\Debug\Obj\RF_TX.pbd</file>
       <file>$TOOLKIT_DIR$\inc\clib\math.h</file>
+      <file>$PROJ_DIR$\hal_cc1110.h</file>
       <file>$TOOLKIT_DIR$\inc\ioCC1110.h</file>
       <file>$TOOLKIT_DIR$\inc\clib\stdlib.h</file>
-      <file>$PROJ_DIR$\hal_cc1110.h</file>
       <file>$PROJ_DIR$\Debug\Exe\RF_TX.hex</file>
       <file>$PROJ_DIR$\Debug\Exe\ZServer.hex</file>
       <file>$PROJ_DIR$\Debug\Obj\uart.r51</file>
@@ -65,7 +65,11 @@
       <inputs>
         <tool>
           <name>ICC8051</name>
-          <file> 28 5 3 17 12 20 29 21 27 0</file>
+          <file> 29 5 3 17 12 20 30 21 27 0</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 29 5 3 17 12 20 30 21 27 0</file>
         </tool>
       </inputs>
     </file>
@@ -84,11 +88,11 @@
       <inputs>
         <tool>
           <name>ICC8051</name>
-          <file> 0 28</file>
+          <file> 0 29</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 0 28</file>
+          <file> 0 29</file>
         </tool>
       </inputs>
     </file>
@@ -107,11 +111,11 @@
       <inputs>
         <tool>
           <name>ICC8051</name>
-          <file> 5 3 17 12 20 29 21 27 28</file>
+          <file> 5 3 17 12 20 30 21 27 29</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 5 3 17 12 20 29 21 27 28</file>
+          <file> 5 3 17 12 20 30 21 27 29</file>
         </tool>
       </inputs>
     </file>
@@ -130,11 +134,11 @@
       <inputs>
         <tool>
           <name>ICC8051</name>
-          <file> 28 3 17 12 20 29 21 27</file>
+          <file> 29 3 17 12 20 30 21 27</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 28 3 17 12 20 29 21 27</file>
+          <file> 29 3 17 12 20 30 21 27</file>
         </tool>
       </inputs>
     </file>
@@ -162,11 +166,11 @@
       <inputs>
         <tool>
           <name>ICC8051</name>
-          <file> 28 18 14 17 12 20 29 21 27 30</file>
+          <file> 29 18 14 17 12 20 30 21 27 28</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 28 18 14 17 12 20 29 21 27 30</file>
+          <file> 29 18 14 17 12 20 30 21 27 28</file>
         </tool>
       </inputs>
     </file>
@@ -185,11 +189,11 @@
       <inputs>
         <tool>
           <name>ICC8051</name>
-          <file> 18 14 17 12 20 29 21 27 28</file>
+          <file> 18 14 17 12 20 30 21 27 29</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 18 14 17 12 20 29 21 27 28</file>
+          <file> 18 14 17 12 20 30 21 27 29</file>
         </tool>
       </inputs>
     </file>

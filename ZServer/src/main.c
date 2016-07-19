@@ -1,9 +1,5 @@
-
-
 #include "ioCC1110.h"
-
 #include "rf_cc1110.h"
-
 #include "hal_cc1110.h"
 #define RF_FREQ_433MHZ  433000
 #define RF_FREQ_868MHZ  868000
@@ -82,6 +78,12 @@ uchar uartGet[20];
 uchar sendMac[40];
 uchar sendNum;
 INT16U  msgTimeCount=0;
+void delay_nms(unsigned int n)
+{
+	unsigned int i;
+	while(n--)
+	   for(i=0;i<550;i++);
+}
 void InitWatchdog(void)
 {
   WDCTL=0x00;   //set watch dog time 1s
@@ -203,7 +205,7 @@ void handleMessage(void)
          // rfBuffer.macID=i;
           rfBuffer.macID=sendMac[i];
           rf_send_packet((INT8U *) &rfBuffer, BUFFER_SIZE);
-        
+          delay_nms(2); 
           for( wdelay = 0; wdelay < WAIT_TIMES; wdelay ++ )
         {
     
@@ -216,8 +218,11 @@ void handleMessage(void)
             if(rfBuffer.msgType==MSG_OK)
             {
               rfBuffer.msgType=MSG_SUCCESS;
-              rf_send_packet((INT8U *) &rfBuffer, BUFFER_SIZE);
-    
+              for(i=0;i<3;i++)
+              {
+                rf_send_packet((INT8U *) &rfBuffer, BUFFER_SIZE);
+                delay_nms(2);
+              }
               uartCmd.macID=rfBuffer.macID;
               uartCmd.msgType=UART_MSG_SUCCESS;
               UartSendString((uchar *)&uartCmd,BUFFER_SIZE);

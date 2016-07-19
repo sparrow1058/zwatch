@@ -3,7 +3,7 @@
 #include "ioCC1110.h"
 #include "rf_cc1110.h"
 
-#define MYADDR		0x02
+#define MYADDR		0x01
 
 #define GROUP_A       1<<0
 #define GROUP_B       1<<1
@@ -193,11 +193,15 @@ void TMShowLedInfo(LEDINFO *buffer)
   tmp[1]=digCode[buffer->led1];
   tmp[2]=ledCode[buffer->order];
  // tmp[3]=buffer->rgb;
-  if(buffer->order==1)
+ /* if(buffer->order==1)
       tmp[3]=0x08;
   else
       tmp[3]|=0x00;
-
+*/
+  if(tmp[2]==0x00)
+    tmp[3]=0x08;
+  else
+    tmp[3]=0x00;
   TMShowAuto(tmp);
  showRGB(buffer->rgb); 
   
@@ -317,14 +321,15 @@ void checkPowerKey()
     while( 1 ){
       timeCount++;
       feetDog();
+      UartSendString("rf recv",8);
       len = rf_rec_packet(buffer, &rssi, &lqi, 240) ;
       if(msgReceive==0)
          keyFlag=0;    //when no msg receive clear the keyFlag;
       if(len!=0)
       {
-        
+      UartSendString((uchar *)len,1);  
         getRfBuffer(buffer);
-      //  UartSendString((uchar *)buffer,BUFFER_SIZE);
+       UartSendString((uchar *)buffer,10);
 
             
         if(rfBuffer.groupID&MY_GROUP!=0){
@@ -465,7 +470,8 @@ void checkPowerKey()
         rfBuffer.msgType=MSG_OK;
         rfBuffer.macID=MYADDR;
       // UartSendString("MSG_OK",7);
-        rf_send_packet((INT8U*) &rfBuffer, 10 );//发送应答信号
+       // for(uchar i=0;i<3;i++)
+          rf_send_packet((INT8U*) &rfBuffer, 10 );//发送应答信号
         
       
       } 

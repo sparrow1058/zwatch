@@ -14,13 +14,13 @@
 #include <iocc1110.h>
 #include "mytypedef.h"
 
-#define nop asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");//宏定义
+#define nop asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");//宏定义
 
 
 /********************定义控制端口**********************/
 #define CLK P1_2 //定义CLK
 #define  DIO P1_3 //定义DIO
-
+#define DEFAULT_VAL     0x8B
 
 /********************定义数据*************************/
 //unsigned char code CODE[10]={0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F,};//共阳数码管0~9字型码
@@ -78,12 +78,15 @@ void I2CWritebyte(unsigned char oneByte)
 		else
 		  DIO=0;
 		nop;
+                nop;nop;nop;
 			CLK=1;
 			oneByte=oneByte>>1;
+                        nop;nop;nop;nop;
 		  }
 		  //8位数据传送完
 		CLK=0;//判断芯片发过来的ACK应答信号
 		nop;
+                
 		while(DIO==1);
 		nop;
 		CLK=1;
@@ -115,7 +118,7 @@ void TMShowAuto(uchar * numArray)
 		I2CStop();
 
 		I2CStart();
-		I2CWritebyte(0x8C); //显示控制命令：开显示，脉冲宽度为11/16.
+		I2CWritebyte(DEFAULT_VAL); //显示控制命令：开显示，脉冲宽度为11/16.
 		I2CStop();
 
 }
@@ -134,7 +137,7 @@ void disp(unsigned char add, unsigned char value)
 		I2CStop();
 
 		I2CStart();
-		I2CWritebyte(0x8C);//显示控制命令：开显示，脉冲宽度为11/16.
+		I2CWritebyte(0x8A);//显示控制命令：开显示，脉冲宽度为11/16.
 		I2CStop();
 
 }
