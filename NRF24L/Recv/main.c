@@ -28,7 +28,9 @@ void main(void)
 { 
   mcu_init();
                                           
-  
+  //LED0_OFF;
+  //while(1);
+
   EA = 1;                               // Global interrupt enable
   boot_mess();
 

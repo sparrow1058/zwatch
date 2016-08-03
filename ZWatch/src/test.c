@@ -64,8 +64,13 @@
 #define	LED7	0x10
 #define	LED8	0x01
 */
-
-
+// For ADC
+#define HAL_ADC_REF_AVDD        0x80
+#define HAL_ADC_DEC_128         0x10
+#define HAL_ADC_DEC_12BIT         0x30
+#define HAL_ADC_CHN_0           0x00
+#define PM3_VAL            0x0710
+// 
 typedef struct RF_DATA
 {
   INT16U  num;
@@ -118,6 +123,7 @@ uchar myTime=0;
 uchar recCount;
 uchar wdFlag=0;
 INT8U msgFlag;
+uchar lowPowerFlag=0;
 uchar timeLedDelay=0;
 volatile uchar reSeeFlag=0;
 INT32U  timeCount=0;
@@ -127,6 +133,7 @@ INT8U timeoutTimes=0;
 uchar msgReceive=0;
 INT8U resumeKey=0;
 INT8U suspendFlag=0;
+INT8U resume_flag=0;
 void delay(uint n)
 {
 	uint tt;
@@ -137,6 +144,16 @@ void delay(uint n)
 	for(tt = 0;tt<n;tt++);
         for(tt = 0;tt<n;tt++);
 
+}
+void InitWatchdog(void)
+{
+  WDCTL=0x00;   //set watch dog time 1s
+  WDCTL|=0x08;  //start watchdog
+}
+void feetDog(void)
+{
+  WDCTL=0xA8;
+  WDCTL=0x58;
 }
 void showRGB(uchar val)         // val: bit0 R, bit1 G  , bit2 B
 {
@@ -150,22 +167,62 @@ void ledCloseAll(void)
   TMCloseAll();
   showRGB(NO_VAL); 
 } 
-
-void InitWatchdog(void)
+void checkVoltage(void)
 {
-  WDCTL=0x00;   //set watch dog time 1s
-  WDCTL|=0x08;  //start watchdog
-}
-void feetDog(void)
-{
-  WDCTL=0xA8;
-  WDCTL=0x58;
+  char tmp[2];
+  char temp;
+  uint value;
+  feetDog();
+  ADCIF=0;
+ ADCCON3=(HAL_ADC_REF_AVDD|HAL_ADC_DEC_12BIT|HAL_ADC_CHN_0);
+  //ADCCON1|=0x40;
+  while ( !ADCIF );
+ //while(ADCCON1<0x80);
+  //获得转换结果
+  //value = ADCL;
+ // value |= ((uint) ADCH) << 8;
+  tmp[0]=ADCH;
+  tmp[1]=ADCL;
+
+  tmp[1]=tmp[1]>>4;
+  tmp[1]=(tmp[1]&0x0F)|tmp[0]<<4;
+  tmp[0]=tmp[0]>>4;
+  value=tmp[0]*256+tmp[1];
+ //UartSendString(tmp,2);
+  if(value<PM3_VAL)
+  {  
+    
+    lowPowerFlag=1;
+  //  showRGB(NO_VAL);
+  // ledCloseAll();
+    //SET_POWER_MODE(3);
+  }
+  else
+     lowPowerFlag=0;
+    // SET_POWER_MODE(3);
+ // value=(tmp[0]*256+tmp[1])*3.3/2047;
+  //value=value*13/10;
+  
+  //if(value<3.8)
+   //  SET_POWER_MODE(3);
+  
+feetDog();
+ // ADCCON1=0x30; //Stop adC 
+  delay(2);
+
 }
 
+
+
+void InitADC(void)
+{
+    ADCCON3=(HAL_ADC_REF_AVDD|HAL_ADC_DEC_12BIT|HAL_ADC_CHN_0);
+  
+}
 void ioInit()
 {
         P0DIR = 0X3E; //P02-P05 OUT for select 8-led
-	P1DIR = 0xCF; //
+	P1DIR = 0xDF; //
         P1INP |=0x20; 
       //  P1DIR |= 0x03;                //P1_0, p1_1, OUTPUT
         //P1SEL |=0x0F;
@@ -225,10 +282,15 @@ void getRfBuffer(INT8U  *buf)
   tmp[1]=digCode[macId%10];
   tmp[2]=0x00;
   tmp[3]=0x00;
-  
-  TMShowAuto(tmp); 
-  showRGB(R_VAL); 
-}
+  if(lowPowerFlag==0)
+  {  TMShowAuto(tmp); 
+    showRGB(R_VAL); 
+  }else
+  {
+    TMCloseAll();
+    showRGB(R_VAL); 
+  }
+ }
 
 void boardInit()
 {
@@ -259,19 +321,14 @@ void boardInit()
       IEN2 |=0x10;             //按键中断
       WORIRQ |= 0X10;   //
       TMCloseAll();
+      InitADC();
 }
 void checkResume(void)
 {
 //  resumeKey
-  if(suspendFlag&&resumeKey)
-  {
-    suspendFlag=0;
-    resumeKey=0;
-   // if(reSeeFlag==1)
-       TMShowLedInfo(&ledBuffer);
-   timeCount=TIMEOUT-2;
-      
-    
+  if(resume_flag)
+  {   rf_cc1110_init( 433000 );
+      resume_flag=0;
   }
   
 }
@@ -316,12 +373,13 @@ void checkPowerKey()
    InitWatchdog();
   //  handleStart();
   //  while(1);
-    UartSendString("zwatch",6);
+  //  UartSendString("zwatch",6);
     wdFlag=1;
     while( 1 ){
       timeCount++;
       feetDog();
-      UartSendString("rf recv",8);
+    //  checkVoltage();
+    //  UartSendString("rf recv",8);
       len = rf_rec_packet(buffer, &rssi, &lqi, 240) ;
       if(msgReceive==0)
          keyFlag=0;    //when no msg receive clear the keyFlag;
@@ -344,7 +402,7 @@ void checkPowerKey()
                    
 
                    ledBuffer.rgb=NO_VAL;
-                   TMShowLedInfo(&ledBuffer);
+                 //  TMShowLedInfo(&ledBuffer);
                     msgFlag=1;
 
                   //  if(msgReceive)
@@ -464,6 +522,7 @@ void checkPowerKey()
          keyCount=0;
        }
        */
+      
       if(myTime&&keyFlag)
       {
         keyFlag=0;
@@ -486,6 +545,8 @@ void checkPowerKey()
           ledCloseAll();
           MOTO_DRV=0;
           timeoutTimes++;
+          checkVoltage();
+          
           if(timeoutTimes>ACTIVE_TIMES)
           {
             timeoutTimes=0;
@@ -504,7 +565,7 @@ void checkPowerKey()
          }
        }
       */
-     // checkResume();
+      checkResume();
       if(keyCount>KEY_LONG_PRESS)
       {      
           keyCount=0;
@@ -598,6 +659,7 @@ void handleStart(void)
       //  statu=0x06;
        //    resumeKey=1;
      //   LED_R=!LED_R;
+          resume_flag=1;
         }
        
         P1IF = 0;
@@ -607,6 +669,7 @@ void handleStart(void)
  {
  	IRCON &=  ~0x80;
         WORIRQ &= ~0X01;
+         resume_flag=1;
  }
 
 

@@ -86,8 +86,9 @@ void I2CWritebyte(unsigned char oneByte)
 		  //8位数据传送完
 		CLK=0;//判断芯片发过来的ACK应答信号
 		nop;
-                
-		while(DIO==1);
+                nop;
+                nop;
+		//while(DIO==1);
 		nop;
 		CLK=1;
 		nop;

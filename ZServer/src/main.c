@@ -8,7 +8,7 @@
 
 #define BUFFER_SIZE   8
 #define MAX_NUM     5
-#define RETRY_TIMES   1
+#define RETRY_TIMES   2
 #define WAIT_TIMES    1
 #define MSG_TIMEOUT     10
 // msg type 
@@ -108,6 +108,7 @@ void boardInit()
         WORCTL |= 0x00;    //2^15 period
     WORIRQ |= 0X10;   //
  //   IEN0 |= 0X20;     //开中断
+    InitWatchdog();             //leaf init watch dog  
 }
 void getRfBuffer(uchar  *buf)
 {
@@ -124,14 +125,15 @@ void getRfBuffer(uchar  *buf)
 }
 int main( void )
 {
-     boardInit();
+  int i;   
+  boardInit();
      InitUART();
    //  UartSendString("Zserver",7);
 
      rfBuffer.num=0x0102;
     rfBuffer.msgType=0x01;
     rfBuffer.groupID=0xFF;
-    rfBuffer.tableID=0x08;
+    rfBuffer.tableID=0x01;
     rfBuffer.orderID=0x02;
     rfBuffer.sum=0x38;
    
@@ -141,12 +143,26 @@ int main( void )
   while( 1 )
   {
     
-     cmdFlag=getUartCmd();
-   //     UartSendString("Zserver",7);
-   //  uartData=0;
-     while(cmdFlag==TRUE) 
+    cmdFlag=getUartCmd();
+   feetDog();
+#ifdef  RF_TEST  
+     if(i++>200)
+     {  
+     if(rfBuffer.tableID++>99)
+       rfBuffer.tableID=0x01;
+     rfBuffer.orderID=rfBuffer.tableID%8+1;
+       cmdFlag=TRUE;
+     sendMac[0]=1;
+     sendMac[1]=2;
+     sendMac[2]=3;
+     sendMac[3]=4;
+     sendNum=4;
+     }
+#endif
+      while(cmdFlag==TRUE) 
      {
-      
+      i=0;
+      rf_cc1110_init( RF_FREQ_433MHZ ); //Reinit 433 register
        msgTimeCount++;
        handleMessage();
       if(msgTimeCount>maxTimes)
@@ -188,12 +204,13 @@ void handleMessage(void)
     INT8U  buffer[10];
     volatile INT32U  rdelay,wdelay;
     INT16U  i;
+     feetDog();
      while(MARCSTATE != 0x01);
      LED_TX=0;
     rfBuffer.macID=MSG_BROADCAST;
     rf_send_packet((INT8U *) &rfBuffer, BUFFER_SIZE);     //
   //  UartSendString((INT8U *) &rfBuffer, BUFFER_SIZE);
-    LED_TX=1;
+  //  LED_TX=1;
     //每发射一次，闪烁一次。
   //  UartSendString("Send",4);   //leaf
     
@@ -204,21 +221,24 @@ void handleMessage(void)
         { 
          // rfBuffer.macID=i;
           rfBuffer.macID=sendMac[i];
+          LED_TX=0;
           rf_send_packet((INT8U *) &rfBuffer, BUFFER_SIZE);
-          delay_nms(2); 
+          delay_nms(1); 
+            LED_TX=1;
           for( wdelay = 0; wdelay < WAIT_TIMES; wdelay ++ )
         {
-    
+         feetDog();
           len = rf_rec_packet(buffer, &rssi, &lqi, 240) ;
+          LED_TX=1;
           if( len!=0)   
           { 
          //   UartSendString((uchar *)buffer,7);
-            LED_RX=0;
+          
             getRfBuffer(buffer);
             if(rfBuffer.msgType==MSG_OK)
             {
               rfBuffer.msgType=MSG_SUCCESS;
-              for(i=0;i<3;i++)
+              for(i=0;i<5;i++)
               {
                 rf_send_packet((INT8U *) &rfBuffer, BUFFER_SIZE);
                 delay_nms(2);

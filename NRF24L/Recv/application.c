@@ -23,8 +23,7 @@
 
 #include <stdint.h>
 
-#define LED0_ON		LED0=0
-#define LED0_OFF	LED0=1
+
 #define LED_DELAY	100
 volatile uint8_t	gnUartData;
 uint8_t xdata packet[RADIO_MAX_PL];     // Buffer for sending or receiving
@@ -80,9 +79,11 @@ void receiver_mode(void)
           break;
       }
     }
-	delay_10ms();
-	delay_10ms();
+//	LED0_ON;
 //	delay_10ms();
+	delay_10ms();
+	delay_10ms();
+//	LED0=!LED0;
 	if(time_delay++>LED_DELAY)
 	{
 		LED0_OFF;

@@ -1,9 +1,9 @@
-C51 COMPILER V9.01   MAIN                                                                  06/30/2016 09:40:30 PAGE 1   
+C51 COMPILER V9.05   MAIN                                                                  08/03/2016 21:21:49 PAGE 1   
 
 
-C51 COMPILER V9.01, COMPILATION OF MODULE MAIN
+C51 COMPILER V9.05, COMPILATION OF MODULE MAIN
 OBJECT MODULE PLACED IN .\build\main.obj
-COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE main.c LARGE BROWSE DEBUG OBJECTEXTEND PRINT(.\lst\main.lst) OBJECT(.\build
+COMPILER INVOKED BY: d:\Keil\C51\BIN\C51.EXE main.c LARGE BROWSE DEBUG OBJECTEXTEND PRINT(.\lst\main.lst) OBJECT(.\build
                     -\main.obj)
 
 line level    source
@@ -38,13 +38,15 @@ line level    source
   28          { 
   29   1        mcu_init();
   30   1                                                
-  31   1        
-  32   1        EA = 1;                               // Global interrupt enable
-  33   1        boot_mess();
-  34   1      
-  35   1        radio_init(RECEIVER);
-  36   1        receiver_mode();   
-  37   1      }
+  31   1        //LED0_OFF;
+  32   1        //while(1);
+  33   1      
+  34   1        EA = 1;                               // Global interrupt enable
+  35   1        boot_mess();
+  36   1      
+  37   1        radio_init(RECEIVER);
+  38   1        receiver_mode();   
+  39   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE

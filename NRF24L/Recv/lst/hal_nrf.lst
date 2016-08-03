@@ -1,9 +1,9 @@
-C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 09:40:30 PAGE 1   
+C51 COMPILER V9.05   HAL_NRF                                                               08/03/2016 21:21:52 PAGE 1   
 
 
-C51 COMPILER V9.01, COMPILATION OF MODULE HAL_NRF
+C51 COMPILER V9.05, COMPILATION OF MODULE HAL_NRF
 OBJECT MODULE PLACED IN .\build\hal_nrf.obj
-COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE hal_nrf.c LARGE BROWSE DEBUG OBJECTEXTEND PRINT(.\lst\hal_nrf.lst) OBJECT(.
+COMPILER INVOKED BY: d:\Keil\C51\BIN\C51.EXE hal_nrf.c LARGE BROWSE DEBUG OBJECTEXTEND PRINT(.\lst\hal_nrf.lst) OBJECT(.
                     -\build\hal_nrf.obj)
 
 line level    source
@@ -62,7 +62,7 @@ line level    source
   52          /** Basis function, read_multibyte register .
   53           * Use this function to read multiple bytes from
   54           * a multibyte radio-register
-C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 09:40:30 PAGE 2   
+C51 COMPILER V9.05   HAL_NRF                                                               08/03/2016 21:21:52 PAGE 2   
 
   55           *
   56           * @param reg Multibyte register to read from
@@ -126,7 +126,7 @@ line level    source
  114           */
  115          typedef union {
  116            uint8_t value;
-C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 09:40:30 PAGE 3   
+C51 COMPILER V9.05   HAL_NRF                                                               08/03/2016 21:21:52 PAGE 3   
 
  117                  struct {
  118                          uint8_t aw : 2;
@@ -190,7 +190,7 @@ line level    source
  176          /**
  177           * Typedef for the FEATURE register. Contains all the bitaddressable 
  178           * settings in the bits struct and the value sent to the radio in the uint8_t
-C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 09:40:30 PAGE 4   
+C51 COMPILER V9.05   HAL_NRF                                                               08/03/2016 21:21:52 PAGE 4   
 
  179           */
  180          typedef union {
@@ -254,7 +254,7 @@ line level    source
  238   1        else
  239   1        {
  240   2          config.bits.prim_rx = 0;
-C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 09:40:30 PAGE 5   
+C51 COMPILER V9.05   HAL_NRF                                                               08/03/2016 21:21:52 PAGE 5   
 
  241   2        }
  242   1      
@@ -318,7 +318,7 @@ line level    source
  300   2            break;
  301   2          case HAL_NRF_RX_DR:
  302   2            config.bits.mask_rx_dr = irq_state ? 0 : 1;
-C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 09:40:30 PAGE 6   
+C51 COMPILER V9.05   HAL_NRF                                                               08/03/2016 21:21:52 PAGE 6   
 
  303   2            break;
  304   2        }
@@ -382,7 +382,7 @@ line level    source
  362   2            else
  363   2            {
  364   3              en_aa.value = 0;
-C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 09:40:30 PAGE 7   
+C51 COMPILER V9.05   HAL_NRF                                                               08/03/2016 21:21:52 PAGE 7   
 
  365   3            }
  366   2            break;
@@ -446,7 +446,7 @@ line level    source
  423   2      
  424   2          default:
  425   2            break;
-C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 09:40:30 PAGE 8   
+C51 COMPILER V9.05   HAL_NRF                                                               08/03/2016 21:21:52 PAGE 8   
 
  426   2        }
  427   1      }
@@ -510,7 +510,7 @@ line level    source
  485   2          case 1:
  486   2            en_rx_r = en_rxaddr.bits.pipe_1;
  487   2            en_aa_r = en_aa.bits.pipe_1;
-C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 09:40:30 PAGE 9   
+C51 COMPILER V9.05   HAL_NRF                                                               08/03/2016 21:21:52 PAGE 9   
 
  488   2            break;
  489   2          case 2:
@@ -574,7 +574,7 @@ line level    source
  547   2            pw = hal_nrf_read_reg (RX_PW_P5);
  548   2            break;
  549   2          default:
-C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 09:40:30 PAGE 10  
+C51 COMPILER V9.05   HAL_NRF                                                               08/03/2016 21:21:52 PAGE 10  
 
  550   2            pw = 0;
  551   2            break;
@@ -638,7 +638,7 @@ line level    source
  609   2        }
  610   1      }
  611          
-C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 09:40:30 PAGE 11  
+C51 COMPILER V9.05   HAL_NRF                                                               08/03/2016 21:21:52 PAGE 11  
 
  612          bool hal_nrf_rx_fifo_full(void)
  613          {
@@ -702,7 +702,7 @@ line level    source
  671          
  672          void hal_nrf_enable_ack_payload(bool enable)
  673          {
-C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 09:40:30 PAGE 12  
+C51 COMPILER V9.05   HAL_NRF                                                               08/03/2016 21:21:52 PAGE 12  
 
  674   1        feature_t feature;
  675   1        feature.value = hal_nrf_read_reg (FEATURE);
@@ -766,7 +766,7 @@ line level    source
  733          {
  734   1        CSN_LOW();
  735   1        hal_nrf_rw(FLUSH_RX);
-C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 09:40:30 PAGE 13  
+C51 COMPILER V9.05   HAL_NRF                                                               08/03/2016 21:21:52 PAGE 13  
 
  736   1        CSN_HIGH();
  737   1      }
@@ -830,7 +830,7 @@ line level    source
  795          
  796          uint8_t hal_nrf_write_reg(uint8_t reg, uint8_t value)
  797          {
-C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 09:40:30 PAGE 14  
+C51 COMPILER V9.05   HAL_NRF                                                               08/03/2016 21:21:52 PAGE 14  
 
  798   1        uint8_t retval;
  799   1        
@@ -894,7 +894,7 @@ line level    source
  857          {
  858   1        CSN_LOW();
  859   1      
-C51 COMPILER V9.01   HAL_NRF                                                               06/30/2016 09:40:30 PAGE 15  
+C51 COMPILER V9.05   HAL_NRF                                                               08/03/2016 21:21:52 PAGE 15  
 
  860   1        hal_nrf_rw(cmd);
  861   1      

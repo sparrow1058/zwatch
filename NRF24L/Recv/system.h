@@ -24,6 +24,10 @@
 #define LED0 P00
 #define LED1 P01
 #define LED2 P02
+#define LED0_ON		LED0=1
+#define LED0_OFF	LED0=0
+
+
 
 #define ON 1
 #define OFF 0
