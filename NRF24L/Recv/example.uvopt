@@ -193,10 +193,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>117</ColumnNumber>
+      <ColumnNumber>11</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>70</TopLine>
-      <CurrentLine>78</CurrentLine>
+      <TopLine>34</TopLine>
+      <CurrentLine>70</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\application.c</PathWithFileName>
       <FilenameWithoutPath>application.c</FilenameWithoutPath>
@@ -261,7 +261,7 @@
       <Focus>0</Focus>
       <ColumnNumber>34</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>34</TopLine>
+      <TopLine>38</TopLine>
       <CurrentLine>63</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\system.c</PathWithFileName>
@@ -343,9 +343,9 @@
   </Group>
 
   <AlienFiles>
-    <PathWithFilename>F:\zwatch\NRF24L\Recv\SYSTEM.H</PathWithFilename>
-    <TopLine>6</TopLine>
-    <CurrentLine>17</CurrentLine>
+    <PathWithFilename>F:\zwatch\NRF24L\Recv\HAL_NRF.H</PathWithFilename>
+    <TopLine>220</TopLine>
+    <CurrentLine>220</CurrentLine>
     <Constant>0</Constant>
     <WindowPosition>
       <length>0</length>
@@ -369,9 +369,9 @@
   </AlienFiles>
 
   <AlienFiles>
-    <PathWithFilename>F:\zwatch\NRF24L\Recv\HAL_NRF.H</PathWithFilename>
-    <TopLine>220</TopLine>
-    <CurrentLine>220</CurrentLine>
+    <PathWithFilename>F:\zwatch\NRF24L\Recv\SYSTEM.H</PathWithFilename>
+    <TopLine>6</TopLine>
+    <CurrentLine>26</CurrentLine>
     <Constant>0</Constant>
     <WindowPosition>
       <length>0</length>
@@ -399,7 +399,7 @@
     <ActiveMDIGroup>0</ActiveMDIGroup>
     <MDIGroup>
       <Size>100</Size>
-      <ActiveTab>3</ActiveTab>
+      <ActiveTab>2</ActiveTab>
       <Documents>
         <Doc>
           <Name>.\radio.c</Name>
@@ -410,20 +410,20 @@
         <Doc>
           <Name>.\system.c</Name>
           <ColumnNumber>34</ColumnNumber>
-          <TopLine>34</TopLine>
+          <TopLine>38</TopLine>
           <CurrentLine>63</CurrentLine>
         </Doc>
         <Doc>
-          <Name>SYSTEM.H</Name>
-          <ColumnNumber>23</ColumnNumber>
+          <Name>system.h</Name>
+          <ColumnNumber>30</ColumnNumber>
           <TopLine>6</TopLine>
-          <CurrentLine>17</CurrentLine>
+          <CurrentLine>26</CurrentLine>
         </Doc>
         <Doc>
           <Name>.\application.c</Name>
-          <ColumnNumber>117</ColumnNumber>
-          <TopLine>70</TopLine>
-          <CurrentLine>78</CurrentLine>
+          <ColumnNumber>11</ColumnNumber>
+          <TopLine>34</TopLine>
+          <CurrentLine>70</CurrentLine>
         </Doc>
         <Doc>
           <Name>.\main.c</Name>
@@ -432,7 +432,7 @@
           <CurrentLine>25</CurrentLine>
         </Doc>
         <Doc>
-          <Name>HAL_NRF.H</Name>
+          <Name>hal_nrf.h</Name>
           <ColumnNumber>41</ColumnNumber>
           <TopLine>220</TopLine>
           <CurrentLine>220</CurrentLine>

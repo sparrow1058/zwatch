@@ -209,7 +209,7 @@ void handleMessage(void)
      LED_TX=0;
     rfBuffer.macID=MSG_BROADCAST;
     rf_send_packet((INT8U *) &rfBuffer, BUFFER_SIZE);     //
-  //  UartSendString((INT8U *) &rfBuffer, BUFFER_SIZE);
+   // UartSendString((INT8U *) &rfBuffer, BUFFER_SIZE);
   //  LED_TX=1;
     //每发射一次，闪烁一次。
   //  UartSendString("Send",4);   //leaf
@@ -220,12 +220,13 @@ void handleMessage(void)
         for(i=0;i<sendNum;i++)
         { 
          // rfBuffer.macID=i;
+          UartSendString((INT8U *) &rfBuffer, BUFFER_SIZE);
           rfBuffer.macID=sendMac[i];
           LED_TX=0;
           rf_send_packet((INT8U *) &rfBuffer, BUFFER_SIZE);
           delay_nms(1); 
             LED_TX=1;
-          for( wdelay = 0; wdelay < WAIT_TIMES; wdelay ++ )
+         for( wdelay = 0; wdelay < WAIT_TIMES; wdelay ++ )
         {
          feetDog();
           len = rf_rec_packet(buffer, &rssi, &lqi, 240) ;
@@ -288,7 +289,7 @@ INT8U getUartCmd(void)
           UartSendString("RF Changed",10);
           return FALSE;  
         }
-        uartCmd.num=uartGet[1]*256+uartGet[0];
+        uartCmd.num=uartGet[0]*256+uartGet[1];
         uartCmd.msgType=UART_MSG_ACCESS;
         uartCmd.groupID=uartGet[3];
         uartCmd.macID=uartGet[4];

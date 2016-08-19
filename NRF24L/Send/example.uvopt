@@ -122,6 +122,21 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
+          <LineNumber>313</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>0</Address>
+          <ByteObject>0</ByteObject>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>0</BreakIfRCount>
+          <Filename>HAL_NRF.H</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression></Expression>
+        </Bp>
+        <Bp>
+          <Number>1</Number>
+          <Type>0</Type>
           <LineNumber>20</LineNumber>
           <EnabledFlag>1</EnabledFlag>
           <Address>0</Address>
@@ -177,7 +192,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>26</ColumnNumber>
+      <ColumnNumber>18</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>24</TopLine>
       <CurrentLine>36</CurrentLine>
@@ -210,10 +225,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>33</ColumnNumber>
+      <ColumnNumber>3</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>61</TopLine>
-      <CurrentLine>79</CurrentLine>
+      <TopLine>27</TopLine>
+      <CurrentLine>43</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\application.c</PathWithFileName>
       <FilenameWithoutPath>application.c</FilenameWithoutPath>
@@ -243,10 +258,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>63</ColumnNumber>
+      <ColumnNumber>74</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>41</TopLine>
-      <CurrentLine>49</CurrentLine>
+      <CurrentLine>60</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\radio.c</PathWithFileName>
       <FilenameWithoutPath>radio.c</FilenameWithoutPath>
@@ -276,10 +291,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>20</ColumnNumber>
+      <ColumnNumber>14</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>46</TopLine>
-      <CurrentLine>59</CurrentLine>
+      <TopLine>1</TopLine>
+      <CurrentLine>1</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\system.c</PathWithFileName>
       <FilenameWithoutPath>system.c</FilenameWithoutPath>
@@ -318,8 +333,8 @@
       <Focus>0</Focus>
       <ColumnNumber>30</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>796</TopLine>
-      <CurrentLine>805</CurrentLine>
+      <TopLine>772</TopLine>
+      <CurrentLine>772</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\hal_nrf.c</PathWithFileName>
       <FilenameWithoutPath>hal_nrf.c</FilenameWithoutPath>
@@ -362,7 +377,7 @@
   <AlienFiles>
     <PathWithFilename>F:\zwatch\NRF24L\Send\HAL_NRF.H</PathWithFilename>
     <TopLine>291</TopLine>
-    <CurrentLine>302</CurrentLine>
+    <CurrentLine>313</CurrentLine>
     <Constant>0</Constant>
     <WindowPosition>
       <length>0</length>
@@ -394,39 +409,39 @@
       <Documents>
         <Doc>
           <Name>.\radio.c</Name>
-          <ColumnNumber>63</ColumnNumber>
+          <ColumnNumber>74</ColumnNumber>
           <TopLine>41</TopLine>
-          <CurrentLine>49</CurrentLine>
+          <CurrentLine>60</CurrentLine>
         </Doc>
         <Doc>
           <Name>.\main.c</Name>
-          <ColumnNumber>26</ColumnNumber>
+          <ColumnNumber>18</ColumnNumber>
           <TopLine>24</TopLine>
           <CurrentLine>36</CurrentLine>
         </Doc>
         <Doc>
           <Name>.\hal_nrf.c</Name>
           <ColumnNumber>30</ColumnNumber>
-          <TopLine>796</TopLine>
-          <CurrentLine>805</CurrentLine>
+          <TopLine>772</TopLine>
+          <CurrentLine>772</CurrentLine>
         </Doc>
         <Doc>
           <Name>.\system.c</Name>
-          <ColumnNumber>20</ColumnNumber>
-          <TopLine>46</TopLine>
-          <CurrentLine>59</CurrentLine>
+          <ColumnNumber>14</ColumnNumber>
+          <TopLine>1</TopLine>
+          <CurrentLine>1</CurrentLine>
         </Doc>
         <Doc>
-          <Name>HAL_NRF.H</Name>
-          <ColumnNumber>29</ColumnNumber>
+          <Name>hal_nrf.h</Name>
+          <ColumnNumber>112</ColumnNumber>
           <TopLine>291</TopLine>
-          <CurrentLine>302</CurrentLine>
+          <CurrentLine>313</CurrentLine>
         </Doc>
         <Doc>
           <Name>.\application.c</Name>
-          <ColumnNumber>33</ColumnNumber>
-          <TopLine>61</TopLine>
-          <CurrentLine>79</CurrentLine>
+          <ColumnNumber>3</ColumnNumber>
+          <TopLine>27</TopLine>
+          <CurrentLine>43</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>

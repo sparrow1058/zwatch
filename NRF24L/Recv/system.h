@@ -21,7 +21,7 @@
 #define B1 P05
 #define B2 P06
 
-#define LED0 P00
+#define LED0 P03
 #define LED1 P01
 #define LED2 P02
 #define LED0_ON		LED0=1

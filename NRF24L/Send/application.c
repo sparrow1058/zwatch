@@ -40,7 +40,7 @@ void transmitter_mode(void)
 	for(nI=0;nI<100;nI++)
 	{
 		delay_10ms();
-		delay_10ms();
+	//	delay_10ms();
 	//	delay_10ms();
 	//	delay_10ms(); delay_10ms();	   delay_10ms();
 	}
