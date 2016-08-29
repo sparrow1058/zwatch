@@ -1,5 +1,5 @@
 [DebugChecksum]
-Checksum=1263505191
+Checksum=414983284
 [DisAssemblyWindow]
 NumStates=_ 1
 State 1=_ 1
@@ -31,9 +31,6 @@ ActionState=1
 [TraceHelper]
 Enabled=0
 ShowSource=1
-[TermIOLog]
-LoggingEnabled=_ 0
-LogFile=_ ""
 [Stack]
 FillEnabled=0
 OverflowWarningsEnabled=1
@@ -48,6 +45,13 @@ ByteLimit=50
 LoggingEnabled=_ 0
 LogFile=_ ""
 Category=_ 0
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
+[CallStack]
+ShowArgs=0
+[Disassembly]
+MixedMode=1
 [Breakpoints]
 Count=0
 [ChipconEmu]

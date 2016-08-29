@@ -90,14 +90,18 @@ uchar uartCount=0;
 uchar uartFlag=0;
 uchar cmdFlag=0;
 INT8U maxTimes=10;
-
+//volatile  INT8U  g_channel=0x00;
 uchar uartGet[UART_CMD_SIZE];
 uchar sendMac[40];
 uchar  buffer[BUFFER_SIZE];
 uchar sendNum;
 INT16U  msgTimeCount=0;
-
-  
+uchar g_channel[1]={0x03};
+//#define RF_TEST
+#ifdef RF_TEST
+uchar testData[24]={0x00,0x01,0x01,0xFF,0xFF,0x00,0x31,0x53,0xF7,0x53,0x05,0x53,0xa2,0x4e,0x70,0x53,0x55,0x14,0x08,0xFF,0x00,0x00,0x00,0x00};  //0031\u53f7\u5305\u53a2   //\u4e70\u5355
+INT8U rfTest(void);
+#endif  
 INT16U CRC16(uchar* pchMsg, uchar wDataLen)
  {          
    INT16U wCRCTalbeAbs[] = {  0x0000, 0xCC01, 0xD801, 0x1400, 0xF001, 0x3C00, 0x2800, 0xE401, 0xA001, 0x6C00, 0x7800, 0xB401, 0x5000, 0x9C01, 0x8801, 0x4400};         
@@ -136,7 +140,7 @@ void boardInit()
     while(!(SLEEP & 0x40));      //等待晶振稳定
     CLKCON &= ~0x47;             //TICHSPD128分频，CLKSPD不分频
     SLEEP |= 0x04; 		 //关闭不用的RC振荡器
-      rf_cc1110_init( RF_FREQ_433MHZ );
+   //   rf_cc1110_init( RF_FREQ_433MHZ );
    // ioInit();
     IEN0 = 0x81;
         WORCTL |= 0x00;    //2^15 period
@@ -183,13 +187,16 @@ int main( void )
   
   while( 1 )
   {
-    
+#ifdef RF_TEST
+  cmdFlag=rfTest();
+#else
     cmdFlag=getUartCmd();
-   feetDog();
+#endif
+    feetDog();
       while(cmdFlag==TRUE) 
      {
-      
-      rf_cc1110_init( RF_FREQ_433MHZ ); //Reinit 433 register
+        SET_CHANNEL(g_channel[0]);
+       rf_cc1110_init( RF_FREQ_433MHZ ); //Reinit 433 register
        msgTimeCount++;
        handleMessage();
       if(msgTimeCount>maxTimes)
@@ -298,6 +305,18 @@ void handleMessage(void)
               msgTimeCount=0;
               cmdFlag=FALSE;
               LED_RX=1;
+#ifdef RF_TEST
+             for(i=0;i<3000;i++)
+             {
+                feetDog(); 
+               delay_nms(100);
+              delay_nms(100); 
+              delay_nms(100);
+              delay_nms(100);
+              delay_nms(100); 
+              delay_nms(100);
+             }
+#endif 
               return;
 
             }
@@ -312,7 +331,8 @@ INT8U getUartCmd(void)
   int i;
 
  // uartData=0;
- 
+
+  
   if(uartFlag==1)
     {
       uartFlag=0;
@@ -322,20 +342,16 @@ INT8U getUartCmd(void)
         uartCount=0;
         if(uartGet[2]==UART_MSG_FREQ)
         {  
-          switch (uartGet[3])
+          if(uartGet[3]==0xFF)
           {
-          case 0:
-             rf_cc1110_init( RF_FREQ_433MHZ );
-             break;
-          case 1:
-           rf_cc1110_init( RF_FREQ_868MHZ );
-             break;
-          case 2:
-           rf_cc1110_init( RF_FREQ_902MHZ );
-             break;             
-          } 
-          UartSendString("RF Changed",10);
-          return FALSE;  
+             uartGet[3]=g_channel[0];
+            UartSendString(g_channel,1);
+          }else
+          {
+            g_channel[0]=uartGet[3];
+           UartSendString((uchar *)&uartGet,4);
+          }
+           return FALSE;  
         }
        // UartSendString((uchar *)&uartGet,BUFFER_SIZE);
         uartCmd.num=uartGet[RF_NUM+1]*256+uartGet[RF_NUM];
@@ -370,7 +386,38 @@ INT8U getUartCmd(void)
     }
     return FALSE;
   }
+#ifdef RF_TEST
+INT8U rfTest(void)
+{
+    
+  int i;
 
+        uartCmd.num=testData[RF_NUM+1]*256+testData[RF_NUM];
+        uartCmd.msgType=UART_MSG_ACCESS;
+        uartCmd.groupID=testData[RF_GROUP];
+        uartCmd.macID=testData[RF_MACID];
+        //uartCmd.tableID=testData[5];
+        for(i=0;i<CHAR_NUM;i++)
+          uartCmd.tableID[i]=testData[RF_TABLE+i];        //Copy the utf8 code
+        for(i=0;i<4;i++)
+          uartCmd.orderID[i]=testData[RF_ORDER+i];        //Copy the utf8 code
+       // uartCmd.orderID=testData[RF_ORDER];
+    //    uartCmd.flag=UART_MSG_ACCESS;
+      //  testData[6]=UART_MSG_ACCESS;
+        maxTimes=testData[RF_SUM];
+	uartCmd.idList.max=testData[RF_IDLIST];	
+        for(i=0;i<10;i++)
+          uartCmd.idList.id[i]=testData[RF_IDLIST+1+i];
+         getMacId(&uartCmd.idList);
+          UartSendString((uchar *)&uartCmd,BUFFER_SIZE);
+          getUartRfBuffer(testData);
+        //  UartSendString((uchar *)&rfBuffer,BUFFER_SIZE);
+       //   UartSendString((uchar *)&testData,BUFFER_SIZE);
+        
+        return TRUE;
+
+  }
+#endif
 #pragma vector=URX0_VECTOR
 __interrupt void UART0_ISR(void)
 {

@@ -25,7 +25,7 @@ INT8U rf_rec_packet(INT8U * pData, INT8U* pRssi, INT8U* pLqi, INT8U timeOut);
 /*send a packet and returns the count*/
 INT8U rf_send_packet(INT8U * pData, INT8U length);
 
-
+#define SET_CHANNEL(xx) CHANNR=xx
 
 
 

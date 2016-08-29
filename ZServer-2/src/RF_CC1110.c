@@ -36,7 +36,7 @@ void rf_cc1110_init(INT32U freq_KHZ)
 {
     /* RF settings SoC: CC1110, from smartRFstudio */
     PKTCTRL0  = 0x05; // packet automation control
-    CHANNR    = 0x03; // channel number
+  //  CHANNR    = 0x03; // channel number
     FSCTRL1   = 0x06; // frequency synthesizer control
     MDMCFG4   = 0xF5; // modem configuration
     MDMCFG3   = 0x83; // modem configuration
