@@ -48,7 +48,7 @@
 #define RF_SUM          RF_ORDER+4
 #define RF_IDLIST       RF_SUM+1
 
-
+//#define RF_TEST
 
 
 typedef struct RF_MASK
@@ -97,7 +97,7 @@ uchar  buffer[BUFFER_SIZE];
 uchar sendNum;
 INT16U  msgTimeCount=0;
 uchar g_channel[1]={0x03};
-//#define RF_TEST
+
 #ifdef RF_TEST
 uchar testData[24]={0x00,0x01,0x01,0xFF,0xFF,0x00,0x31,0x53,0xF7,0x53,0x05,0x53,0xa2,0x4e,0x70,0x53,0x55,0x14,0x08,0xFF,0x00,0x00,0x00,0x00};  //0031\u53f7\u5305\u53a2   //\u4e70\u5355
 INT8U rfTest(void);
@@ -203,8 +203,8 @@ int main( void )
       {
         msgTimeCount=0;
         cmdFlag=FALSE;
-        uartCmd.msgType=UART_MSG_FAIL;
-        UartSendString((uchar *)&uartCmd,BUFFER_SIZE);
+        uartCmd.msgType=UART_MSG_FAIL;        
+        UartSendString((uchar *)&uartCmd,BUFFER_SIZE+1);
         
       }
       uartFlag=0;
@@ -262,8 +262,7 @@ void handleMessage(void)
           LED_TX=0;
           sendBuffer.sum=CRC16((INT8U *)&sendBuffer,BUFFER_SIZE-2);
           rf_send_packet((INT8U *) &sendBuffer, BUFFER_SIZE);
-          UartSendString((INT8U *) &sendBuffer, BUFFER_SIZE);   //leaf
-       //   UartSendString(0x0d, 1);   //leaf
+
           delay_nms(1); 
             LED_TX=1;
         for( wdelay = 0; wdelay < WAIT_TIMES; wdelay ++ )
@@ -272,16 +271,14 @@ void handleMessage(void)
         // for(i=0;i<3;i++)
          { 
            len = rf_rec_packet(buffer, &rssi, &lqi, 500) ;
-           //delay_nms(10);
-           //if(len==14)break; 
+
            LED_TX=1;
-        //   if(len!=0)
-          //  UartSendString((uchar *)buffer,len);
+
          }
          // if( len!=0)   
          if(len==BUFFER_SIZE) 
          { 
-         //   UartSendString((uchar *)buffer,BUFFER_SIZE);
+
             getRfBuffer(buffer);
             if(recBuffer.msgType==MSG_ACCESS)
             {
@@ -289,7 +286,7 @@ void handleMessage(void)
             }
             if(recBuffer.msgType==MSG_SUCCESS)
             {
-           //  UartSendString("SUCCESS",5);
+
               if(recBuffer.orderID[0]!=sendBuffer.orderID[0])
                 return ;
              
@@ -301,7 +298,8 @@ void handleMessage(void)
               }
               uartCmd.macID=recBuffer.macID;
               uartCmd.msgType=UART_MSG_SUCCESS;
-              UartSendString((uchar *)&uartCmd,BUFFER_SIZE);
+              uartCmd.max=msgTimeCount;
+              UartSendString((uchar *)&uartCmd,BUFFER_SIZE+1);
               msgTimeCount=0;
               cmdFlag=FALSE;
               LED_RX=1;
@@ -353,30 +351,26 @@ INT8U getUartCmd(void)
           }
            return FALSE;  
         }
-       // UartSendString((uchar *)&uartGet,BUFFER_SIZE);
         uartCmd.num=uartGet[RF_NUM+1]*256+uartGet[RF_NUM];
         uartCmd.msgType=UART_MSG_ACCESS;
         uartCmd.groupID=uartGet[RF_GROUP];
         uartCmd.macID=uartGet[RF_MACID];
-        //uartCmd.tableID=uartGet[5];
+
         for(i=0;i<CHAR_NUM;i++)
           uartCmd.tableID[i]=uartGet[RF_TABLE+i];        //Copy the utf8 code
         for(i=0;i<4;i++)
           uartCmd.orderID[i]=uartGet[RF_ORDER+i];        //Copy the utf8 code
-       // uartCmd.orderID=uartGet[RF_ORDER];
-    //    uartCmd.flag=UART_MSG_ACCESS;
-      //  uartGet[6]=UART_MSG_ACCESS;
+
         maxTimes=uartGet[RF_SUM];
+        uartCmd.max=uartGet[RF_SUM];
 	uartCmd.idList.max=uartGet[RF_IDLIST];	
         for(i=0;i<10;i++)
           uartCmd.idList.id[i]=uartGet[RF_IDLIST+1+i];
          getMacId(&uartCmd.idList);
          
-          UartSendString((uchar *)&uartCmd,BUFFER_SIZE);
+          UartSendString((uchar *)&uartCmd,BUFFER_SIZE+1);
                          
           getUartRfBuffer(uartGet);
-        //  UartSendString((uchar *)&rfBuffer,BUFFER_SIZE);
-       //   UartSendString((uchar *)&uartGet,BUFFER_SIZE);
         
         return TRUE;
       }else
@@ -396,14 +390,12 @@ INT8U rfTest(void)
         uartCmd.msgType=UART_MSG_ACCESS;
         uartCmd.groupID=testData[RF_GROUP];
         uartCmd.macID=testData[RF_MACID];
-        //uartCmd.tableID=testData[5];
+
         for(i=0;i<CHAR_NUM;i++)
           uartCmd.tableID[i]=testData[RF_TABLE+i];        //Copy the utf8 code
         for(i=0;i<4;i++)
           uartCmd.orderID[i]=testData[RF_ORDER+i];        //Copy the utf8 code
-       // uartCmd.orderID=testData[RF_ORDER];
-    //    uartCmd.flag=UART_MSG_ACCESS;
-      //  testData[6]=UART_MSG_ACCESS;
+
         maxTimes=testData[RF_SUM];
 	uartCmd.idList.max=testData[RF_IDLIST];	
         for(i=0;i<10;i++)
@@ -411,9 +403,6 @@ INT8U rfTest(void)
          getMacId(&uartCmd.idList);
           UartSendString((uchar *)&uartCmd,BUFFER_SIZE);
           getUartRfBuffer(testData);
-        //  UartSendString((uchar *)&rfBuffer,BUFFER_SIZE);
-       //   UartSendString((uchar *)&testData,BUFFER_SIZE);
-        
         return TRUE;
 
   }

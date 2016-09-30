@@ -2,7 +2,7 @@
 
 <project>
   <fileVersion>2</fileVersion>
-  <fileChecksum>3409622217</fileChecksum>
+  <fileChecksum>467201554</fileChecksum>
   <configuration>
     <name>Debug</name>
     <outputs>
@@ -16,13 +16,13 @@
       <file>$PROJ_DIR$\Debug\Obj\RF_CC1110.r51</file>
       <file>$TOOLKIT_DIR$\inc\clib\stdio.h</file>
       <file>$PROJ_DIR$\Debug\Exe\ZServer.hex</file>
+      <file>$PROJ_DIR$\main.c</file>
       <file>$PROJ_DIR$\Debug\Obj\uart.pbi</file>
       <file>$PROJ_DIR$\Debug\Exe\RF_TX.hex</file>
-      <file>$PROJ_DIR$\main.c</file>
       <file>$PROJ_DIR$\rf_cc1110.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\hal_cc1110.r51</file>
       <file>$PROJ_DIR$\hal_cc1110.h</file>
       <file>$TOOLKIT_DIR$\inc\clib\sysmac.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\hal_cc1110.r51</file>
       <file>$TOOLKIT_DIR$\inc\clib\math.h</file>
       <file>$PROJ_DIR$\Debug\Obj\uart.r51</file>
       <file>$PROJ_DIR$\mytypedef.h</file>
@@ -39,9 +39,19 @@
       <file>$TOOLKIT_DIR$\config\devices\Texas Instruments\lnk51ew_cc1110F32.xcl</file>
       <file>$TOOLKIT_DIR$\lib\clib\cl-pli-nlpd-1e16x01.r51</file>
       <file>$PROJ_DIR$\Debug\Obj\RF_CC1110.pbi</file>
+      <file>$PROJ_DIR$\Debug\Exe\ZServer_Auto.hex</file>
       <file>$TOOLKIT_DIR$\inc\ioCC1110.h</file>
       <file>$PROJ_DIR$\Debug\Obj\RF_TX.pbd</file>
     </outputs>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 9</file>
+        </tool>
+      </outputs>
+    </file>
     <file>
       <name>$PROJ_DIR$\src\main.c</name>
       <outputs>
@@ -57,11 +67,11 @@
       <inputs>
         <tool>
           <name>ICC8051</name>
-          <file> 33 5 3 8 21 16 23 24 17 0</file>
+          <file> 34 5 3 8 21 15 23 24 17 0</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 33 5 3 8 21 16 23 24 17 0</file>
+          <file> 34 5 3 8 21 15 23 24 17 0</file>
         </tool>
       </inputs>
     </file>
@@ -70,7 +80,7 @@
       <outputs>
         <tool>
           <name>ICC8051</name>
-          <file> 14</file>
+          <file> 16</file>
         </tool>
         <tool>
           <name>BICOMP</name>
@@ -80,11 +90,11 @@
       <inputs>
         <tool>
           <name>ICC8051</name>
-          <file> 0 33</file>
+          <file> 0 34</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 0 33</file>
+          <file> 0 34</file>
         </tool>
       </inputs>
     </file>
@@ -103,11 +113,11 @@
       <inputs>
         <tool>
           <name>ICC8051</name>
-          <file> 5 3 8 21 16 23 24 17 33</file>
+          <file> 5 3 8 21 15 23 24 17 34</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 5 3 8 21 16 23 24 17 33</file>
+          <file> 5 3 8 21 15 23 24 17 34</file>
         </tool>
       </inputs>
     </file>
@@ -120,17 +130,17 @@
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 10</file>
+          <file> 11</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICC8051</name>
-          <file> 33 3 8 21 16 23 24 17</file>
+          <file> 34 3 8 21 15 23 24 17</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 33 3 8 21 16 23 24 17</file>
+          <file> 34 3 8 21 15 23 24 17</file>
         </tool>
       </inputs>
     </file>
@@ -139,25 +149,7 @@
       <inputs>
         <tool>
           <name>XLINK</name>
-          <file> 30 14 20 7 18 31</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>[ROOT_NODE]</name>
-      <outputs>
-        <tool>
-          <name>XLINK</name>
-          <file> 9</file>
-        </tool>
-      </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\Debug\Exe\RF_TX.hex</name>
-      <inputs>
-        <tool>
-          <name>XLINK</name>
-          <file> 30 7 20 28</file>
+          <file> 30 16 20 7 18 31</file>
         </tool>
       </inputs>
     </file>
@@ -176,11 +168,20 @@
       <inputs>
         <tool>
           <name>ICC8051</name>
-          <file> 33 13 19 8 21 16 23 24 17 15</file>
+          <file> 34 13 19 8 21 15 23 24 17 14</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 33 13 19 8 21 16 23 24 17 15</file>
+          <file> 34 13 19 8 21 15 23 24 17 14</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Debug\Exe\RF_TX.hex</name>
+      <inputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 30 7 20 28</file>
         </tool>
       </inputs>
     </file>
@@ -189,7 +190,7 @@
       <inputs>
         <tool>
           <name>XLINK</name>
-          <file> 30 14 20 7 18 28</file>
+          <file> 30 16 20 7 18 28</file>
         </tool>
       </inputs>
     </file>
@@ -208,11 +209,11 @@
       <inputs>
         <tool>
           <name>ICC8051</name>
-          <file> 13 19 8 21 16 23 24 17 33</file>
+          <file> 13 19 8 21 15 23 24 17 34</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 13 19 8 21 16 23 24 17 33</file>
+          <file> 13 19 8 21 15 23 24 17 34</file>
         </tool>
       </inputs>
     </file>
@@ -222,6 +223,15 @@
         <tool>
           <name>XLINK</name>
           <file> 30 7 20 28</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Debug\Exe\ZServer_Auto.hex</name>
+      <inputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 30 16 20 7 18 31</file>
         </tool>
       </inputs>
     </file>
