@@ -19,6 +19,6 @@
 @REM 
 
 
-"C:\Program Files\IAR Systems\Embedded Workbench 7.0\common\bin\cspybat" "C:\Program Files\IAR Systems\Embedded Workbench 7.0\8051\bin\8051proc.dll" "C:\Program Files\IAR Systems\Embedded Workbench 7.0\8051\bin\8051emu_cc.dll"  %1 --plugin "C:\Program Files\IAR Systems\Embedded Workbench 7.0\8051\bin\8051bat.dll" --backend -B "--proc_core" "plain" "--proc_code_model" "near" "--proc_nr_virtual_regs" "8" "--proc_pdata_bank_reg_addr" "0x93" "--proc_dptr_nr_of" "1" "--proc_data_model" "large" "-p" "C:\Program Files\IAR Systems\Embedded Workbench 7.0\8051\config\devices\Texas Instruments\ioCC1110F32.ddf" "--proc_exclude_exit_breakpoint" "--proc_driver" "chipcon" "--erase_flash" "--verify_download" "use_crc16" "--stack_overflow" "--number_of_banks" "16" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.0\common\bin\cspybat" "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.0\8051\bin\8051proc.dll" "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.0\8051\bin\8051emu_cc.dll"  %1 --plugin "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.0\8051\bin\8051bat.dll" --backend -B "--proc_core" "plain" "--proc_code_model" "near" "--proc_nr_virtual_regs" "8" "--proc_pdata_bank_reg_addr" "0x93" "--proc_dptr_nr_of" "1" "--proc_data_model" "large" "-p" "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.0\8051\config\devices\Texas Instruments\ioCC1110F32.ddf" "--proc_exclude_exit_breakpoint" "--proc_driver" "chipcon" "--erase_flash" "--verify_download" "use_crc16" "--stack_overflow" "--number_of_banks" "16" 
 
 

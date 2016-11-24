@@ -730,7 +730,7 @@
         </option>
         <option>
           <name>OutputFile</name>
-          <state>ZServer.hex</state>
+          <state>ZRepeter.hex</state>
         </option>
         <option>
           <name>OutputFormat</name>

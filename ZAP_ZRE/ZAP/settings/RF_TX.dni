@@ -1,5 +1,5 @@
 [DebugChecksum]
-Checksum=-1155495398
+Checksum=-1685062698
 [DisAssemblyWindow]
 NumStates=_ 1
 State 1=_ 1
@@ -41,9 +41,6 @@ UseTrigger=1
 TriggerName=main
 LimitSize=0
 ByteLimit=50
-[TermIOLog]
-LoggingEnabled=_ 0
-LogFile=_ ""
 [CallStack]
 ShowArgs=0
 [Disassembly]
@@ -52,6 +49,9 @@ MixedMode=1
 LoggingEnabled=_ 0
 LogFile=_ ""
 Category=_ 0
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
 [Breakpoints]
 Count=0
 [ChipconEmu]

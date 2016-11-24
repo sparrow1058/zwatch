@@ -28,10 +28,28 @@
 #define UART_MSG_FAIL     4
 #define UART_MSG_FREQ     0xFE    //change FREQ
 #define UART_CMD_SIZE   24
+#define RE_CMD_SIZE     24
+#define RE_TO_AP_SIZE	6
+
+#define RE_RFMSG_TIME_AP        0x65
+#define RE_RFMSG_ACCESS_AP	0x66		//中继器成功接受基站消息
+#define RE_RFMSG_SUCCESS_AP	0x67		//中继器成功应答基站消息
+#define RE_RFMSG_FAIL_AP	0x68		//中继器失败消息
+	
+#define RE_RFMSG_TIEM_WA	1		//中继器给手表发送时间片消息
+#define RE_RFMSG_ACCESS_WA	2		//中继器收到手表成功接受的消息
+#define RE_RFMSG_SUCCESS_WA	3		//中继器收到手表成功应答消息
+
+
+
+
+
 #define BUFFER_SIZE   17
 //machine ID
 #define LED_TX    P1_0
 #define LED_RX    P1_1
+#define LED_ON		0
+#define LED_OFF		1
 
 #define KEY1    P1_2
 #define KEY2    P1_3
@@ -47,9 +65,9 @@
 #define RF_ORDER        RF_TABLE+CHAR_NUM
 #define RF_SUM          RF_ORDER+4
 #define RF_IDLIST       RF_SUM+1
-
+#define RE_CMD_SIZE     24
 //#define RF_TEST
-
+#define RE_ADDR		1
 
 typedef struct RF_MASK
 {
@@ -66,7 +84,14 @@ typedef struct RF_DATA          //14 Byte
   INT8U   orderID[4];
   INT16U   sum;
 }RFDATA;
-typedef struct UART_CMD // 21
+typedef struct RE_TO_AP_DATA
+{
+	INT16U 	num;
+	INT8U	msgType;
+	INT8U	REID;
+	INT8U	macID;
+}RETOAPDATA;
+typedef struct UART_CMD // 24
 {
   INT16U  num;
   INT8U   msgType;
@@ -81,9 +106,11 @@ typedef struct UART_CMD // 21
 extern void InitUART(void);
 extern void UartSendString(uchar *data,int len);
 void handleMessage(void);
+INT8U processAPData(uchar * buffer);
 INT8U getUartCmd(void);
 RFDATA sendBuffer;
 RFDATA recBuffer;
+RETOAPDATA     RE2APBuffer;
 UARTCMD uartCmd;
 uchar uartData;
 uchar uartCount=0;
@@ -93,7 +120,7 @@ INT8U maxTimes=10;
 //volatile  INT8U  g_channel=0x00;
 uchar uartGet[UART_CMD_SIZE];
 uchar sendMac[40];
-uchar  buffer[BUFFER_SIZE];
+uchar  buffer[RE_CMD_SIZE];
 uchar sendNum;
 INT16U  msgTimeCount=0;
 uchar g_channel[1]={0x03};
@@ -148,7 +175,7 @@ void boardInit()
  //   IEN0 |= 0X20;     //开中断
     InitWatchdog();             //leaf init watch dog  
 }
-void getUartRfBuffer(uchar  *buf)
+void getAPRfBuffer(uchar  *buf)
 {
   INT8U *data=buf;
   uchar i;
@@ -163,7 +190,7 @@ void getUartRfBuffer(uchar  *buf)
     sendBuffer.orderID[i]=*(data++);
 
 }
-void getRfBuffer(uchar  *buf)
+void getReceiveBuffer(uchar  *buf)
 {
   INT8U *data=buf;
   uchar i;
@@ -178,20 +205,57 @@ void getRfBuffer(uchar  *buf)
     recBuffer.orderID[i]=*(data++);
 
 }
+void setAPCmd(uchar *cmd)
+{
+  	uchar *pdata=cmd;
+  while(MARCSTATE != 0x01);
+	LED_TX=LED_ON;
+	rf_send_packet(pdata, RE_TO_AP_SIZE);
+	UartSendString(pdata, RE_TO_AP_SIZE);
+	delay_nms(2);
+	LED_TX=LED_OFF;
+
+}
+int getAPCmd()
+{
+	INT8U rssi, lqi, len;
+	INT8U ret;
+	SET_CHANNEL(g_channel[0]);
+    rf_cc1110_init( RF_FREQ_433MHZ ); //Reinit 433 register
+    feetDog();
+     while(MARCSTATE != 0x01);
+	 while(1)
+	 {
+          feetDog();	 
+           len = rf_rec_packet(buffer, &rssi, &lqi, 240) ;
+		 if(len==RE_CMD_SIZE)
+		 {
+			//UartSendString((uchar *)&buffer,len);	
+			ret=processAPData((uchar*)&buffer);
+			if(ret==TRUE)
+			{
+				RE2APBuffer.msgType=RE_RFMSG_ACCESS_AP;
+				setAPCmd((uchar *)&RE2APBuffer);
+                                
+				
+			}
+			return ret;	
+		 }
+
+	 }
+ }
+
 int main( void )
 {
-  int i;   
-  boardInit();
+  
+    boardInit();
      InitUART();
-     UartSendString("Zserver",7);
+     UartSendString("Z-Repeter",9);
   
   while( 1 )
   {
-#ifdef RF_TEST
-  cmdFlag=rfTest();
-#else
-    cmdFlag=getUartCmd();
-#endif
+
+    cmdFlag=getAPCmd();
     feetDog();
       while(cmdFlag==TRUE) 
      {
@@ -205,6 +269,8 @@ int main( void )
         cmdFlag=FALSE;
         uartCmd.msgType=UART_MSG_FAIL;        
         UartSendString((uchar *)&uartCmd,BUFFER_SIZE+1);
+		RE2APBuffer.msgType=RE_RFMSG_FAIL_AP;
+		setAPCmd((uchar *)&RE2APBuffer);
         
       }
       uartFlag=0;
@@ -228,10 +294,7 @@ void getMacId(RFMASK *id)
       }
     }
     sendNum=cnt;
-   // UartSendString((uchar *)&sendMac,sendNum);
-  //  UartSendString("00000",5);
 
-  
 }
 
 void handleMessage(void)
@@ -243,15 +306,7 @@ void handleMessage(void)
      feetDog();
      while(MARCSTATE != 0x01);
      LED_TX=0;
-  //  rfBuffer.macID=MSG_BROADCAST;
-  //  rf_send_packet((INT8U *) &rfBuffer, BUFFER_SIZE);     //
-   // UartSendString((INT8U *) &rfBuffer, BUFFER_SIZE);
-  //  LED_TX=1;
-    //每发射一次，闪烁一次。
-  // UartSendString("Send",4);   //leaf
-    
-     
-        for( rdelay = 0; rdelay < RETRY_TIMES; rdelay ++ )
+   for( rdelay = 0; rdelay < RETRY_TIMES; rdelay ++ )
     {
       
         for(i=0;i<sendNum;i++)
@@ -259,8 +314,9 @@ void handleMessage(void)
          // rfBuffer.macID=i;
           sendBuffer.msgType=MSG_TIME;
           sendBuffer.macID=sendMac[i];
-          LED_TX=0;
+          LED_TX=0;          
           sendBuffer.sum=CRC16((INT8U *)&sendBuffer,BUFFER_SIZE-2);
+          UartSendString((uchar*)&sendBuffer,BUFFER_SIZE);
           rf_send_packet((INT8U *) &sendBuffer, BUFFER_SIZE);
 
           delay_nms(1); 
@@ -270,7 +326,7 @@ void handleMessage(void)
          feetDog();
         // for(i=0;i<3;i++)
          { 
-           len = rf_rec_packet(buffer, &rssi, &lqi, 500) ;
+           len = rf_rec_packet(buffer, &rssi, &lqi, 240) ;
 
            LED_TX=1;
 
@@ -279,7 +335,7 @@ void handleMessage(void)
          if(len==BUFFER_SIZE) 
          { 
 
-            getRfBuffer(buffer);
+            getReceiveBuffer(buffer);
             if(recBuffer.msgType==MSG_ACCESS)
             {
               
@@ -303,18 +359,6 @@ void handleMessage(void)
               msgTimeCount=0;
               cmdFlag=FALSE;
               LED_RX=1;
-#ifdef RF_TEST
-             for(i=0;i<3000;i++)
-             {
-                feetDog(); 
-               delay_nms(100);
-              delay_nms(100); 
-              delay_nms(100);
-              delay_nms(100);
-              delay_nms(100); 
-              delay_nms(100);
-             }
-#endif 
               return;
 
             }
@@ -323,90 +367,38 @@ void handleMessage(void)
         }
     }
 }
-INT8U getUartCmd(void)
+INT8U processAPData(uchar * buffer)
 {
-    
-  int i;
-
- // uartData=0;
-
-  
-  if(uartFlag==1)
-    {
-      uartFlag=0;
-      uartGet[uartCount++]=uartData;
-      if(uartData=='#'||uartCount==UART_CMD_SIZE)  
-      {
-        uartCount=0;
-        if(uartGet[2]==UART_MSG_FREQ)
-        {  
-          if(uartGet[3]==0xFF)
-          {
-             uartGet[3]=g_channel[0];
-            UartSendString(g_channel,1);
-          }else
-          {
-            g_channel[0]=uartGet[3];
-           UartSendString((uchar *)&uartGet,4);
-          }
-           return FALSE;  
-        }
-        uartCmd.num=uartGet[RF_NUM+1]*256+uartGet[RF_NUM];
-        uartCmd.msgType=UART_MSG_ACCESS;
-        uartCmd.groupID=uartGet[RF_GROUP];
-        uartCmd.macID=uartGet[RF_MACID];
-
+      int i;
+		uchar *data=buffer;
+		RE2APBuffer.REID=data[RF_GROUP];
+		if(RE2APBuffer.REID!=RE_ADDR)
+		return FALSE;		//Not my ID
+		uartCmd.num=data[RF_NUM+1]*256+data[RF_NUM];
+        RE2APBuffer.num=uartCmd.num;
+		RE2APBuffer.macID=data[RF_MACID];
+		RE2APBuffer.msgType=data[RF_MSG];
+		UartSendString((uchar *)&RE2APBuffer,6);
+		
         for(i=0;i<CHAR_NUM;i++)
-          uartCmd.tableID[i]=uartGet[RF_TABLE+i];        //Copy the utf8 code
+          uartCmd.tableID[i]=data[RF_TABLE+i];        //Copy the utf8 code
         for(i=0;i<4;i++)
-          uartCmd.orderID[i]=uartGet[RF_ORDER+i];        //Copy the utf8 code
+          uartCmd.orderID[i]=data[RF_ORDER+i];        //Copy the utf8 code
 
-        maxTimes=uartGet[RF_SUM];
-        uartCmd.max=uartGet[RF_SUM];
-	uartCmd.idList.max=uartGet[RF_IDLIST];	
+        maxTimes=data[RF_SUM];
+        uartCmd.max=data[RF_SUM];
+		uartCmd.idList.max=data[RF_IDLIST];	
         for(i=0;i<10;i++)
-          uartCmd.idList.id[i]=uartGet[RF_IDLIST+1+i];
+          uartCmd.idList.id[i]=data[RF_IDLIST+1+i];
          getMacId(&uartCmd.idList);
-         
-          UartSendString((uchar *)&uartCmd,BUFFER_SIZE+1);
+        //  UartSendString((uchar *)&uartCmd,BUFFER_SIZE+1);
                          
-          getUartRfBuffer(uartGet);
-        
-        return TRUE;
-      }else
-      {
-        return FALSE;
-      }
-    }
-    return FALSE;
+          getAPRfBuffer(data);
+         // UartSendString((uchar *)&sendBuffer,BUFFER_SIZE+1);
+     
+       return TRUE;
   }
-#ifdef RF_TEST
-INT8U rfTest(void)
-{
-    
-  int i;
 
-        uartCmd.num=testData[RF_NUM+1]*256+testData[RF_NUM];
-        uartCmd.msgType=UART_MSG_ACCESS;
-        uartCmd.groupID=testData[RF_GROUP];
-        uartCmd.macID=testData[RF_MACID];
-
-        for(i=0;i<CHAR_NUM;i++)
-          uartCmd.tableID[i]=testData[RF_TABLE+i];        //Copy the utf8 code
-        for(i=0;i<4;i++)
-          uartCmd.orderID[i]=testData[RF_ORDER+i];        //Copy the utf8 code
-
-        maxTimes=testData[RF_SUM];
-	uartCmd.idList.max=testData[RF_IDLIST];	
-        for(i=0;i<10;i++)
-          uartCmd.idList.id[i]=testData[RF_IDLIST+1+i];
-         getMacId(&uartCmd.idList);
-          UartSendString((uchar *)&uartCmd,BUFFER_SIZE);
-          getUartRfBuffer(testData);
-        return TRUE;
-
-  }
-#endif
 #pragma vector=URX0_VECTOR
 __interrupt void UART0_ISR(void)
 {
