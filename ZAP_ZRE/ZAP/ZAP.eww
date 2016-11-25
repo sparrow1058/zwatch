@@ -2,7 +2,7 @@
 
 <workspace>
   <project>
-    <path>$WS_DIR$\RF_TX.ewp</path>
+    <path>$WS_DIR$\ZAP.ewp</path>
   </project>
   <batchBuild/>
 </workspace>

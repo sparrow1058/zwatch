@@ -63,6 +63,7 @@ uchar uartCount=0;
 uchar uartFlag=0;
 uchar cmdFlag=0;
 INT8U maxTimes=10;
+INT8U RERetryTimes=5;
 //volatile  INT8U  g_channel=0x00;
 uchar uartGet[UART_CMD_SIZE];
 uchar sendMac[40];
@@ -71,6 +72,7 @@ uchar sendREID[8];
 uchar sendREID[8];
 uchar sendRENum;
 
+#define UART_LOG        UartSendString("xxxx",4)
 
 uchar  buffer[BUFFER_SIZE];
 INT16U  msgTimeCount=0;
@@ -230,6 +232,7 @@ int main( void )
       {
         msgTimeCount=0;
         cmdFlag=FALSE;
+        LED_RX=LED_OFF;
         uartCmd.msgType=UART_MSG_FAIL;        
         UartSendString((uchar *)&uartCmd,BUFFER_SIZE+1);
         
@@ -243,40 +246,43 @@ int main( void )
   }    
 }
 
-#define RE_RETRY_TIMES		4
+#define RE_RETRY_TIMES		3
 #define RE_REPLY_SIZE		6
-#define RE_MAXTIMES			8000	
+#define RE_MAXTIMES			1000	
 INT8U waitForRepeterReply(void)
 {
 		//			case AP_RFMSG_SUCCESS_RE:
 	//			case AP_RFMSG_FAIL_RE:
 	INT8U rssi, lqi, len,ret;
-	INT16U timeoutCnt;
+	INT16U timeoutCnt=0;
 	feetDog();
-	UartSendString("wwwwwww",7);
+	//UartSendString("wwwwwww",7);
 	while(MARCSTATE != 0x01);
 	while(1)
 	{
-		LED_RX=LED_OFF;
 		feetDog();
 		len = rf_rec_packet(buffer, &rssi, &lqi, 240) ;
 		if(len==RE_REPLY_SIZE)
 		{
 			
-			LED_RX=LED_ON;
+			//LED_RX=LED_ON;
 			LED_TX=LED_OFF;
 			ret=getREBuffer(buffer);
-			if(ret==AP_RFMSG_SUCCESS_RE)
-				return AP_RFMSG_SUCCESS_RE;
-			else if(ret==AP_RFMSG_FAIL_RE)
-				return AP_RFMSG_FAIL_RE;
+                        
+			if(ret==AP_RFMSG_FAIL_RE||ret==AP_RFMSG_SUCCESS_RE)
+                          break;
 		}
 		if(timeoutCnt++>RE_MAXTIMES)
 		{
-			UartSendString("xxxxxxx",7);
-			return AP_RFMSG_TIMEOUT;
+			timeoutCnt=0;	
+             
+			ret= AP_RFMSG_TIMEOUT;
+			break;
 		}
-	}	
+	}
+        LED_RX=LED_OFF;
+        UartSendString((uchar*)&RERecBuffer,6);  
+        return ret;
 	
 }
 INT8U handleREMessage(void)
@@ -284,40 +290,37 @@ INT8U handleREMessage(void)
     INT8U rssi, lqi, len,reMsgType=0;
     volatile INT32U  rdelay,wdelay;
 	INT8U result;
-	INT16U  i,j;
+	INT16U  i;
 	feetDog();
 	while(MARCSTATE != 0x01);
-	for( rdelay = 0; rdelay < RETRY_TIMES; rdelay ++ )
+	for( rdelay = 0; rdelay < RERetryTimes; rdelay ++ )
        {
 		for(i=0;i<sendRENum;i++)
 		{
 
 			RESendBuffer.msgType=AP_RFMSG_TIME_RE;
 			RESendBuffer.REID=sendREID[i];
-          LED_TX=LED_ON;
-		  UartSendString((INT8U *)&RESendBuffer,RE_CMD_SIZE);
-          //WASendBuffer.sum=CRC16((INT8U *)&RESendBuffer,BUFFER_SIZE-2);
-          rf_send_packet((INT8U *) &RESendBuffer, RE_CMD_SIZE);
-
-          delay_nms(1); 
+            LED_TX=LED_ON;
+		//    UartSendString((INT8U *)&RESendBuffer,RE_CMD_SIZE);
+			rf_send_packet((INT8U *) &RESendBuffer, RE_CMD_SIZE);
+			delay_nms(1); 
             LED_TX=LED_OFF;
-          for( wdelay = 0; wdelay < 10; wdelay ++ )
+          for( wdelay = 0; wdelay < 5; wdelay ++ )
           {
            feetDog();
-          // for(i=0;i<3;i++)
-           { 
-
-             len = rf_rec_packet(buffer, &rssi, &lqi, 240) ;
-             LED_TX=LED_OFF;
-              if(len==RE_REPLY_SIZE)
+           len = rf_rec_packet(buffer, &rssi, &lqi, 240) ;
+            LED_TX=LED_OFF;
+            if(len==RE_REPLY_SIZE)
               {
+
                   LED_RX=LED_ON;
                   LED_TX=LED_OFF;
                   reMsgType=getREBuffer(buffer);
-                 UartSendString((INT8U *)&buffer,6);    //leaf
+  		if((RESendBuffer.REID==RERecBuffer.REID)&&(reMsgType==AP_RFMSG_ACCESS_RE))
+                {
+
                   break;
-                
-              }
+                }
              
              
 
@@ -326,12 +329,13 @@ INT8U handleREMessage(void)
                       
                 if(reMsgType==AP_RFMSG_ACCESS_RE)
                 {
+                  reMsgType=0;
                   result=waitForRepeterReply();
+                  msgTimeCount=0;
+                  cmdFlag=FALSE;
+                  LED_RX=LED_OFF;
                   if(result==AP_RFMSG_SUCCESS_RE)
-                  {
-                   UartSendString((uchar*)&RESendBuffer,RE_CMD_SIZE);
-                   return result;
-                  }
+                    return result;
                 }
                         
         }
@@ -422,6 +426,7 @@ void getUartData(void)
             apWorkMode=1; //ap-RE Mode
            // UartSendString("xxxx",4);
            getRERfBuffer(uartGet);
+           RERetryTimes=uartGet[RF_MACID];
            uartGet[RF_MSG]= AP_RFMSG_ACCESS_RE;
            UartSendString((uchar *)&uartGet,BUFFER_SIZE+1);
             
